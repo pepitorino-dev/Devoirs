@@ -1,0 +1,1907 @@
+/* ==========================================================================
+   devoir-engine.css — système de design pour devoirs/examens interactifs
+   ==========================================================================
+   Importé via <link> en mode CDN, ou inline via <style> en mode autonome.
+   Toutes les couleurs et tailles sont des variables CSS : un thème = un
+   override de ces variables.
+   ========================================================================== */
+
+/* ============ TOKENS DE DESIGN ============ */
+:root {
+  --de-paper:       #FAF6EE;
+  --de-paper-deep:  #F1EAD8;
+  --de-ink:         #2B2A26;
+  --de-ink-soft:    #5C5A53;
+  --de-muted:       #908C82;
+  --de-rule:        #D9D2BF;
+  --de-rule-soft:   #E8E1CE;
+  --de-accent:      #C2543A;
+  --de-accent-soft: #E3A48F;
+  --de-gold:        #C99846;
+  --de-green:       #6F8B5B;
+  --de-shadow: 0 1px 0 rgba(0,0,0,.04), 0 6px 24px -12px rgba(60,40,10,.18);
+
+  /* dimensions */
+  --de-radius:      14px;
+  --de-radius-sm:   8px;
+  --de-radius-pill: 999px;
+
+  /* typo (chargées séparément via Google Fonts) */
+  --de-font-display: 'Fraunces', Georgia, serif;
+  --de-font-body:    'Nunito', system-ui, sans-serif;
+}
+
+/* ============ THÈMES ALTERNATIFS ============ */
+/* Le thème par défaut est « papier crème » (chaleureux).
+   Pour les sciences ou maths, on peut activer d'autres thèmes via data-theme. */
+[data-theme="aqua"] {
+  --de-paper:       #F4F8FA;
+  --de-paper-deep:  #E6EEF2;
+  --de-ink:         #1F2D33;
+  --de-ink-soft:    #4A5E66;
+  --de-muted:       #7A8B92;
+  --de-rule:        #C5D5DC;
+  --de-rule-soft:   #DDE7EC;
+  --de-accent:      #2C7A8C;
+  --de-accent-soft: #8AB8C4;
+}
+[data-theme="forest"] {
+  --de-paper:       #F6F4ED;
+  --de-paper-deep:  #E8E5D8;
+  --de-ink:         #25291E;
+  --de-ink-soft:    #4F5743;
+  --de-muted:       #87897A;
+  --de-rule:        #CDCFB6;
+  --de-rule-soft:   #E0E1CE;
+  --de-accent:      #5C7A3E;
+  --de-accent-soft: #A6B884;
+}
+
+/* ============ RESET ============ */
+.de-app *, .de-app *::before, .de-app *::after { box-sizing: border-box; }
+.de-app { margin: 0; padding: 0; }
+
+/* ============ BASE ============ */
+body.de-body {
+  margin: 0; padding: 0;
+  font-family: var(--de-font-body);
+  background: var(--de-paper);
+  color: var(--de-ink);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--de-gold) 6%, transparent), transparent 40%),
+    radial-gradient(circle at 100% 80%, color-mix(in oklab, var(--de-accent) 5%, transparent), transparent 45%);
+}
+
+/* ============ TOPBAR ============ */
+.de-topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in oklab, var(--de-paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--de-rule-soft);
+}
+.de-topbar-inner {
+  max-width: 780px; margin: 0 auto;
+  padding: 14px 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.de-crumb {
+  font-family: var(--de-font-display);
+  font-weight: 700; font-size: 16px;
+  color: var(--de-ink);
+}
+.de-crumb small {
+  display: block;
+  font-family: var(--de-font-body);
+  font-weight: 600; font-size: 11px;
+  color: var(--de-muted);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 2px;
+}
+.de-progress-bar {
+  display: inline-flex; align-items: center;
+  gap: 3px;
+  margin-left: 12px;
+}
+.de-progress-dot {
+  display: inline-block;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--de-rule);
+  transition: background .2s;
+}
+.de-progress-dot.de-done { background: var(--de-green); }
+
+.de-score-pill {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px 8px 12px;
+  border: 1.5px solid var(--de-ink);
+  border-radius: var(--de-radius-pill);
+  background: var(--de-paper);
+  font-family: var(--de-font-display);
+}
+.de-score-pill .de-star { color: var(--de-gold); font-size: 16px; line-height: 1; }
+.de-score-pill .de-lbl {
+  font-family: var(--de-font-body); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--de-muted);
+}
+.de-score-pill .de-val { font-size: 17px; font-weight: 700; color: var(--de-ink); }
+.de-score-pill .de-val em { font-style: normal; color: var(--de-accent); }
+
+/* ============ WRAP ============ */
+.de-wrap { max-width: 780px; margin: 0 auto; padding: 0 22px 80px; }
+
+/* ============ HERO ============ */
+.de-hero {
+  margin-top: 36px;
+  padding: 36px 38px 32px;
+  background: var(--de-paper-deep);
+  border: 1.5px solid var(--de-ink);
+  border-radius: 18px;
+  position: relative;
+  box-shadow: var(--de-shadow);
+}
+.de-hero::before {
+  content: "";
+  position: absolute; left: 14px; top: 14px; right: 14px; bottom: 14px;
+  border: 1px dashed var(--de-rule);
+  border-radius: 10px;
+  pointer-events: none;
+}
+.de-hero .de-kicker {
+  font-family: var(--de-font-body); font-weight: 700; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .15em;
+  color: var(--de-accent);
+  margin: 0 0 8px;
+}
+.de-hero h1 {
+  margin: 0 0 4px;
+  font-family: var(--de-font-display);
+  font-weight: 900;
+  font-size: clamp(34px, 6vw, 48px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  color: var(--de-ink);
+}
+.de-hero h1 .de-name {
+  font-style: italic;
+  color: var(--de-accent);
+  font-weight: 500;
+}
+.de-hero .de-sub {
+  font-family: var(--de-font-display);
+  font-size: 17px; font-weight: 500;
+  color: var(--de-ink-soft);
+  margin-top: 6px;
+}
+.de-hero .de-meta {
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+  margin-top: 18px;
+  font-size: 13px; color: var(--de-ink-soft);
+}
+.de-hero .de-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.de-hero .de-dot {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: var(--de-rule); display: inline-block;
+}
+.de-hero .de-objective {
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px dashed var(--de-rule);
+  font-size: 14.5px; color: var(--de-ink-soft);
+}
+.de-hero .de-objective b {
+  color: var(--de-ink);
+  font-family: var(--de-font-display); font-weight: 700;
+}
+
+/* ============ EXERCICE ============ */
+.de-ex {
+  margin-top: 28px;
+  padding: 24px 26px 22px;
+  background: #FFFFFC;
+  border: 1px solid var(--de-rule);
+  border-radius: var(--de-radius);
+  box-shadow: var(--de-shadow);
+  scroll-margin-top: 90px;
+  position: relative;
+}
+.de-ex-head {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 4px;
+}
+.de-ex-num {
+  flex: 0 0 auto;
+  width: 38px; height: 38px;
+  background: var(--de-ink); color: var(--de-paper);
+  border-radius: 10px;
+  display: grid; place-items: center;
+  font-family: var(--de-font-display);
+  font-weight: 700; font-size: 18px;
+}
+.de-ex-title {
+  flex: 1; margin: 0;
+  font-family: var(--de-font-display);
+  font-weight: 700; font-size: 21px;
+  line-height: 1.15; color: var(--de-ink);
+}
+.de-ex-points {
+  flex: 0 0 auto;
+  font-family: var(--de-font-body);
+  font-weight: 700; font-size: 12px;
+  color: var(--de-accent);
+  padding: 5px 11px;
+  border: 1.5px solid var(--de-accent);
+  border-radius: var(--de-radius-pill);
+  white-space: nowrap;
+}
+.de-consigne {
+  margin: 12px 0 16px;
+  color: var(--de-muted);
+  font-style: italic; font-size: 14px;
+  padding-left: 14px;
+  border-left: 2px solid var(--de-accent-soft);
+}
+.de-rappel {
+  margin: 12px 0 16px;
+  padding: 12px 16px;
+  background: var(--de-paper-deep);
+  border-radius: var(--de-radius-sm);
+  font-size: 14px;
+  color: var(--de-ink);
+  border-left: 3px solid var(--de-gold);
+}
+.de-rappel b { color: var(--de-ink); font-family: var(--de-font-display); }
+
+/* ============ HISTOIRE / TEXTE ENCADRÉ ============ */
+.de-story {
+  background: var(--de-paper-deep);
+  border-radius: 10px;
+  padding: 18px 22px;
+  font-family: var(--de-font-display);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--de-ink);
+  margin: 0 0 18px;
+  position: relative;
+}
+.de-story::before {
+  content: "“";
+  position: absolute; left: 10px; top: -2px;
+  font-family: var(--de-font-display);
+  font-size: 50px; color: var(--de-accent-soft);
+  line-height: 1;
+}
+.de-story p { margin: 0 0 8px; padding-left: 20px; }
+.de-story p:last-child { margin-bottom: 0; }
+
+/* ============ QUESTIONS ============ */
+.de-q { margin: 14px 0; }
+.de-q-label { font-size: 15.5px; color: var(--de-ink); margin-bottom: 8px; }
+.de-letter {
+  font-family: var(--de-font-display); font-weight: 700;
+  color: var(--de-accent); margin-right: 4px;
+}
+
+/* ============ CHAMPS DE SAISIE ============ */
+.de-app input[type="text"],
+.de-app input[type="number"],
+.de-app textarea {
+  width: 100%;
+  font-family: var(--de-font-display);
+  font-size: 16px;
+  color: var(--de-ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px dashed var(--de-rule);
+  padding: 8px 4px;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.de-app input[type="text"]:focus,
+.de-app input[type="number"]:focus,
+.de-app textarea:focus {
+  border-bottom-color: var(--de-accent);
+  background: color-mix(in oklab, var(--de-accent) 4%, transparent);
+}
+.de-app textarea {
+  border: 1.5px dashed var(--de-rule);
+  border-radius: var(--de-radius-sm);
+  padding: 12px 14px;
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.7;
+  background-image: repeating-linear-gradient(
+    transparent, transparent 26px,
+    var(--de-rule-soft) 26px, var(--de-rule-soft) 27px
+  );
+  background-attachment: local;
+}
+.de-app textarea:focus {
+  border-color: var(--de-accent);
+  background-color: color-mix(in oklab, white 60%, transparent);
+}
+.de-blank-inline {
+  display: inline-block;
+  border: none;
+  border-bottom: 1.5px dashed var(--de-rule);
+  background: transparent;
+  text-align: center;
+  font-family: var(--de-font-display);
+  font-size: 16px;
+  color: var(--de-accent);
+  padding: 2px 4px;
+}
+.de-blank-inline:focus {
+  outline: none;
+  border-bottom-color: var(--de-accent);
+  background: color-mix(in oklab, var(--de-accent) 6%, transparent);
+}
+.de-arrow { color: var(--de-muted); margin: 0 8px; }
+
+/* ============ TOGGLE (S/P, vrai/faux, etc) ============ */
+.de-toggle {
+  display: inline-flex; background: var(--de-paper); border-radius: var(--de-radius-pill);
+  padding: 3px; gap: 2px;
+  border: 1px solid var(--de-rule);
+}
+.de-toggle button {
+  min-width: 32px; height: 28px;
+  padding: 0 10px;
+  border: none; background: transparent;
+  border-radius: var(--de-radius-pill);
+  font-family: var(--de-font-body); font-weight: 700; font-size: 13px;
+  color: var(--de-muted);
+  cursor: pointer;
+  transition: all .15s;
+}
+.de-toggle button.de-on {
+  background: var(--de-ink); color: var(--de-paper);
+}
+
+/* ============ GRILLE DE CARTES (singulier/pluriel, qcm, etc) ============ */
+.de-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+}
+.de-card {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--de-paper-deep);
+  border-radius: var(--de-radius-sm);
+  padding: 12px 14px;
+}
+.de-card .de-word {
+  font-family: var(--de-font-display);
+  font-size: 16px; font-weight: 500;
+  color: var(--de-ink);
+}
+
+/* ============ PAIRES À RELIER ============ */
+.de-pairs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 30px;
+  align-items: start;
+}
+.de-pairs-col { display: flex; flex-direction: column; gap: 8px; }
+.de-pair-item {
+  background: var(--de-paper-deep);
+  padding: 10px 16px;
+  border-radius: var(--de-radius-sm);
+  font-family: var(--de-font-display);
+  font-size: 17px;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: center;
+  border: 2px solid transparent;
+  user-select: none;
+}
+.de-pair-item:hover { background: color-mix(in oklab, var(--de-paper-deep) 80%, var(--de-gold) 15%); }
+.de-pair-item.de-selected {
+  border-color: var(--de-accent);
+  background: color-mix(in oklab, var(--de-accent) 8%, transparent);
+}
+.de-pair-item.de-linked {
+  background: var(--de-ink);
+  color: var(--de-paper);
+  border-color: var(--de-ink);
+}
+.de-pair-item.de-linked .de-linked-tag {
+  font-family: var(--de-font-body); font-weight: 700;
+  font-size: 10px; color: var(--de-accent-soft);
+  display: inline-block; margin-left: 8px;
+}
+.de-pairs-reset {
+  margin-top: 12px;
+  background: none; border: none;
+  color: var(--de-muted); font-size: 12px;
+  font-family: var(--de-font-body); cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ============ VRAI/FAUX EN LIGNE ============ */
+.de-vf {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--de-rule-soft);
+}
+.de-vf:last-child { border-bottom: none; }
+.de-vf-buttons { display: flex; gap: 6px; }
+.de-vf-btn {
+  border: 1.5px solid var(--de-rule);
+  background: var(--de-paper);
+  padding: 6px 14px;
+  border-radius: var(--de-radius-pill);
+  cursor: pointer;
+  font-family: var(--de-font-body); font-weight: 700; font-size: 13px;
+  color: var(--de-ink-soft);
+  transition: all .15s;
+}
+.de-vf-btn:hover { border-color: var(--de-ink-soft); }
+.de-vf-btn.de-on {
+  background: var(--de-ink); border-color: var(--de-ink); color: var(--de-paper);
+}
+
+/* ============ MOTS-CHIPS (intrus, etc) ============ */
+.de-word-list {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  align-items: center;
+}
+.de-word-list .de-lbl {
+  color: var(--de-muted); font-style: italic;
+  font-size: 14px; margin-right: 4px;
+}
+.de-word-chip {
+  background: var(--de-paper-deep);
+  padding: 7px 14px;
+  border-radius: var(--de-radius-pill);
+  font-family: var(--de-font-display);
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+  transition: all .15s;
+  border: 1.5px solid transparent;
+}
+.de-word-chip:hover { background: color-mix(in oklab, var(--de-paper-deep) 80%, var(--de-gold) 15%); }
+.de-word-chip.de-crossed {
+  background: transparent;
+  color: var(--de-accent);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  border-color: var(--de-accent);
+}
+.de-word-chip.de-selected {
+  background: var(--de-ink);
+  color: var(--de-paper);
+  border-color: var(--de-ink);
+}
+
+/* ============ CHOIX MULTIPLE INLINE ============ */
+.de-choices {
+  display: inline-flex; gap: 4px;
+  background: var(--de-paper-deep);
+  border-radius: var(--de-radius-pill);
+  padding: 3px;
+  margin: 0 4px;
+  vertical-align: middle;
+}
+.de-choices button {
+  border: none; background: transparent;
+  border-radius: var(--de-radius-pill);
+  padding: 5px 12px;
+  font-family: var(--de-font-display);
+  font-size: 14px;
+  color: var(--de-ink-soft);
+  cursor: pointer;
+  transition: all .15s;
+}
+.de-choices button.de-on {
+  background: var(--de-ink); color: var(--de-paper);
+}
+
+/* ============ ZONE D'ÉCRITURE LIBRE ============ */
+.de-canvas-zone {
+  width: 100%;
+  min-height: 140px;
+  background: var(--de-paper-deep);
+  border: 1.5px dashed var(--de-rule);
+  border-radius: var(--de-radius-sm);
+  display: grid; place-items: center;
+  color: var(--de-muted);
+  font-style: italic;
+  font-size: 13px;
+  padding: 16px;
+  text-align: center;
+}
+
+/* ============ DÉFI BONUS ============ */
+.de-bonus {
+  margin-top: 32px;
+  padding: 24px 28px;
+  border: 2px dashed var(--de-accent);
+  border-radius: var(--de-radius);
+  background: color-mix(in oklab, var(--de-accent) 4%, transparent);
+}
+.de-bonus-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 12px;
+}
+.de-bonus-title {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--de-font-display);
+  font-weight: 700; font-size: 19px;
+  color: var(--de-accent);
+}
+.de-bonus-points {
+  font-family: var(--de-font-body); font-weight: 700;
+  font-size: 12px; color: var(--de-accent);
+}
+.de-bonus p { margin: 0 0 10px; color: var(--de-ink-soft); font-size: 14.5px; }
+.de-bonus-blanks { display: flex; flex-wrap: wrap; gap: 12px; }
+.de-bonus-blanks input { flex: 1 1 140px; }
+
+/* ============ MODE CORRECTION (parent) ============ */
+.de-correct-toggle {
+  margin: 20px 0;
+  display: flex; gap: 10px;
+  align-items: center; justify-content: center;
+}
+.de-btn {
+  background: var(--de-paper);
+  border: 1.5px solid var(--de-ink);
+  color: var(--de-ink);
+  font-family: var(--de-font-body);
+  font-weight: 700; font-size: 13px;
+  padding: 10px 18px;
+  border-radius: var(--de-radius-pill);
+  cursor: pointer;
+  transition: all .15s;
+  letter-spacing: .02em;
+}
+.de-btn:hover { background: var(--de-ink); color: var(--de-paper); }
+.de-btn.de-active { background: var(--de-ink); color: var(--de-paper); }
+.de-btn.de-secondary {
+  border-color: var(--de-rule);
+  color: var(--de-muted);
+  font-weight: 600;
+}
+
+/* Score d'un exercice en mode correction */
+.de-ex-score {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--de-rule);
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: color-mix(in oklab, var(--de-gold) 7%, transparent);
+  border-radius: var(--de-radius-sm);
+  padding: 12px 14px;
+  margin-left: -14px; margin-right: -14px;
+}
+.de-mode-correction .de-ex-score { display: flex; }
+.de-ex-score-label {
+  font-family: var(--de-font-body);
+  font-weight: 700; font-size: 12px;
+  color: var(--de-ink-soft);
+  text-transform: uppercase; letter-spacing: .05em;
+  margin-right: 4px;
+}
+.de-ex-score input[type="number"] {
+  width: 60px;
+  border: 1.5px solid var(--de-rule);
+  border-radius: 6px;
+  padding: 4px 8px;
+  text-align: center;
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--de-ink);
+  background: var(--de-paper);
+  /* enlever les flèches du number input */
+  -moz-appearance: textfield;
+}
+.de-ex-score input[type="number"]::-webkit-outer-spin-button,
+.de-ex-score input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+.de-ex-score .de-over {
+  font-family: var(--de-font-display);
+  font-weight: 700; font-size: 18px;
+  color: var(--de-ink-soft);
+}
+.de-ex-score .de-quick {
+  margin-left: auto;
+  display: flex; gap: 4px;
+}
+.de-ex-score .de-quick button {
+  width: 28px; height: 28px;
+  border: 1px solid var(--de-rule);
+  background: var(--de-paper);
+  border-radius: 6px;
+  font-family: var(--de-font-body); font-weight: 700; font-size: 11px;
+  color: var(--de-ink-soft);
+  cursor: pointer;
+  transition: all .15s;
+}
+.de-ex-score .de-quick button:hover {
+  background: var(--de-ink); color: var(--de-paper); border-color: var(--de-ink);
+}
+
+/* En mode correction, le pill score change d'aspect */
+.de-mode-correction .de-score-pill {
+  background: color-mix(in oklab, var(--de-gold) 15%, var(--de-paper));
+}
+
+/* ============ SIGNOFF & FOOTER ============ */
+.de-signoff {
+  margin-top: 40px;
+  text-align: center;
+  font-family: var(--de-font-display);
+  font-style: italic;
+  color: var(--de-ink-soft);
+  font-size: 17px;
+  padding: 24px 20px;
+}
+.de-signoff::before, .de-signoff::after {
+  content: "✦";
+  color: var(--de-accent-soft);
+  margin: 0 14px;
+  font-style: normal;
+}
+.de-footer-bar {
+  margin-top: 30px;
+  padding: 14px 0;
+  border-top: 1px solid var(--de-rule-soft);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+  font-size: 12px; color: var(--de-muted);
+  font-family: var(--de-font-body);
+}
+.de-footer-bar button {
+  background: none; border: 1px solid var(--de-rule);
+  border-radius: 6px;
+  padding: 4px 10px;
+  color: var(--de-muted); cursor: pointer;
+  font-family: var(--de-font-body); font-size: 11px;
+}
+.de-footer-bar button:hover { color: var(--de-ink); border-color: var(--de-ink); }
+
+/* ============ COMPOSANTS MATHS ============ */
+/* Fraction visuelle (barre rectangulaire) */
+.de-fraction-bar {
+  display: flex;
+  width: 100%; max-width: 320px;
+  height: 50px;
+  border: 1.5px solid var(--de-ink-soft);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+.de-fraction-bar > div {
+  flex: 1;
+  border-right: 1px solid var(--de-ink-soft);
+  cursor: pointer;
+  transition: background .15s;
+}
+.de-fraction-bar > div:last-child { border-right: none; }
+.de-fraction-bar > div.de-filled { background: var(--de-rule); }
+.de-fraction-bar > div.de-fill-toggle:hover { background: color-mix(in oklab, var(--de-rule) 60%, transparent); }
+
+/* Fraction texte (3/4 en gros) */
+.de-fraction-text {
+  display: inline-flex; flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-family: var(--de-font-display); font-weight: 700;
+  line-height: 1; margin: 0 2px;
+}
+.de-fraction-text .de-num { font-size: 14px; }
+.de-fraction-text .de-den { font-size: 14px; border-top: 1.5px solid currentColor; padding-top: 1px; }
+
+/* Grille / plan cartésien (SVG inline en général, mais wrapper utile) */
+.de-svg-wrap {
+  display: flex; justify-content: center;
+  margin: 12px 0;
+  padding: 8px;
+  background: var(--de-paper-deep);
+  border-radius: var(--de-radius-sm);
+}
+.de-svg-wrap svg { max-width: 100%; height: auto; }
+
+/* ----- Horloges analogiques ----- */
+.de-svg-wrap.de-horloges {
+  padding: 14px 12px;
+}
+.de-svg-wrap.de-horloges svg {
+  max-width: 100%; height: auto;
+  display: block;
+}
+
+/* ----- Diagramme à bandes ----- */
+.de-svg-wrap.de-diagramme-bandes {
+  padding: 14px 10px;
+}
+.de-bar-fill {
+  /* Couleur thémique : se rebascule avec l'accent du thème */
+  fill: var(--de-accent);
+  fill-opacity: 0.78;
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 540px) {
+  .de-topbar-inner { padding: 10px 16px; }
+  .de-crumb { font-size: 14px; }
+  .de-wrap { padding: 0 16px 60px; }
+  .de-hero { padding: 26px 22px 22px; margin-top: 22px; }
+  .de-ex { padding: 18px 18px 16px; }
+  .de-ex-title { font-size: 18px; }
+  .de-ex-head { gap: 10px; }
+  .de-ex-num { width: 32px; height: 32px; font-size: 16px; }
+  .de-card-grid, .de-pairs { grid-template-columns: 1fr; }
+  .de-pairs { gap: 6px; }
+  .de-score-pill .de-lbl { display: none; }
+  .de-progress-bar { display: none; }
+  .de-story { font-size: 16px; padding: 16px 18px; }
+  .de-svg-wrap.de-horloges > div { gap: 12px !important; }
+}
+
+/* ============================================================================
+   NOUVEAUX COMPOSANTS — Thermomètres, Plan cartésien, Grille d'aires, Op. en colonne
+   ============================================================================ */
+
+/* ----- Thermomètres ----- */
+.de-svg-wrap.de-thermometres {
+  padding: 14px 10px;
+}
+.de-svg-wrap.de-thermometres svg {
+  display: block;
+  margin: 0 auto;
+}
+.de-svg-wrap.de-thermometres input[type="text"] {
+  font-family: var(--de-font);
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid var(--de-line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--de-ink);
+}
+.de-svg-wrap.de-thermometres input[type="text"]:focus {
+  outline: none;
+  border-color: var(--de-accent);
+}
+
+/* ----- Plan cartésien ----- */
+.de-svg-wrap.de-plan-cartesien {
+  padding: 14px 10px;
+}
+.de-svg-wrap.de-plan-cartesien svg {
+  display: block;
+  margin: 0 auto;
+}
+
+/* ----- Grille d'aires ----- */
+.de-svg-wrap.de-grille-aires {
+  padding: 14px 10px;
+}
+.de-svg-wrap.de-grille-aires svg {
+  display: block;
+  margin: 0 auto;
+}
+
+/* ----- Opération posée en colonne ----- */
+.de-q.de-op-colonne {
+  padding: 14px 18px;
+}
+.de-op-table {
+  display: inline-block;
+  margin: 8px 0;
+  font-family: 'Courier New', 'Consolas', monospace;
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--de-line);
+}
+.de-op-row {
+  display: flex;
+  align-items: center;
+}
+.de-op-cell {
+  width: 30px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--de-ink);
+}
+.de-op-cell.de-op-virgule {
+  width: 8px;
+  font-size: 22px;
+}
+.de-op-cell.de-op-operateur {
+  width: 28px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--de-ink);
+}
+.de-op-row.de-op-trait .de-op-cell.de-op-trait-cell {
+  height: 4px;
+  border-top: 2px solid var(--de-ink);
+}
+.de-op-input {
+  width: 26px !important;
+  height: 28px !important;
+  text-align: center !important;
+  padding: 0 !important;
+  font-family: 'Courier New', 'Consolas', monospace !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  border: 2px solid var(--de-line) !important;
+  border-radius: 4px !important;
+  background: #fff;
+}
+.de-op-input:focus {
+  outline: none;
+  border-color: var(--de-accent) !important;
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 540px) {
+  .de-svg-wrap.de-thermometres > div { gap: 14px !important; }
+  .de-op-cell { width: 26px; height: 28px; font-size: 18px; }
+  .de-op-input { width: 22px !important; height: 24px !important; font-size: 16px !important; }
+}
+/* ==========================================================================
+   LOT 1 — Styles additionnels pour devoir-engine.css
+   ==========================================================================
+   À AJOUTER à la fin du fichier devoir-engine.css, après le bloc
+   « ============ COMPOSANTS MATHS ============ ».
+   Toutes les classes sont préfixées `de-` pour éviter les collisions, et
+   utilisent les variables CSS existantes pour rester cohérentes avec
+   les thèmes default / aqua / forest.
+   ========================================================================== */
+
+
+/* ============ 20) FRACTION CERCLE ============ */
+.de-fraction-cercle-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+}
+.de-fraction-cercle-svg {
+  color: var(--de-ink-soft);
+}
+.de-fraction-cercle-part {
+  fill: #FFFFFF;
+  stroke: var(--de-ink-soft);
+  stroke-width: 1.2;
+  cursor: pointer;
+  transition: fill .15s;
+}
+.de-fraction-cercle-part:hover {
+  fill: color-mix(in oklab, var(--de-rule) 60%, transparent);
+}
+.de-fraction-cercle-part.de-filled {
+  fill: var(--de-rule);
+}
+.de-fraction-cercle-border {
+  pointer-events: none;
+}
+
+
+/* ============ 21) DÉCOMPOSITION ADDITIVE ============ */
+.de-decomp {
+  /* hérite des marges standard via .de-q */
+}
+.de-decomp-eqn {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px 12px;
+  margin: 10px 0 4px;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: var(--de-radius-sm);
+}
+.de-decomp-nombre {
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--de-ink);
+  padding: 0 6px;
+}
+.de-decomp-op {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--de-muted);
+  padding: 0 2px;
+}
+.de-decomp-stack,
+.de-decomp-plus-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.de-decomp-input {
+  width: 96px;
+  height: 46px;
+  text-align: center;
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--de-ink);
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: 6px;
+  outline: none;
+  transition: border-color .15s, background .15s;
+}
+.de-decomp-input:hover {
+  background: color-mix(in oklab, var(--de-paper-deep) 30%, #FFFFFF);
+}
+.de-decomp-input:focus {
+  border-color: var(--de-accent);
+  background: #FFFFFF;
+}
+.de-decomp-pos {
+  font-family: var(--de-font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--de-accent);
+  height: 16px;
+  line-height: 16px;
+}
+.de-decomp-pos-spacer {
+  height: 16px;
+}
+
+/* responsive : sur petit écran on réduit les cases */
+@media (max-width: 540px) {
+  .de-decomp-input { width: 72px; height: 40px; font-size: 18px; }
+  .de-decomp-nombre { font-size: 22px; height: 40px; }
+  .de-decomp-op { font-size: 22px; height: 40px; }
+}
+
+
+/* ============ 22) LIGNE NUMÉRIQUE ============ */
+.de-ligne-numerique-wrap {
+  margin: 12px 0 8px;
+  padding: 8px 12px 4px;
+  background: var(--de-paper-deep);
+  border-radius: var(--de-radius-sm);
+  position: relative;
+  color: var(--de-ink);
+}
+.de-ligne-numerique {
+  display: block;
+  margin: 0 auto;
+}
+.de-ligne-numerique-inputs {
+  position: relative;
+  width: 100%;
+  height: 36px;
+  margin-top: 2px;
+}
+.de-ln-slot {
+  position: absolute;
+  top: 0;
+  width: 44px;
+}
+.de-ln-input {
+  width: 44px;
+  height: 30px;
+  text-align: center;
+  font-family: var(--de-font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--de-ink);
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-accent-soft);
+  border-radius: 4px;
+  outline: none;
+}
+.de-ln-input:focus {
+  border-color: var(--de-accent);
+}
+
+
+/* ============ 23) GLISSER-DÉPOSER PAR CATÉGORIES ============ */
+.de-tri-wrap {
+  /* hérite de .de-q */
+}
+.de-tri-source,
+.de-tri-zone {
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: var(--de-radius-sm);
+  padding: 10px 12px;
+  margin: 8px 0;
+}
+.de-tri-source {
+  border-style: dashed;
+  background: var(--de-paper-deep);
+}
+.de-tri-zones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+.de-tri-zone {
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  min-height: 80px;
+}
+.de-tri-zone:hover {
+  border-color: var(--de-accent);
+  background: color-mix(in oklab, var(--de-accent-soft) 12%, #FFFFFF);
+}
+.de-tri-zone-title {
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--de-accent);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.de-tri-source .de-tri-zone-title {
+  color: var(--de-ink-soft);
+}
+.de-tri-bag {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 32px;
+  align-items: center;
+}
+.de-tri-chip {
+  display: inline-block;
+  padding: 6px 12px;
+  font-family: var(--de-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--de-ink);
+  background: var(--de-paper);
+  border: 1.5px solid var(--de-ink-soft);
+  border-radius: var(--de-radius-pill);
+  cursor: pointer;
+  transition: transform .1s, background .15s, border-color .15s;
+}
+.de-tri-chip:hover {
+  background: color-mix(in oklab, var(--de-accent-soft) 25%, #FFFFFF);
+}
+.de-tri-chip.de-selected {
+  background: var(--de-accent);
+  color: #FFFFFF;
+  border-color: var(--de-accent);
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px -2px color-mix(in oklab, var(--de-accent) 60%, transparent);
+}
+.de-tri-empty {
+  font-size: 12px;
+  color: var(--de-muted);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   LOT 2 — Styles additionnels pour devoir-engine.css
+   ==========================================================================
+   À AJOUTER à la fin du fichier devoir-engine.css, après le bloc
+   « ============ 23) GLISSER-DÉPOSER PAR CATÉGORIES ============ ».
+
+   Toutes les classes sont préfixées `de-` et utilisent les variables CSS
+   existantes pour rester cohérentes avec les thèmes default / aqua / forest.
+   ========================================================================== */
+
+
+/* ============ 24) FRACTION COLLECTION ============ */
+.de-fc-grille {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 14px;
+  margin: 10px 0;
+  background: var(--de-paper-deep);
+  border-radius: var(--de-radius-sm);
+}
+.de-fc-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+.de-fc-fraction {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+.de-fc-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 8px;
+}
+.de-fc-input {
+  width: 64px;
+  height: 38px;
+  text-align: center;
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--de-ink);
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: 6px;
+  outline: none;
+  transition: border-color .15s, background .15s;
+}
+.de-fc-input:hover {
+  background: color-mix(in oklab, var(--de-paper-deep) 30%, #FFFFFF);
+}
+.de-fc-input:focus {
+  border-color: var(--de-accent);
+  background: #FFFFFF;
+}
+.de-fc-bar {
+  width: 56px;
+  height: 2.5px;
+  background: var(--de-ink);
+  border-radius: 1px;
+  margin: 2px 0;
+}
+
+@media (max-width: 540px) {
+  .de-fc-input { width: 52px; height: 32px; font-size: 18px; }
+  .de-fc-bar   { width: 44px; }
+}
+
+
+/* ============ 25) SYMÉTRIE ============ */
+.de-symetrie-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+.de-symetrie-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  color: var(--de-ink);
+}
+.de-symetrie-axis {
+  stroke: var(--de-muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+  cursor: pointer;
+  transition: stroke .15s, stroke-width .15s, stroke-dasharray .15s;
+}
+.de-symetrie-axis:hover {
+  stroke: var(--de-ink-soft);
+  stroke-width: 2;
+}
+.de-symetrie-axis.de-selected {
+  stroke: var(--de-accent);
+  stroke-width: 2.6;
+  stroke-dasharray: none;
+}
+
+
+/* ============ 26) DIAGRAMME À PICTOGRAMMES ============ */
+.de-pictogrammes {
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: var(--de-radius-sm);
+  padding: 16px 18px 14px;
+  margin: 12px auto;
+  max-width: 460px;
+}
+.de-picto-titre {
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--de-ink);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.de-picto-table {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  align-items: center;
+}
+.de-picto-row {
+  display: contents;
+}
+.de-picto-cat {
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--de-ink);
+  padding: 4px 6px;
+  text-align: right;
+  border-right: 1.5px solid var(--de-rule);
+}
+.de-picto-icones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+  padding: 4px 0;
+}
+.de-picto-icon {
+  display: inline-block;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--de-accent);
+}
+.de-picto-icon.de-picto-half {
+  opacity: 0.55;
+  clip-path: inset(0 50% 0 0);
+  margin-right: -0.4em;
+}
+.de-picto-legende {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--de-rule-soft);
+  text-align: center;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--de-muted);
+}
+
+
+/* ============ 27) DIAGRAMME À LIGNE BRISÉE ============ */
+.de-diagramme-ligne {
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: var(--de-radius-sm);
+  padding: 10px;
+  margin: 12px auto;
+  max-width: 520px;
+}
+
+
+/* ==========================================================================
+   LOT 3 — Styles additionnels pour devoir-engine.css
+   ==========================================================================
+   À AJOUTER à la fin du fichier devoir-engine.css, après le bloc
+   « ============ 27) DIAGRAMME À LIGNE BRISÉE ============ ».
+
+   Composants 28 à 33 :
+   - 28 NOMBRE MIXTE
+   - 29 ARGENT QUÉBÉCOIS
+   - 30 CALENDRIER
+   - 31 LIGNE DU TEMPS
+   - 32 SCHÉMA ANNOTÉ
+   - 33 CYCLE DE VIE
+
+   Toutes les classes sont préfixées `de-` et utilisent les variables CSS
+   existantes pour rester cohérentes avec les thèmes default / aqua / forest.
+   ========================================================================== */
+
+
+/* ============ 28) NOMBRE MIXTE ============ */
+.de-nm-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0;
+}
+.de-nm-entier {
+  width: 60px !important;
+  height: 64px !important;
+  text-align: center !important;
+  font-family: var(--de-font-display) !important;
+  font-weight: 700 !important;
+  font-size: 32px !important;
+  color: var(--de-ink) !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--de-rule) !important;
+  border-radius: 6px !important;
+  outline: none !important;
+  padding: 0 !important;
+  transition: border-color .15s, background .15s;
+}
+.de-nm-entier:hover {
+  background: color-mix(in oklab, var(--de-paper-deep) 30%, #FFFFFF) !important;
+}
+.de-nm-entier:focus {
+  border-color: var(--de-accent) !important;
+  background: #FFFFFF !important;
+}
+.de-nm-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 0;
+}
+.de-nm-input {
+  width: 52px !important;
+  height: 28px !important;
+  text-align: center !important;
+  font-family: var(--de-font-display) !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  color: var(--de-ink) !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--de-rule) !important;
+  border-radius: 6px !important;
+  outline: none !important;
+  padding: 0 !important;
+  transition: border-color .15s, background .15s;
+}
+.de-nm-input:hover {
+  background: color-mix(in oklab, var(--de-paper-deep) 30%, #FFFFFF) !important;
+}
+.de-nm-input:focus {
+  border-color: var(--de-accent) !important;
+  background: #FFFFFF !important;
+}
+.de-nm-bar {
+  width: 48px;
+  height: 2.5px;
+  background: var(--de-ink);
+  border-radius: 1px;
+  margin: 1px 0;
+}
+@media (max-width: 540px) {
+  .de-nm-entier { width: 48px !important; height: 54px !important; font-size: 26px !important; }
+  .de-nm-input  { width: 44px !important; height: 26px !important; font-size: 18px !important; }
+  .de-nm-bar    { width: 40px; }
+}
+
+
+/* ============ 29) ARGENT QUÉBÉCOIS ============ */
+.de-arg-grille {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 14px;
+  margin: 10px 0;
+  background: var(--de-paper-deep);
+  border-radius: var(--de-radius-sm);
+  border: 1px dashed var(--de-rule);
+}
+.de-arg-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+.de-arg-reponse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.de-arg-eq {
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--de-ink);
+}
+.de-arg-input {
+  width: 110px !important;
+  height: 40px !important;
+  text-align: right !important;
+  font-family: var(--de-font-display) !important;
+  font-weight: 700 !important;
+  font-size: 22px !important;
+  color: var(--de-ink) !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--de-rule) !important;
+  border-radius: 6px !important;
+  outline: none !important;
+  padding: 0 10px !important;
+}
+.de-arg-input:focus {
+  border-color: var(--de-accent) !important;
+}
+.de-arg-unite {
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--de-ink);
+}
+
+
+/* ============ 30) CALENDRIER ============ */
+.de-cal {
+  display: inline-block;
+  margin: 12px auto;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: var(--de-radius-sm);
+}
+/* Centrer le bloc calendrier dans la question */
+.de-q > .de-cal {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.de-cal-titre {
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--de-ink);
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--de-rule-soft);
+}
+.de-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 38px);
+  gap: 3px;
+}
+.de-cal-jour-tete {
+  font-family: var(--de-font-body);
+  font-weight: 700;
+  font-size: 12px;
+  text-align: center;
+  color: var(--de-accent);
+  padding: 4px 0;
+  letter-spacing: .04em;
+}
+.de-cal-cell {
+  width: 38px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--de-font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--de-ink);
+  background: var(--de-paper);
+  border: 1px solid var(--de-rule-soft);
+  border-radius: 6px;
+  transition: background .12s, border-color .12s, transform .1s;
+}
+.de-cal-cell.de-cal-vide {
+  background: transparent;
+  border-color: transparent;
+}
+.de-cal-cell.de-cal-marque {
+  background: color-mix(in oklab, var(--de-gold) 22%, #FFFFFF);
+  border-color: var(--de-gold);
+  font-weight: 700;
+}
+.de-cal-cell.de-cal-selected {
+  background: var(--de-accent);
+  color: #FFFFFF;
+  border-color: var(--de-accent);
+  transform: scale(1.08);
+  box-shadow: 0 2px 8px -2px color-mix(in oklab, var(--de-accent) 60%, transparent);
+}
+.de-cal-cell[style*="cursor:pointer"]:hover,
+.de-cal-cell[style*="cursor: pointer"]:hover {
+  background: color-mix(in oklab, var(--de-accent-soft) 22%, #FFFFFF);
+  border-color: var(--de-accent-soft);
+}
+@media (max-width: 540px) {
+  .de-cal-grid { grid-template-columns: repeat(7, 32px); }
+  .de-cal-cell { width: 32px; height: 32px; font-size: 13px; }
+}
+
+
+/* ============ 31) LIGNE DU TEMPS ============ */
+.de-lt-wrap {
+  margin: 12px 0 6px;
+  padding: 12px 10px 6px;
+  background: var(--de-paper-deep);
+  border-radius: var(--de-radius-sm);
+  color: var(--de-ink);
+}
+.de-lt-ordre {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: var(--de-radius-sm);
+}
+.de-lt-ordre-titre {
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--de-accent);
+  margin-bottom: 10px;
+  letter-spacing: .02em;
+}
+.de-lt-ordre-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--de-rule-soft);
+}
+.de-lt-ordre-row:last-child {
+  border-bottom: none;
+}
+.de-lt-ordre-input {
+  width: 44px !important;
+  height: 36px !important;
+  text-align: center !important;
+  font-family: var(--de-font-display) !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  color: var(--de-accent) !important;
+  background: var(--de-paper) !important;
+  border: 1.5px solid var(--de-accent-soft) !important;
+  border-radius: 6px !important;
+  outline: none !important;
+  flex-shrink: 0;
+}
+.de-lt-ordre-input:focus {
+  border-color: var(--de-accent) !important;
+  background: #FFFFFF !important;
+}
+.de-lt-ordre-label {
+  font-family: var(--de-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--de-ink);
+}
+
+
+/* ============ 32) SCHÉMA ANNOTÉ ============ */
+.de-sa-stage {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin: 10px auto;
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: var(--de-radius-sm);
+  overflow: hidden;
+}
+.de-sa-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.de-sa-bg > svg {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+}
+.de-sa-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: #FFFFFF;
+  background: var(--de-accent);
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  pointer-events: none;
+}
+.de-sa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 460px;
+  margin: 10px auto 0;
+}
+.de-sa-list-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.de-sa-list-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: #FFFFFF;
+  background: var(--de-accent);
+  border-radius: 50%;
+}
+.de-sa-list-input {
+  flex: 1;
+  height: 36px !important;
+  font-family: var(--de-font-body) !important;
+  font-size: 14px !important;
+  color: var(--de-ink) !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--de-rule) !important;
+  border-radius: 6px !important;
+  outline: none !important;
+  padding: 0 12px !important;
+}
+.de-sa-list-input:focus {
+  border-color: var(--de-accent) !important;
+}
+
+
+/* ============ 33) CYCLE DE VIE ============ */
+.de-cyc-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+.de-cyc-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.de-cyc-ordre {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule);
+  border-radius: var(--de-radius-sm);
+}
+.de-cyc-ordre-titre {
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--de-accent);
+  margin-bottom: 10px;
+  letter-spacing: .02em;
+}
+.de-cyc-ordre-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--de-rule-soft);
+}
+.de-cyc-ordre-row:last-child {
+  border-bottom: none;
+}
+.de-cyc-ordre-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  font-family: var(--de-font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--de-accent);
+}
+.de-cyc-ordre-label {
+  flex: 1;
+  font-family: var(--de-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--de-ink);
+}
+.de-cyc-ordre-input {
+  width: 44px !important;
+  height: 36px !important;
+  text-align: center !important;
+  font-family: var(--de-font-display) !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  color: var(--de-accent) !important;
+  background: var(--de-paper) !important;
+  border: 1.5px solid var(--de-accent-soft) !important;
+  border-radius: 6px !important;
+  outline: none !important;
+  flex-shrink: 0;
+}
+.de-cyc-ordre-input:focus {
+  border-color: var(--de-accent) !important;
+  background: #FFFFFF !important;
+}
+
+
+/* ==========================================================================
+   FIX QA — Visibilité des inputs flottants des composants maths
+   ==========================================================================
+   La règle générique `.de-app input[type="text"]` (vers la ligne 287) impose
+   background: transparent + border: none + border-bottom: dashed à TOUS les
+   inputs texte. Les classes spécifiques des composants maths (sans
+   !important) se font écraser et deviennent quasi invisibles — on ne voit
+   qu'un tiret pointillé. Ce bloc force un fond blanc et une bordure rouge
+   claire (couleur d'accent) pour chacun de ces inputs.
+
+   Couvre : ligneNumerique, fractionCollection, nombreMixte (num/den et
+   entier), décomposition, argentQc, operationColonne (déjà OK, listé pour
+   homogénéité visuelle au focus).
+   ========================================================================== */
+.de-app .de-ln-input,
+.de-app .de-fc-input,
+.de-app .de-nm-input,
+.de-app .de-nm-entier,
+.de-app .de-decomp-input,
+.de-app .de-arg-input {
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--de-accent-soft) !important;
+  border-radius: 6px !important;
+  padding: 4px 6px !important;
+  outline: none !important;
+  transition: border-color .15s, background .15s !important;
+}
+.de-app .de-ln-input:focus,
+.de-app .de-fc-input:focus,
+.de-app .de-nm-input:focus,
+.de-app .de-nm-entier:focus,
+.de-app .de-decomp-input:focus,
+.de-app .de-arg-input:focus {
+  border-color: var(--de-accent) !important;
+  background: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   GRILLE DE DESSIN INTERACTIVE (.grilleDessin)
+   ==========================================================================
+   Plan quadrillé sur lequel l'enfant trace des polygones (carrés, rectangles,
+   parallélogrammes…) en touchant les sommets. Les segments sont contraints
+   aux angles 0/45/90°.
+   ========================================================================== */
+.de-grille-dessin-wrap { margin: 8px 0 4px 0; }
+
+.de-gd-toolbar {
+  display: flex; flex-direction: column; gap: 10px;
+  margin: 6px 0 10px 0;
+  padding: 10px 12px;
+  background: color-mix(in oklab, var(--de-accent-soft, #fed7aa) 22%, #FFFFFF);
+  border: 1px solid var(--de-rule, #d1d5db);
+  border-radius: 10px;
+}
+.de-gd-chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.de-gd-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px !important;
+  background: #FFFFFF !important;
+  border: 2px solid #cbd5e1 !important;
+  border-radius: 999px !important;
+  font-family: Nunito, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+  cursor: pointer !important;
+  transition: border-color .15s, background .15s, transform .1s !important;
+  outline: none !important;
+}
+.de-gd-chip:hover { background: #f8fafc !important; }
+.de-gd-chip:active { transform: scale(0.97) !important; }
+.de-gd-chip-active {
+  border-color: var(--de-gd-couleur, var(--de-accent, #b91c1c)) !important;
+  background: color-mix(in oklab, var(--de-gd-couleur, var(--de-accent, #b91c1c)) 14%, #FFFFFF) !important;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--de-gd-couleur, var(--de-accent, #b91c1c)) 22%, transparent) !important;
+}
+.de-gd-chip-dot {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,.18);
+  flex-shrink: 0;
+}
+.de-gd-chip-name { white-space: nowrap; }
+.de-gd-chip-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px;
+  padding: 0 5px;
+  background: var(--de-gd-couleur, #cbd5e1);
+  color: #FFFFFF;
+  border-radius: 9px;
+  font-size: 11px; font-weight: 700;
+  margin-left: 2px;
+}
+.de-gd-chip-badge:empty { display: none; }
+
+.de-gd-btn-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.de-gd-btn {
+  padding: 6px 11px !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  font-family: Nunito, sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+  cursor: pointer !important;
+  transition: background .15s, border-color .15s, transform .1s !important;
+  outline: none !important;
+}
+.de-gd-btn:hover { background: #f1f5f9 !important; }
+.de-gd-btn:active { transform: scale(0.97) !important; }
+.de-gd-btn-danger { color: #b91c1c !important; border-color: #fca5a5 !important; }
+.de-gd-btn-danger:hover { background: #fef2f2 !important; }
+
+/* Bannière de confirmation inline (remplace window.confirm() qui peut être
+   bloqué dans certaines WebViews mobiles). */
+.de-gd-confirm {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #fff3cd;
+  border: 1.5px solid #f59e0b;
+  border-radius: 8px;
+  font-family: Nunito, sans-serif;
+  font-size: 14px;
+  color: #1f2937;
+}
+.de-gd-confirm-msg {
+  flex: 1 1 auto;
+  min-width: 180px;
+  font-weight: 600;
+}
+.de-gd-btn-confirm-yes {
+  background: #b91c1c !important;
+  color: #FFFFFF !important;
+  border-color: #b91c1c !important;
+}
+.de-gd-btn-confirm-yes:hover {
+  background: #991b1b !important;
+  border-color: #991b1b !important;
+}
+
+.de-gd-svgwrap {
+  background: #FFFFFF;
+  border: 1.5px solid var(--de-rule, #d1d5db);
+  border-radius: 10px;
+  padding: 6px;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+.de-gd-svg {
+  display: block;
+  margin: 0 auto;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.de-gd-aide {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #fff8e1;
+  border-left: 3px solid #fbbf24;
+  border-radius: 6px;
+  font-family: Nunito, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #1f2937;
+}
