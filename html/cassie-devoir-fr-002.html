@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Situation-problème de Cassie — La série Canadiens vs Hurricanes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/devoirs@main/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app" data-theme="aqua"></div>
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/devoirs@main/devoir-engine.js"></script>
+  <script>
+
+const d = Devoir.creer({
+  cible: '#app',
+  eleve: 'Cassie',
+  type: 'situation',
+  matiere: 'Mathématique',
+  sujet: 'Situation-problème — T3',
+  niveau: '4<sup>e</sup> année',
+  cycle: '2e cycle du primaire',
+  difficulte: 'Moyen',
+  objectif: "La série Canadiens vs Hurricanes pour la Coupe Stanley : "
+          + "calculer des pointages, lire un diagramme à bandes, calculer "
+          + "une moyenne de buts, dessiner la patinoire à l'échelle, "
+          + "partager des médailles avec des fractions et estimer "
+          + "la probabilité de victoire.",
+  total: 50,
+  storageKey: 'situation_cassie_math_S3_moyen',
+  theme: 'aqua'
+});
+
+// ---------- Mise en contexte ----------
+d.exercice(0, 'La série Canadiens vs Hurricanes — Coupe Stanley', 0)
+  .histoire([
+    "C'est le grand printemps du hockey ! Les Canadiens de Montréal " +
+    "affrontent les Hurricanes de la Caroline dans une série de la " +
+    "Coupe Stanley. La série est au meilleur de 7 matchs : la première " +
+    "équipe à gagner 4 matchs remporte la série et passe au tour suivant.",
+    "Comme tu adores le hockey, l'entraîneur des Canadiens te demande un " +
+    "petit coup de main : il aimerait que tu l'aides à analyser les " +
+    "statistiques de la série, à préparer le plan de la patinoire " +
+    "d'entraînement et à organiser la remise des médailles à la fin. " +
+    "À toi de jouer, Cassie !"
+  ]);
+
+// ---------- Tâche 1 — Diagramme à bandes + total des buts ----------
+d.exercice(1, "Tâche 1 — Les buts marqués pendant la série", 10)
+  .consigne("Voici le diagramme à bandes des buts marqués par les " +
+            "Canadiens de Montréal dans les 5 premiers matchs de la série.")
+  .diagrammeBandes({
+    titre: 'Buts des Canadiens — 5 premiers matchs',
+    axeY: 'Nombre de buts',
+    axeX: 'Match',
+    donnees: [
+      { categorie: 'Match 1', valeur: 3 },
+      { categorie: 'Match 2', valeur: 5 },
+      { categorie: 'Match 3', valeur: 2 },
+      { categorie: 'Match 4', valeur: 4 },
+      { categorie: 'Match 5', valeur: 6 }
+    ],
+    max: 8, pas: 1
+  })
+  .texte('<span class="de-letter">a)</span> Combien de buts les Canadiens ont-ils marqués au total dans les 5 matchs ?', 't1a')
+  .texte('<span class="de-letter">b)</span> Dans quel match ont-ils marqué le plus de buts ?', 't1b')
+  .texte('<span class="de-letter">c)</span> Combien de buts de plus ont-ils marqués au Match 5 qu\'au Match 3 ?', 't1c')
+  .redaction(
+    '<span class="de-letter">d)</span> Explique comment tu as fait pour trouver le total de la question a).',
+    't1d',
+    { hauteur: 5 }
+  );
+
+// ---------- Tâche 2 — Moyenne de buts (opération en colonne + division) ----------
+d.exercice(2, "Tâche 2 — La moyenne de buts par match", 8)
+  .consigne("L'entraîneur veut connaître la moyenne de buts par match " +
+            "des Canadiens. Pour calculer une moyenne, on additionne tous " +
+            "les buts, puis on divise par le nombre de matchs.")
+  .intro('<p>Reprends le total des buts trouvé à la tâche 1. La série a duré <strong>5 matchs</strong>.</p>')
+  .operationColonne({
+    label: '<span class="de-letter">a)</span> Total des buts ÷ nombre de matchs :',
+    operande1: '20',
+    operande2: '5',
+    operateur: '÷',
+    key: 't2a'
+  })
+  .texte('<span class="de-letter">b)</span> La moyenne des Canadiens est donc de combien de buts par match ?', 't2b')
+  .texte('<span class="de-letter">c)</span> Les Hurricanes ont marqué 15 buts au total en 5 matchs. Quelle est leur moyenne de buts par match ?', 't2c');
+
+// ---------- Tâche 3 — Plan de la patinoire (grille de dessin) ----------
+d.exercice(3, "Tâche 3 — Le plan de la patinoire d'entraînement", 12)
+  .consigne("Les Canadiens veulent une patinoire d'entraînement spéciale " +
+            "pour préparer le prochain match. Tu dois dessiner le plan " +
+            "sur la grille. Chaque petit carré de la grille = 1 mètre.")
+  .intro(
+    '<p><strong>Contraintes à respecter :</strong></p>' +
+    '<ul style="margin-top:6px;">' +
+    '<li>🏒 La <strong>patinoire principale</strong> est un <em>rectangle</em> de <strong>15 m de long sur 8 m de large</strong>.</li>' +
+    '<li>🥅 Le <strong>banc des joueurs</strong> est un <em>carré</em> de <strong>3 m de côté</strong>.</li>' +
+    '<li>🚪 Le <strong>vestiaire</strong> est un <em>rectangle</em> de <strong>4 m sur 2 m</strong>.</li>' +
+    '<li>Les trois zones <strong>ne doivent pas se chevaucher</strong>.</li>' +
+    '</ul>'
+  )
+  .grilleDessin({
+    cols: 18, rows: 12,
+    titre: 'Plan de la patinoire (1 carré = 1 mètre)',
+    enclos: [
+      { id: 'patinoire', nom: '🏒 Patinoire (15 × 8)', couleur: '#2c7a8c' },
+      { id: 'banc',      nom: '🥅 Banc (3 × 3)',       couleur: '#e76f51' },
+      { id: 'vestiaire', nom: '🚪 Vestiaire (4 × 2)',  couleur: '#6f8b5b' }
+    ],
+    key: 't3_plan',
+    consigne: "Touche un enclos dans la barre, puis touche les coins sur la grille. Touche le premier coin pour fermer la zone."
+  })
+  .texte('<span class="de-letter">a)</span> Quel est le <strong>périmètre</strong> de la patinoire principale (en mètres) ?', 't3a')
+  .texte('<span class="de-letter">b)</span> Quelle est l\'<strong>aire</strong> de la patinoire principale (en mètres carrés) ?', 't3b');
+
+// ---------- Tâche 4 — Partage des médailles (fractions) ----------
+d.exercice(4, "Tâche 4 — Le partage des médailles", 10)
+  .consigne("À la fin de la série, le comité veut remettre 24 médailles " +
+            "souvenir aux quatre groupes qui ont participé à l'événement, " +
+            "selon leur contribution.")
+  .intro(
+    '<p><strong>Voici le partage prévu :</strong></p>' +
+    '<ul style="margin-top:6px;">' +
+    '<li>Les <strong>joueurs des Canadiens</strong> reçoivent <strong>1/2</strong> des médailles.</li>' +
+    '<li>Les <strong>entraîneurs</strong> reçoivent <strong>1/4</strong> des médailles.</li>' +
+    '<li>Les <strong>arbitres</strong> reçoivent <strong>1/8</strong> des médailles.</li>' +
+    '<li>Les <strong>bénévoles</strong> reçoivent <strong>1/8</strong> des médailles.</li>' +
+    '</ul>'
+  )
+  .texte('<span class="de-letter">a)</span> Combien de médailles reçoivent les <strong>joueurs</strong> (1/2 de 24) ?', 't4a')
+  .texte('<span class="de-letter">b)</span> Combien de médailles reçoivent les <strong>entraîneurs</strong> (1/4 de 24) ?', 't4b')
+  .texte('<span class="de-letter">c)</span> Combien de médailles reçoivent les <strong>arbitres</strong> (1/8 de 24) ?', 't4c')
+  .texte('<span class="de-letter">d)</span> Combien de médailles reçoivent les <strong>bénévoles</strong> (1/8 de 24) ?', 't4d')
+  .texte('<span class="de-letter">e)</span> Vérification : additionne tes 4 réponses. Trouves-tu bien 24 ?', 't4e');
+
+// ---------- Tâche 5 — Probabilités (événements) ----------
+d.exercice(5, "Tâche 5 — Qui va gagner la Coupe Stanley ?", 10)
+  .consigne("Après 5 matchs, voici le pointage de la série : les Canadiens " +
+            "ont gagné 3 matchs et les Hurricanes ont gagné 2 matchs. " +
+            "Rappel : la première équipe à 4 victoires remporte la série.")
+  .vraiFaux([
+    { label: "<strong>a)</strong> Il est <em>certain</em> que les Canadiens vont gagner la série.", key: 't5a' },
+    { label: "<strong>b)</strong> Il est <em>possible</em> que les Hurricanes gagnent encore la série.", key: 't5b' },
+    { label: "<strong>c)</strong> Il est <em>impossible</em> que la série se termine au match 6.", key: 't5c' },
+    { label: "<strong>d)</strong> Il est <em>possible</em> que la série se rende jusqu'au match 7.", key: 't5d' }
+  ])
+  .redaction(
+    "<span class=\"de-letter\">e)</span> D'après toi, quelle équipe a le plus de chances de gagner la série ? Explique ton raisonnement en utilisant les données de la tâche 1 et de la tâche 2.",
+    't5e',
+    { hauteur: 8 }
+  );
+
+d.signoff('Bravo Cassie ! Tu es la meilleure analyste de hockey en ville. 🏒🏆');
+d.render();
+  </script>
+</body>
+</html>
