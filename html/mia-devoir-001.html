@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Situation-problème de Mia — La série Canadiens vs Hurricanes 🏒</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.1/devoir-engine.css">
+</head>
+<body class="de-body" data-theme="aqua">
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.1/devoir-engine.js"></script>
+  <script>
+
+const d = Devoir.creer({
+  cible: '#app',
+  eleve: 'Mia',
+  type: 'situation',
+  matiere: 'Mathématique',
+  sujet: 'Situation-problème — T3 — La série Canadiens vs Hurricanes',
+  niveau: '2<sup>e</sup> année',
+  cycle: '1er cycle du primaire',
+  difficulte: 'Moyen',
+  objectif: "Aider la famille à vivre la grande série Canadiens vs Hurricanes : "
+          + "calculer avec de l'argent, lire un diagramme à pictogrammes, "
+          + "résoudre des problèmes en plusieurs étapes, comprendre les fractions "
+          + "(moitié, quart) et additionner.",
+  total: 40,
+  storageKey: 'situation_mia_math_S3_canadiens_hurricanes_moyen'
+});
+
+// ---------- Mise en contexte (histoire) ----------
+d.exercice(1, 'Tâche 1 — On achète les billets ! 🎟️', 10)
+  .histoire([
+    "C'est la grande série ! Les Canadiens de Montréal affrontent les Hurricanes de la Caroline dans les séries éliminatoires de la Coupe Stanley. 🏒🏆",
+    "Ta maman et toi voulez aller voir le match 3 au Centre Bell. Avant le match, vous allez aussi acheter des collations et regarder le pointage du match précédent.",
+    "Aide ta maman à bien organiser cette belle journée de hockey !"
+  ])
+  .consigne('Ta maman te donne de l\'argent pour acheter les billets. Compte combien elle a, puis aide-la à choisir.')
+  .argentQc(
+    '<span class="de-letter">a)</span> Combien d\'argent ta maman te donne-t-elle au total ?',
+    [
+      { type: '20$', qte: 1 },
+      { type: '10$', qte: 1 },
+      { type: '5$',  qte: 2 },
+      { type: '2$',  qte: 3 },
+      { type: '1$',  qte: 4 }
+    ],
+    'ex1a',
+    { uniteResultat: '$' }
+  )
+  .espace(12)
+  .texte(
+    '<span class="de-letter">b)</span> Un billet pour enfant coûte <b>15 $</b> et un billet pour adulte coûte <b>20 $</b>. ' +
+    'Combien coûte 1 billet enfant + 1 billet adulte ?',
+    'ex1b',
+    { placeholder: 'Mon calcul : ___ $' }
+  )
+  .texte(
+    '<span class="de-letter">c)</span> Combien d\'argent restera-t-il à ta maman après avoir payé les 2 billets ?',
+    'ex1c',
+    { placeholder: '___ $' }
+  );
+
+// ---------- Tâche 2 — Lire le pointage de la série ----------
+d.exercice(2, 'Tâche 2 — Les buts de la série 🥅', 10)
+  .consigne(
+    'Voici un diagramme qui montre le nombre de buts comptés par chaque équipe ' +
+    'dans les 4 premiers matchs de la série. Regarde bien et réponds.'
+  )
+  .diagrammePictogrammes({
+    titre: 'Buts comptés dans la série (matchs 1 à 4)',
+    donnees: [
+      { categorie: 'Match 1 — Canadiens', valeur: 3 },
+      { categorie: 'Match 1 — Hurricanes', valeur: 2 },
+      { categorie: 'Match 2 — Canadiens', valeur: 4 },
+      { categorie: 'Match 2 — Hurricanes', valeur: 1 },
+      { categorie: 'Match 3 — Canadiens', valeur: 2 },
+      { categorie: 'Match 3 — Hurricanes', valeur: 5 },
+      { categorie: 'Match 4 — Canadiens', valeur: 3 },
+      { categorie: 'Match 4 — Hurricanes', valeur: 3 }
+    ],
+    symbole: '🏒',
+    legende: '1 🏒 = 1 but'
+  })
+  .espace(10)
+  .texte(
+    '<span class="de-letter">a)</span> Combien de buts les Canadiens ont-ils comptés dans le <b>match 2</b> ?',
+    'ex2a',
+    { placeholder: '___ buts' }
+  )
+  .texte(
+    '<span class="de-letter">b)</span> Quel match les Hurricanes ont-ils gagné ? (Écris le numéro du match.)',
+    'ex2b',
+    { placeholder: 'Match ___' }
+  )
+  .texte(
+    '<span class="de-letter">c)</span> Combien de buts les Canadiens ont-ils comptés <b>en tout</b> dans les 4 matchs ? ' +
+    '(3 + 4 + 2 + 3)',
+    'ex2c',
+    { placeholder: 'Total : ___ buts' }
+  )
+  .texte(
+    '<span class="de-letter">d)</span> Quelle équipe a compté le plus de buts en tout dans les 4 matchs ?',
+    'ex2d',
+    { placeholder: 'Les ___' }
+  );
+
+// ---------- Tâche 3 — Partager la pizza ----------
+d.exercice(3, 'Tâche 3 — La pizza du match ! 🍕', 10)
+  .consigne(
+    'Pendant le match 3, ta maman commande une grande pizza ronde coupée en parts égales. ' +
+    'Aide-toi du dessin pour bien comprendre les fractions.'
+  )
+  .fractionCercle(
+    '<span class="de-letter">a)</span> La pizza est coupée en 4 parts égales. Colorie <b>2 parts sur 4</b> (la moitié) que tu manges.',
+    4,
+    'ex3a',
+    { consigne: 'Touche les pointes pour les colorier. 2 pointes = la moitié.' }
+  )
+  .espace(10)
+  .texte(
+    '<span class="de-letter">b)</span> Tu manges la moitié de la pizza. Combien de parts as-tu mangées ?',
+    'ex3b',
+    { placeholder: '___ parts sur 4' }
+  )
+  .texte(
+    '<span class="de-letter">c)</span> Il reste l\'autre moitié pour ta maman et ton frère. ' +
+    'Si ta maman en mange 1 part et ton frère 1 part, combien de parts ont-ils mangées <b>ensemble</b> ?',
+    'ex3c',
+    { placeholder: '___ parts' }
+  )
+  .texte(
+    '<span class="de-letter">d)</span> Une pointe de pizza coûte <b>3 $</b>. Combien coûtent les 4 pointes de la pizza entière ?',
+    'ex3d',
+    { placeholder: '___ $' }
+  );
+
+// ---------- Tâche 4 — Le temps du match ----------
+d.exercice(4, 'Tâche 4 — L\'heure du match ⏰', 10)
+  .consigne(
+    'Le match commence à <b>19 h 00</b> (7 heures du soir). Une période de hockey dure environ <b>30 minutes</b>. ' +
+    'Regarde les horloges et réponds aux questions.'
+  )
+  .horloges(
+    [
+      { heure: 7, minutes: 0,  label: 'Début (1re période)' },
+      { heure: 7, minutes: 30, label: 'Fin de la 1re période' }
+    ],
+    { taille: 'md' }
+  )
+  .espace(10)
+  .texte(
+    '<span class="de-letter">a)</span> À quelle heure commence le match ?',
+    'ex4a',
+    { placeholder: '___ h ___' }
+  )
+  .texte(
+    '<span class="de-letter">b)</span> À quelle heure se termine la 1<sup>re</sup> période ?',
+    'ex4b',
+    { placeholder: '___ h ___' }
+  )
+  .texte(
+    '<span class="de-letter">c)</span> Combien de minutes dure une période de hockey selon les horloges ?',
+    'ex4c',
+    { placeholder: '___ minutes' }
+  )
+  .redaction(
+    '<span class="de-letter">d)</span> Le match a 3 périodes de 30 minutes. Combien de temps dure le match en tout ? ' +
+    'Explique ton raisonnement.',
+    'ex4d',
+    { hauteur: 100, placeholder: 'Je pense que... car...' }
+  );
+
+// ---------- Signoff (pas de bonus pour une situation-problème) ----------
+d.signoff('Bravo Mia ! Va, va, va les Canadiens, va ! 🏒🇨🇦 Tu as bien travaillé !');
+d.render();
+
+  </script>
+</body>
+</html>
