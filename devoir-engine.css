@@ -65,7 +65,7 @@
 body.de-body {
   margin: 0; padding: 0;
   font-family: var(--de-font-body);
-  background: var(--de-paper);
+  background: #FAF6EE;  /* toujours crème, peu importe le thème */
   color: var(--de-ink);
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
