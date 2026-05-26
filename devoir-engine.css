@@ -1209,6 +1209,12 @@ body.de-body {
 
 /* ============ 26) DIAGRAMME À PICTOGRAMMES ============ */
 .de-pictogrammes {
+  /* Conteneur en flex-column : titre EN HAUT, table AU MILIEU, légende EN BAS.
+     Sans cela, la légende (qui est sœur de .de-picto-table) pouvait
+     visuellement se coller à droite de la première ligne sur certaines
+     largeurs d'écran. */
+  display: flex;
+  flex-direction: column;
   background: #FFFFFF;
   border: 1.5px solid var(--de-rule);
   border-radius: var(--de-radius-sm);
@@ -1229,6 +1235,7 @@ body.de-body {
   grid-template-columns: auto 1fr;
   gap: 6px 14px;
   align-items: center;
+  width: 100%;
 }
 .de-picto-row {
   display: contents;
@@ -1261,7 +1268,13 @@ body.de-body {
   margin-right: -0.4em;
 }
 .de-picto-legende {
-  margin-top: 10px;
+  /* La légende est un bloc en pleine largeur, sous la table.
+     `display: block` + `width: 100%` empêche tout positionnement
+     latéral résiduel (notamment quand le conteneur parent était en
+     flex/grid implicite). */
+  display: block;
+  width: 100%;
+  margin-top: 12px;
   padding-top: 8px;
   border-top: 1px solid var(--de-rule-soft);
   text-align: center;

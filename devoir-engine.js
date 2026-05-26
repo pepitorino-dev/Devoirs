@@ -256,6 +256,16 @@
   // Usage : .horloges([{heure: 9, minutes: 30, label: 'a)'}, ...])
   // Le builder calcule les angles et dessine le cadran + aiguilles.
   // Options : { taille: 'sm'|'md'|'lg', graduationsMinutes: bool }
+  //
+  // ⚠️ Important — le champ `label` est rendu dans un <text> SVG : il accepte
+  //    UNIQUEMENT du TEXTE BRUT. Aucune balise HTML (`<b>`, `<i>`, `<sup>`,
+  //    `<span>`…) n'est interprétée — elles s'afficheraient littéralement
+  //    (échappées en `&lt;b&gt;`). Pour mettre en évidence, utilise des
+  //    MAJUSCULES, des guillemets ou une numérotation courte (« a) », « 1ère »).
+  //    Garde le label COURT (≤ 25 caractères) car l'espace sous l'horloge
+  //    est limité.
+  //    Exemples valides :  'a) Début'  /  'Fin 1re période'  /  'Match'
+  //    Exemples invalides : '<b>19h00</b>'  /  '1<sup>re</sup> période'
   Exercice.prototype.horloges = function(horloges, opts) {
     opts = opts || {};
     this.blocs.push({ type:'horloges',
@@ -705,7 +715,12 @@
   const Composants = {
 
     consigne(b) {
-      return h('p', { class:'de-consigne' }, b.texte);
+      // Le texte de la consigne peut contenir du HTML inline (b, i, sup, sub,
+      // span, em…). On utilise `html` (innerHTML) plutôt que de passer le
+      // texte en 3e argument (qui le rendrait en textContent et afficherait
+      // les balises littéralement). Les consignes en texte brut continuent
+      // de fonctionner identiquement.
+      return h('p', { class:'de-consigne', html: b.texte });
     },
 
     rappel(b) {
