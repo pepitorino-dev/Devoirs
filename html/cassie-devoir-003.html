@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Examen de Cassie — Français · Examen de lecture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+    const d = Devoir.creer({
+      cible: '#app',
+      eleve: 'Cassie',
+      type: 'examen',
+      matiere: "Français, langue d'enseignement",
+      sujet: 'Examen de lecture — épreuve type ministère',
+      niveau: '4<sup>e</sup> année',
+      cycle: '2e cycle du primaire',
+      difficulte: 'Moyen',
+      objectif: "Lire un récit, comprendre et repérer l'information, faire des inférences, "
+              + "interpréter le texte, y réagir et l'apprécier.",
+      total: 47,
+      storageKey: 'examen_cassie_fr_lecture_t2_moyen',
+      theme: 'default'
+    });
+
+    // ---------- Ex. 1 — La carte du récit ----------
+    d.exercice(1, 'La carte du récit', 4)
+      .consigne('Lis attentivement ce récit. Tu peux le relire autant de fois que tu veux. Ensuite, remplis chaque case à l\'aide du texte.')
+      .intro('<p style="font-family:var(--de-font-display);font-size:20px;font-weight:700;color:var(--de-accent);margin:4px 0 10px;">📖 Une lumière dans la neige</p>')
+      .histoire([
+        "C'était la première vraie tempête de l'hiver. Depuis le matin, la neige tombait si dru que Maya ne voyait même plus le dépanneur au coin de la rue. Sa grand-mère, qu'elle appelait Mamie Jeanne, vivait seule dans la petite maison bleue, juste à côté de la sienne.",
+        "D'habitude, la fenêtre de la cuisine de Mamie restait allumée toute la soirée. Ce soir-là, pourtant, elle était noire. Maya colla son nez à la vitre froide.",
+        "« Maman, la lumière de Mamie n'est pas allumée », dit-elle d'une voix inquiète. Sa mère essaya de téléphoner, mais le combiné sonnait dans le vide. Dehors, le vent hurlait et faisait danser les fils électriques.",
+        "« Reste ici, je m'en occupe », dit sa mère en enfilant son manteau. Mais Maya connaissait un raccourci par la cour. Avant même que sa mère ait fini de boutonner ses bottes, la fillette avait déjà traversé la haie enneigée.",
+        "La porte de Mamie Jeanne n'était pas verrouillée. À l'intérieur, tout était silencieux et glacé. Maya appela encore et encore. Pas de réponse. Puis elle entendit un faible murmure qui venait du salon.",
+        "Mamie Jeanne était assise dans son vieux fauteuil, une couverture sur les genoux, une lampe de poche éteinte dans la main. « Le courant est parti, ma belle, murmura-t-elle. Et mes piles sont mortes. » Ses doigts tremblaient un peu — mais ce n'était pas seulement le froid.",
+        "Maya ne perdit pas une seconde. Elle alluma les bougies posées sur la table, comme Mamie le lui avait montré l'été d'avant. Elle remplit la bouilloire et la posa sur le vieux poêle à bois. Bientôt, une douce chaleur envahit la pièce et la lueur des bougies se mit à danser sur les murs.",
+        "Quand sa mère arriva enfin, essoufflée, elle trouva les deux assises côte à côte, une tasse de chocolat chaud entre les mains. Mamie Jeanne souriait.",
+        "« Tu sais, dit-elle à Maya en lui serrant la main, je n'avais pas peur du noir. J'avais peur d'être seule. »",
+        "Dehors, la tempête continuait de gronder. Mais dans la petite maison bleue, il faisait bon et chaud."
+      ])
+      .texte('Les personnages :', 'carte_perso')
+      .texte('Le lieu de l\'histoire :', 'carte_lieu')
+      .texte('Le moment (saison / soir) :', 'carte_moment')
+      .texte('Le problème du récit :', 'carte_pb');
+
+    // ---------- Ex. 2 — Je comprends le texte ----------
+    d.exercice(2, 'Je comprends le texte', 4)
+      .consigne('Réponds par une phrase complète.')
+      .texte('<span class="de-letter">a)</span> Qui est Mamie Jeanne pour Maya ?', 'comp_a', { lignes: 2 })
+      .texte('<span class="de-letter">b)</span> Pourquoi la mère de Maya n\'arrive-t-elle pas à joindre Mamie au téléphone ?', 'comp_b', { lignes: 2 })
+      .texte('<span class="de-letter">c)</span> Que fait Maya en premier pour réchauffer la maison de Mamie ?', 'comp_c', { lignes: 2 });
+
+    // ---------- Ex. 3 — Dans le bon ordre ----------
+    d.exercice(3, 'Dans le bon ordre', 4)
+      .consigne('Écris le bon numéro (de 1 à 5) dans la case, selon l\'ordre des événements.')
+      .phraseATrous('___ &nbsp; Maya allume des bougies et fait chauffer de l\'eau.', ['ordre_a'], { width: '46px' })
+      .phraseATrous('___ &nbsp; Maya remarque que la fenêtre de Mamie est éteinte.', ['ordre_b'], { width: '46px' })
+      .phraseATrous('___ &nbsp; Mamie avoue qu\'elle avait surtout peur d\'être seule.', ['ordre_c'], { width: '46px' })
+      .phraseATrous('___ &nbsp; Maya traverse la haie enneigée pour aller chez Mamie.', ['ordre_d'], { width: '46px' })
+      .phraseATrous('___ &nbsp; La mère de Maya arrive enfin chez Mamie.', ['ordre_e'], { width: '46px' });
+
+    // ---------- Ex. 4 — Vrai ou faux — justifie ----------
+    d.exercice(4, 'Vrai ou faux — justifie', 4)
+      .consigne('Coche Vrai ou Faux, puis recopie le mot ou la phrase du texte qui le prouve.')
+      .vraiFaux([
+        { label: '<span class="de-letter">a)</span> Ce soir-là, la fenêtre de Mamie était allumée comme d\'habitude.', key: 'vf_a' }
+      ])
+      .texte('Recopie ce qui le prouve :', 'vf_a_p')
+      .vraiFaux([
+        { label: '<span class="de-letter">b)</span> Maya a attendu sa mère avant de sortir dans la tempête.', key: 'vf_b' }
+      ])
+      .texte('Recopie ce qui le prouve :', 'vf_b_p')
+      .vraiFaux([
+        { label: '<span class="de-letter">c)</span> À la fin, Mamie Jeanne sourit en tenant une tasse de chocolat chaud.', key: 'vf_c' }
+      ])
+      .texte('Recopie ce qui le prouve :', 'vf_c_p');
+
+    // ---------- Ex. 5 — Le sens des mots ----------
+    d.exercice(5, 'Le sens des mots', 4)
+      .consigne('Coche le sens qui convient le mieux d\'après le texte.')
+      .motsChips('a) « la neige tombait si dru » veut dire que la neige tombait…',
+                 ['doucement', 'abondamment, sans arrêt', 'de temps en temps'],
+                 'sens_a', 'select')
+      .motsChips('b) « un raccourci par la cour » est…',
+                 ['un très long détour', 'un chemin plus court', 'une porte barrée'],
+                 'sens_b', 'select')
+      .texte('c) Dans « sa mère arriva essoufflée », que veut dire « essoufflée » ?', 'sens_c', { lignes: 2 });
+
+    // ---------- Ex. 6 — Je trouve dans le texte ----------
+    d.exercice(6, 'Je trouve dans le texte', 3)
+      .consigne('Cherche la réponse directement dans le récit.')
+      .texte('<span class="de-letter">a)</span> Recopie une phrase qui montre qu\'il fait très froid dans la maison de Mamie.', 'trouve_a', { lignes: 2 })
+      .texte('<span class="de-letter">b)</span> Quel objet ne fonctionnait pas parce que ses piles étaient mortes ?', 'trouve_b');
+
+    // ---------- Ex. 7 — Je déduis (1) ----------
+    d.exercice(7, 'Je déduis (1)', 4)
+      .consigne('Ce n\'est pas écrit en toutes lettres : sers-toi des indices du texte.')
+      .texte('Pourquoi la fenêtre de Mamie était-elle noire ce soir-là ?', 'ded1_a', { lignes: 2 })
+      .texte('Quel indice du texte t\'a aidé à répondre ?', 'ded1_b', { lignes: 2 });
+
+    // ---------- Ex. 8 — Je déduis (2) ----------
+    d.exercice(8, 'Je déduis (2)', 4)
+      .consigne('Relis le passage : « Ses doigts tremblaient un peu — mais ce n\'était pas seulement le froid. »')
+      .texte('<span class="de-letter">a)</span> À part le froid, qu\'est-ce qui faisait trembler Mamie Jeanne ?', 'ded2_a', { lignes: 2 })
+      .texte('<span class="de-letter">b)</span> Quelle phrase, à la fin du récit, confirme ta réponse ?', 'ded2_b', { lignes: 2 });
+
+    // ---------- Ex. 9 — Le sens du titre ----------
+    d.exercice(9, 'Le sens du titre', 3)
+      .consigne('Réfléchis à ce que représente la « lumière ».')
+      .redaction('Pourquoi, selon toi, ce récit s\'appelle-t-il « Une lumière dans la neige » ? Donne deux raisons.',
+                 'titre', { hauteur: 120, placeholder: 'Première raison… Deuxième raison…' });
+
+    // ---------- Ex. 10 — Je réagis ----------
+    d.exercice(10, 'Je réagis', 5)
+      .consigne('Donne ton opinion et explique-la.')
+      .redaction('À la place de Maya, serais-tu sorti(e) seul(e) dans la tempête pour aller voir Mamie ? Explique pourquoi, en au moins deux phrases.',
+                 'reagis', { hauteur: 150, placeholder: 'À mon avis…' });
+
+    // ---------- Ex. 11 — J'apprécie le récit ----------
+    d.exercice(11, 'J\'apprécie le récit', 4)
+      .consigne('Choisis un moment précis du texte.')
+      .redaction('Quel passage as-tu trouvé le plus touchant ou le plus intéressant ? Décris-le, puis explique pourquoi tu l\'as choisi.',
+                 'apprecie', { hauteur: 150, placeholder: 'Le passage que j\'ai choisi…' });
+
+    // ---------- Ex. 12 — Le message de l'autrice ----------
+    d.exercice(12, 'Le message de l\'autrice', 4)
+      .consigne('Coche le message qui convient le mieux, puis explique ton choix.')
+      .motsChips('Quel est le message du récit ?',
+                 [
+                   'Il faut toujours avoir peur des tempêtes de neige.',
+                   'Prendre soin des autres rend la vie plus douce.',
+                   'Il vaut mieux rester seul chez soi quand il fait froid.'
+                 ],
+                 'message', 'select')
+      .redaction('Explique ton choix :', 'message_exp', { hauteur: 100 });
+
+    // ---------- Défi bonus + signoff ----------
+    d.bonus(
+      'Imagine la suite ! En deux ou trois phrases, raconte ce qui se passe quand le courant revient dans la petite maison bleue.',
+      '+3 pts',
+      ['bonus_suite']
+    );
+    d.signoff('Bravo Cassie ! Prends ton temps, relis le texte et fais de ton mieux.');
+    d.render();
+  </script>
+</body>
+</html>
