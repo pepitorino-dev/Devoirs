@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Situation d'écriture de Cassie — Le récit du voyage d'hiver</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bibliothèque devoir-engine (mode CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+  const d = Devoir.creer({
+    cible: '#app',
+    eleve: 'Cassie',
+    type: 'devoir',
+    matiere: "Français, langue d'enseignement",
+    sujet: "Situation d'écriture — T2",
+    niveau: '4<sup>e</sup> année',
+    cycle: '2e cycle du primaire',
+    difficulte: 'Moyen',
+    objectif: "Comprendre et utiliser le schéma du récit en cinq temps, planifier "
+            + "puis rédiger un court récit d'hiver, employer les verbes au passé et "
+            + "un vocabulaire imagé, et réviser son texte — comme à l'épreuve d'écriture du ministère.",
+    total: 60,
+    storageKey: 'situation_cassie_fr_S2_moyen',
+    theme: 'default'
+  });
+
+  // ---------- Tâche 1 — Le schéma du récit ----------
+  d.exercice(1, 'Tâche 1 — Le schéma du récit', 12)
+    .intro(
+      "<p><b>🏁 Situation d'écriture — Le récit du voyage d'hiver</b></p>" +
+      "<p>L'école organise un <b>concours de récits</b> sur le thème de l'hiver québécois. " +
+      "Le récit gagnant sera publié dans le journal de l'école. Tu veux participer&nbsp;! " +
+      "Ton récit doit raconter une aventure d'hiver (vraie ou inventée), avec un début, un problème et une fin.</p>" +
+      "<p>Avant d'écrire ton histoire, regardons comment un récit est construit.</p>"
+    )
+    .rappel(
+      "<b>Le schéma du récit (5 temps) :</b><br>" +
+      "1. <b>Situation initiale</b> — le début calme : qui&nbsp;? où&nbsp;? quand&nbsp;?<br>" +
+      "2. <b>Élément déclencheur</b> — le problème qui change tout.<br>" +
+      "3. <b>Péripéties</b> — les actions du personnage pour régler le problème.<br>" +
+      "4. <b>Dénouement</b> — le moment où le problème se règle.<br>" +
+      "5. <b>Situation finale</b> — la fin, comment tout se termine."
+    )
+    .consigne('Lis le récit-modèle, puis réponds aux questions sur ses étapes.')
+    .histoire([
+      "C'était un samedi de janvier. Maya habitait une petite maison au bord d'un grand lac gelé. " +
+      "Ce matin-là, elle a chaussé ses patins pour aller glisser sur la glace avec son chien, Filou.",
+      "Tout à coup, Filou s'est élancé trop loin et la glace a craqué sous ses pattes.",
+      "Maya a d'abord crié pour appeler à l'aide. Comme personne ne venait, elle s'est couchée à plat " +
+      "ventre sur la glace et a tendu sa longue écharpe rouge vers Filou. Petit à petit, elle l'a tiré vers elle.",
+      "Après plusieurs efforts, Filou a enfin réussi à remonter sur la glace solide.",
+      "De retour à la maison, Maya a enveloppé son chien dans une couverture chaude. Elle était fière d'avoir gardé son calme."
+    ])
+    .texte('<span class="de-letter">a)</span> <b>Situation initiale</b> — Qui est le personnage principal et où se passe le début de l\'histoire ?', 's1_a')
+    .texte('<span class="de-letter">b)</span> <b>Élément déclencheur</b> — Quel problème vient déranger le calme du début ?', 's1_b')
+    .texte('<span class="de-letter">c)</span> <b>Péripéties</b> — Écris UNE action que Maya fait pour régler le problème.', 's1_c')
+    .texte('<span class="de-letter">d)</span> <b>Dénouement</b> — Comment le problème finit-il par se régler ?', 's1_d')
+    .texte('<span class="de-letter">e)</span> <b>Situation finale</b> — Comment se termine l\'histoire ?', 's1_e')
+    .espace(8)
+    .consigne('Relie chaque étape du récit à la petite phrase qui pourrait l\'annoncer.')
+    .paires(
+      ['Situation initiale', 'Élément déclencheur', 'Péripéties', 'Dénouement', 'Situation finale'],
+      ['Le personnage essaie plusieurs choses…', 'Au début, tout est calme…', 'À la fin, tout rentre dans l\'ordre.', 'Soudain, un jour…', 'Finalement, le problème se règle.'],
+      's1_paires'
+    );
+
+  // ---------- Tâche 2 — Je planifie mon récit ----------
+  d.exercice(2, 'Tâche 2 — Je planifie mon récit', 10)
+    .consigne('Avant d\'écrire, remplis ton plan. Chaque case correspond à une étape du schéma du récit.')
+    .texte('<span class="de-letter">a)</span> Mon personnage principal :', 's2_perso')
+    .texte('<span class="de-letter">b)</span> Où se passe l\'histoire ?', 's2_lieu')
+    .texte('<span class="de-letter">c)</span> Quand ? (un moment de l\'hiver)', 's2_temps')
+    .redaction('<span class="de-letter">d)</span> Situation initiale — que fait le personnage au début, quand tout est encore calme ?', 's2_init', { hauteur: 90, placeholder: 'Au début…' })
+    .redaction('<span class="de-letter">e)</span> Élément déclencheur — quel problème arrive tout à coup ?', 's2_decl', { hauteur: 90, placeholder: 'Soudain…' })
+    .redaction('<span class="de-letter">f)</span> Péripéties — note DEUX actions pour régler le problème.', 's2_peri', { hauteur: 110, placeholder: '1)…  2)…' })
+    .redaction('<span class="de-letter">g)</span> Dénouement — comment le problème se règle-t-il ?', 's2_deno', { hauteur: 90, placeholder: 'Finalement…' })
+    .redaction('<span class="de-letter">h)</span> Situation finale — comment se termine ton histoire ?', 's2_fin', { hauteur: 90, placeholder: 'À la fin…' });
+
+  // ---------- Tâche 3 — Mots et images de l'hiver ----------
+  d.exercice(3, "Tâche 3 — Mots et images de l'hiver", 8)
+    .consigne('Prépare ton vocabulaire. Des mots précis et des comparaisons rendront ton récit plus vivant.')
+    .phraseATrous('Huit mots précis de l\'hiver : ___ · ___ · ___ · ___', ['s3_m1','s3_m2','s3_m3','s3_m4'], { width: '120px' })
+    .phraseATrous('… et encore quatre : ___ · ___ · ___ · ___', ['s3_m5','s3_m6','s3_m7','s3_m8'], { width: '120px' })
+    .espace(6)
+    .consigne('Complète ces comparaisons avec tes propres idées.')
+    .phraseATrous('La neige est blanche comme ___.', ['s3_comp1'], { width: '180px' })
+    .phraseATrous('Le vent froid soufflait comme ___.', ['s3_comp2'], { width: '180px' })
+    .texte('Écris 3 adjectifs pour décrire un paysage d\'hiver :', 's3_adj', { placeholder: 'glacé, silencieux, …' });
+
+  // ---------- Tâche 4 — Les verbes au passé ----------
+  d.exercice(4, 'Tâche 4 — Les verbes au passé', 10)
+    .rappel(
+      "<b>Rappel :</b> dans un récit, on utilise surtout deux temps du passé.<br>" +
+      "• L'<b>imparfait</b> sert à planter le décor ou à décrire une action qui dure " +
+      "(<i>il faisait froid, la neige tombait</i>).<br>" +
+      "• Le <b>passé composé</b> sert aux actions courtes et soudaines " +
+      "(<i>elle a crié, le chien a sauté</i>)."
+    )
+    .consigne('Choisis le bon verbe pour compléter chaque phrase.')
+    .choixInline('a) Ce matin-là, il', 's4_a', ['faisait', 'a fait'], 'très froid dehors.')
+    .choixInline('b) Soudain, la glace', 's4_b', ['craquait', 'a craqué'], 'sous ses pattes.')
+    .choixInline('c) Pendant que je dormais, la neige', 's4_c', ['tombait', 'est tombée'], 'doucement.')
+    .espace(6)
+    .consigne('Conjugue le verbe entre parenthèses au PASSÉ COMPOSÉ.')
+    .phraseATrous('d) (glisser) Hier, j\'___ sur le lac gelé.', ['s4_d'], { width: '160px' })
+    .phraseATrous('e) (tomber) Beaucoup de neige ___ pendant la nuit.', ['s4_e'], { width: '160px' })
+    .consigne('Conjugue le verbe entre parenthèses à l\'IMPARFAIT.')
+    .phraseATrous('f) (faire) Quand j\'étais petite, il ___ toujours froid en janvier.', ['s4_f'], { width: '160px' })
+    .phraseATrous('g) (jouer) Tous les jours, nous ___ dehors dans la neige.', ['s4_g'], { width: '160px' });
+
+  // ---------- Tâche 5 — J'écris mon récit ----------
+  d.exercice(5, "Tâche 5 — J'écris mon récit", 16)
+    .consigne(
+      "C'est le grand moment ! Écris ton récit d'hiver complet (environ 20 à 25 lignes) en suivant ton plan de la Tâche 2. " +
+      "Suis les 5 étapes du schéma, emploie des verbes au passé et glisse au moins 5 mots de l'hiver de la Tâche 3."
+    )
+    .redaction('', 's5_recit', { hauteur: 380, placeholder: 'Mon récit du voyage d\'hiver…' });
+
+  // ---------- Tâche 6 — Je relis et je corrige ----------
+  d.exercice(6, 'Tâche 6 — Je relis et je corrige', 4)
+    .consigne('Relis ton récit, puis coche ce que tu as vérifié. C\'est l\'étape la plus importante !')
+    .toggleGrille(
+      [
+        { label: 'Mon récit a les 5 étapes (début, problème, actions, solution, fin).', key: 's6_a' },
+        { label: 'Chaque phrase a une majuscule et un point.', key: 's6_b' },
+        { label: 'J\'ai accordé les déterminants, noms et adjectifs (groupe du nom).', key: 's6_c' },
+        { label: 'J\'ai accordé chaque verbe avec son sujet.', key: 's6_d' },
+        { label: 'J\'ai utilisé des verbes au passé (imparfait, passé composé).', key: 's6_e' },
+        { label: 'J\'ai employé au moins 5 mots de l\'hiver.', key: 's6_f' }
+      ],
+      ['Fait', 'À revoir'],
+      { colonnes: 1 }
+    );
+
+  d.signoff('Bravo Cassie ! Prends ton temps : un beau récit commence toujours par un bon plan. ❄️');
+  d.render();
+  </script>
+</body>
+</html>

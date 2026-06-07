@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Examen de Mia — Français et Mathématique 2e année</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+const d = Devoir.creer({
+  cible: '#app',
+  eleve: 'Mia',
+  type: 'examen',
+  matiere: "Français et Mathématique",
+  sujet: "Examen de fin d'année — révision globale",
+  niveau: '2<sup>e</sup> année',
+  cycle: '1er cycle du primaire',
+  difficulte: 'Moyen',
+  objectif: "Réviser tout le programme de 2e année : en français (lecture, écriture, "
+          + "la phrase, le nom et le déterminant, le singulier/pluriel, le masculin/féminin, "
+          + "les verbes au présent, le vocabulaire) et en mathématique (nombres jusqu'à 1000, "
+          + "additions et soustractions, fractions, géométrie, mesure, diagramme et "
+          + "résolution de problèmes).",
+  total: 115,
+  storageKey: 'examen_mia_frmath_annee_moyen',
+  theme: 'default'
+});
+
+/* ======================================================================
+   PARTIE 1 — FRANÇAIS 📖
+   ====================================================================== */
+
+// ---------- Ex. 1 — lecture d'un récit ----------
+d.exercice(1, '📖 Je lis et je comprends', 5)
+  .consigne('Lis bien le texte, puis réponds aux questions par une phrase.')
+  .histoire(
+    "C'est l'hiver à Trois-Rivières. Ce matin, Mia met sa tuque bleue et ses mitaines. " +
+    "Avec sa grande sœur Léa, elle va glisser sur la grande côte du parc. La neige tombe " +
+    "doucement. Après trois belles descentes, les deux sœurs rentrent à la maison boire " +
+    "un bon chocolat chaud."
+  )
+  .texte('<span class="de-letter">a)</span> En quelle saison se passe l\'histoire ?', 'ex1a')
+  .texte('<span class="de-letter">b)</span> Avec qui Mia va-t-elle glisser ?', 'ex1b')
+  .texte('<span class="de-letter">c)</span> Combien de descentes font-elles ?', 'ex1c')
+  .texte('<span class="de-letter">d)</span> Que boivent-elles en rentrant ?', 'ex1d');
+
+// ---------- Ex. 2 — texte informatif ----------
+d.exercice(2, '📖 Je comprends un texte informatif', 4)
+  .consigne('Lis le petit texte sur le castor, puis trouve les bonnes réponses.')
+  .histoire(
+    "Le castor est un animal du Québec. Il vit près des rivières et des lacs. Avec ses " +
+    "dents solides, il coupe des arbres pour construire sa cabane. Le castor mange surtout " +
+    "de l'écorce et des plantes."
+  )
+  .texte('<span class="de-letter">a)</span> Où vit le castor ?', 'ex2a')
+  .texte('<span class="de-letter">b)</span> Avec quoi coupe-t-il les arbres ?', 'ex2b')
+  .texte('<span class="de-letter">c)</span> Que mange le castor ?', 'ex2c');
+
+// ---------- Ex. 3 — la phrase (majuscule et point) ----------
+d.exercice(3, '📖 La phrase : majuscule et point', 4)
+  .consigne('Recopie chaque phrase en mettant la majuscule au début et le point à la fin.')
+  .texte('<span class="de-letter">a)</span> le soleil brille dans le ciel', 'ex3a')
+  .texte('<span class="de-letter">b)</span> mon chien court dans la cour', 'ex3b')
+  .texte('<span class="de-letter">c)</span> nous mangeons une bonne soupe', 'ex3c');
+
+// ---------- Ex. 4 — nom et déterminant ----------
+d.exercice(4, '📖 Le nom et son déterminant', 5)
+  .consigne('Pour chaque phrase, écris le DÉTERMINANT (le petit mot) puis le NOM qui le suit.')
+  .phraseATrous('a) Le chat dort sur le divan. → déterminant : ___ &nbsp; nom : ___',
+                ['ex4a_det', 'ex4a_nom'], { width: '90px' })
+  .phraseATrous('b) Une fleur pousse dans le jardin. → déterminant : ___ &nbsp; nom : ___',
+                ['ex4b_det', 'ex4b_nom'], { width: '90px' })
+  .phraseATrous('c) Mes amis jouent dehors. → déterminant : ___ &nbsp; nom : ___',
+                ['ex4c_det', 'ex4c_nom'], { width: '90px' })
+  .phraseATrous('d) La maman prépare un gâteau. → déterminant : ___ &nbsp; nom : ___',
+                ['ex4d_det', 'ex4d_nom'], { width: '90px' });
+
+// ---------- Ex. 5 — singulier / pluriel ----------
+d.exercice(5, '📖 Singulier ou pluriel ?', 4)
+  .consigne('Choisis S (un seul) ou P (plusieurs) pour chaque groupe de mots.')
+  .toggleGrille(
+    [
+      { label: 'le ballon',    key: 'ex5_a' },
+      { label: 'des pommes',   key: 'ex5_b' },
+      { label: 'une amie',     key: 'ex5_c' },
+      { label: 'les chiens',   key: 'ex5_d' },
+      { label: 'mon livre',    key: 'ex5_e' },
+      { label: 'trois chats',  key: 'ex5_f' }
+    ],
+    ['S', 'P'],
+    { colonnes: 2 }
+  );
+
+// ---------- Ex. 6 — masculin / féminin ----------
+d.exercice(6, '📖 Du masculin au féminin', 4)
+  .consigne('Réécris chaque groupe de mots au féminin.')
+  .ligneAvecFleche('<span class="de-letter">a)</span> un ami <span class="de-arrow">→</span>', 'ex6a')
+  .ligneAvecFleche('<span class="de-letter">b)</span> le cousin <span class="de-arrow">→</span>', 'ex6b')
+  .ligneAvecFleche('<span class="de-letter">c)</span> un petit chat <span class="de-arrow">→</span>', 'ex6c')
+  .ligneAvecFleche('<span class="de-letter">d)</span> mon grand voisin <span class="de-arrow">→</span>', 'ex6d');
+
+// ---------- Ex. 7 — verbes être et avoir ----------
+d.exercice(7, '📖 Les verbes être et avoir', 4)
+  .consigne('Touche le bon mot pour compléter chaque phrase.')
+  .choixInline('a) Je',  'ex7a', ['suis', 'es', 'est'], 'heureuse.')
+  .choixInline('b) Tu',  'ex7b', ['suis', 'es', 'est'], 'mon ami.')
+  .choixInline('c) Il',  'ex7c', ['ai', 'as', 'a'],      'un chien.')
+  .choixInline("d) J'", 'ex7d', ['ai', 'as', 'a'],      'deux sœurs.');
+
+// ---------- Ex. 8 — verbes au présent ----------
+d.exercice(8, '📖 Les verbes au présent', 4)
+  .consigne('Touche le verbe bien accordé pour compléter chaque phrase.')
+  .choixInline('a) Je',           'ex8a', ['joue', 'joues', 'jouent'],     'au ballon.')
+  .choixInline('b) Tu',           'ex8b', ['mange', 'manges', 'mangent'],  'ta soupe.')
+  .choixInline('c) Les enfants',  'ex8c', ['parle', 'parles', 'parlent'],  'fort.')
+  .choixInline('d) Maman',        'ex8d', ['chante', 'chantes', 'chantent'],'une chanson.');
+
+// ---------- Ex. 9 — contraires ----------
+d.exercice(9, '📖 Les contraires', 4)
+  .consigne('Touche un mot à gauche, puis son contraire à droite, pour les relier.')
+  .paires(
+    ['grand', 'chaud', 'jour', 'content'],
+    ['froid', 'nuit', 'petit', 'triste'],     // ordre brouillé
+    'ex9_paires'
+  );
+
+// ---------- Ex. 10 — l'intrus ----------
+d.exercice(10, "📖 Trouve l'intrus", 3)
+  .consigne("Touche le mot qui n'est pas de la même famille que les autres pour le barrer.")
+  .motsIntrus('a)', ['chien', 'chat', 'lapin', 'banane', 'cheval'], 'ex10a')
+  .motsIntrus('b)', ['rouge', 'bleu', 'vert', 'table', 'jaune'],     'ex10b')
+  .motsIntrus('c)', ['courir', 'sauter', 'manger', 'crayon', 'danser'], 'ex10c');
+
+// ---------- Ex. 11 — ordre alphabétique ----------
+d.exercice(11, "📖 L'ordre alphabétique", 3)
+  .consigne('Recopie les mots en ordre alphabétique (selon la première lettre).')
+  .texte('<span class="de-letter">a)</span> banane · école · ami · zèbre · maison', 'ex11a',
+         { placeholder: 'ami, banane, ...' })
+  .texte('<span class="de-letter">b)</span> chat · cabane · crayon · cerf', 'ex11b');
+
+// ---------- Ex. 12 — le verbe dans la phrase ----------
+d.exercice(12, '📖 Le verbe dans la phrase', 3)
+  .consigne("Touche le verbe (le mot qui dit ce qu'on fait) dans chaque phrase.")
+  .motsChips('a) Le chien mange un os.', ['Le', 'chien', 'mange', 'un', 'os'], 'ex12a', 'select')
+  .motsChips('b) Mia court dans le parc.', ['Mia', 'court', 'dans', 'le', 'parc'], 'ex12b', 'select')
+  .motsChips('c) Les oiseaux chantent.', ['Les', 'oiseaux', 'chantent'], 'ex12c', 'select');
+
+// ---------- Ex. 13 — rédaction ----------
+d.exercice(13, '📖 J\'écris ma saison préférée', 6)
+  .consigne("Écris 3 ou 4 phrases pour raconter ta saison préférée et ce que tu aimes y faire. " +
+            "N'oublie pas la majuscule et le point à chaque phrase !")
+  .redaction('', 'ex13', { placeholder: 'Ma saison préférée est...', hauteur: 150 });
+
+/* ======================================================================
+   PARTIE 2 — MATHÉMATIQUE 🔢
+   ====================================================================== */
+
+// ---------- Ex. 14 — les nombres jusqu'à 1000 ----------
+d.exercice(14, '🔢 Les nombres jusqu\'à 1000', 5)
+  .consigne('Travaille la valeur des chiffres dans un nombre.')
+  .decomposition({
+    nombre: 372,
+    positions: ['C', 'D', 'U'],
+    keys: ['ex14_c', 'ex14_d', 'ex14_u'],
+    label: 'a) 372 → '
+  })
+  .phraseATrous('b) Dans le nombre 458, le chiffre des dizaines est ___.', ['ex14b'], { width: '70px' })
+  .phraseATrous('c) Écris en chiffres : « deux cent six » → ___', ['ex14c'], { width: '90px' });
+
+// ---------- Ex. 15 — comparer et ordonner ----------
+d.exercice(15, '🔢 Comparer et ordonner', 4)
+  .consigne('Compare avec &lt;, &gt; ou =. Ensuite, place les nombres en ordre.')
+  .phraseATrous('a) 47 ___ 74', ['ex15a'], { width: '60px' })
+  .phraseATrous('b) 305 ___ 305', ['ex15b'], { width: '60px' })
+  .phraseATrous('c) 218 ___ 199', ['ex15c'], { width: '60px' })
+  .texte('d) Place du plus petit au plus grand : 45 · 12 · 78 · 30', 'ex15d',
+         { placeholder: '12, ...' });
+
+// ---------- Ex. 16 — bonds, pairs et impairs ----------
+d.exercice(16, '🔢 Compter par bonds, pairs et impairs', 4)
+  .consigne('Continue les suites, puis trouve les nombres pairs.')
+  .phraseATrous('a) Compte par 5 : 5, 10, 15, ___, ___, 30', ['ex16a1', 'ex16a2'], { width: '60px' })
+  .phraseATrous('b) Compte par 10 : 20, 30, ___, ___, 60', ['ex16b1', 'ex16b2'], { width: '60px' })
+  .motsChips('c) Touche tous les nombres PAIRS :', ['12', '7', '20', '15', '8', '3'], 'ex16c', 'multi');
+
+// ---------- Ex. 17 — additions ----------
+d.exercice(17, '🔢 Les additions', 5)
+  .consigne('Pose et calcule chaque addition. Attention aux retenues !')
+  .operationColonne({ label: 'a)', operande1: '34',  operande2: '25',  operateur: '+', key: 'ex17a' })
+  .operationColonne({ label: 'b)', operande1: '47',  operande2: '38',  operateur: '+', key: 'ex17b' })
+  .operationColonne({ label: 'c)', operande1: '256', operande2: '131', operateur: '+', key: 'ex17c' });
+
+// ---------- Ex. 18 — soustractions ----------
+d.exercice(18, '🔢 Les soustractions', 5)
+  .consigne('Pose et calcule chaque soustraction. Attention aux emprunts !')
+  .operationColonne({ label: 'a)', operande1: '68',  operande2: '35', operateur: '−', key: 'ex18a' })
+  .operationColonne({ label: 'b)', operande1: '83',  operande2: '47', operateur: '−', key: 'ex18b' })
+  .operationColonne({ label: 'c)', operande1: '175', operande2: '52', operateur: '−', key: 'ex18c' });
+
+// ---------- Ex. 19 — vers la multiplication ----------
+d.exercice(19, '🔢 Vers la multiplication', 4)
+  .consigne('La multiplication, c\'est une addition répétée.')
+  .phraseATrous('a) 2 + 2 + 2 + 2 = ___, c\'est aussi 4 × 2 = ___', ['ex19a1', 'ex19a2'], { width: '60px' })
+  .texte('b) Il y a 3 paniers. Dans chaque panier, il y a 5 pommes. Combien de pommes en tout ?', 'ex19b');
+
+// ---------- Ex. 20 — fractions ----------
+d.exercice(20, '🔢 Les fractions : moitié et quart', 4)
+  .consigne('Colorie les figures, puis réponds à la question.')
+  .fractionAColorier('a) Colorie la moitié du rectangle.', 2, 'ex20a')
+  .fractionCercle('b) Colorie le quart du gâteau.', 4, 'ex20b')
+  .texte('c) Tu partages 8 bonbons également entre 2 amis. Chacun reçoit combien de bonbons ?', 'ex20c');
+
+// ---------- Ex. 21 — figures planes ----------
+d.exercice(21, '🔢 Les figures planes', 4)
+  .consigne('Regarde les figures, puis écris la bonne LETTRE pour chaque réponse.')
+  .svg(`<svg viewBox="0 0 480 170" width="100%" height="185" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="35" width="80" height="80" fill="#E3A48F" stroke="#2B2A26" stroke-width="2"/>
+    <text x="60" y="150" text-anchor="middle" font-size="20" font-family="sans-serif" fill="#2B2A26">A</text>
+    <polygon points="185,35 145,115 225,115" fill="#C99846" stroke="#2B2A26" stroke-width="2"/>
+    <text x="185" y="150" text-anchor="middle" font-size="20" font-family="sans-serif" fill="#2B2A26">B</text>
+    <circle cx="300" cy="75" r="40" fill="#8AB8C4" stroke="#2B2A26" stroke-width="2"/>
+    <text x="300" y="150" text-anchor="middle" font-size="20" font-family="sans-serif" fill="#2B2A26">C</text>
+    <rect x="375" y="50" width="90" height="50" fill="#6F8B5B" stroke="#2B2A26" stroke-width="2"/>
+    <text x="420" y="150" text-anchor="middle" font-size="20" font-family="sans-serif" fill="#2B2A26">D</text>
+  </svg>`)
+  .texte('a) Quelle figure est un triangle ?', 'ex21a', { width: '60px' })
+  .texte('b) Quelle figure est un cercle ?', 'ex21b', { width: '60px' })
+  .texte('c) Quelle figure a 4 côtés tous égaux (un carré) ?', 'ex21c', { width: '60px' });
+
+// ---------- Ex. 22 — symétrie ----------
+d.exercice(22, '🔢 La symétrie', 3)
+  .consigne('Touche le ou les axes qui coupent la figure en deux parties identiques.')
+  .symetrie({
+    figure: 'rectangle',
+    axes: [
+      { id: 'h',  type: 'horizontal' },
+      { id: 'v',  type: 'vertical' },
+      { id: 'd1', type: 'diagonal', pente: 1 },
+      { id: 'd2', type: 'diagonal', pente: -1 }
+    ],
+    key: 'ex22',
+    mode: 'multi'
+  });
+
+// ---------- Ex. 23 — les solides ----------
+d.exercice(23, '🔢 Les solides', 3)
+  .consigne('Relie chaque solide à un objet qui a la même forme.')
+  .paires(
+    ['le cube', 'la boule', 'le cône', 'le cylindre'],
+    ['un cornet de crème glacée', 'une boîte de conserve', 'un dé', 'un ballon'], // brouillé
+    'ex23_paires'
+  );
+
+// ---------- Ex. 24 — lire l'heure ----------
+d.exercice(24, "🔢 Lire l'heure", 4)
+  .consigne("Regarde chaque horloge, puis écris l'heure qu'elle indique.")
+  .horloges([
+    { heure: 3,  minutes: 0,  label: 'a)' },
+    { heure: 7,  minutes: 30, label: 'b)' },
+    { heure: 10, minutes: 30, label: 'c)' }
+  ])
+  .texte("a) Quelle heure indique l'horloge a) ?", 'ex24a')
+  .texte("b) Quelle heure indique l'horloge b) ?", 'ex24b')
+  .texte("c) Quelle heure indique l'horloge c) ?", 'ex24c');
+
+// ---------- Ex. 25 — l'argent ----------
+d.exercice(25, "🔢 L'argent", 4)
+  .consigne('Compte combien il y a d\'argent en tout.')
+  .argentQc('a) Combien d\'argent en tout ?', [
+    { type: '5$', qte: 1 },
+    { type: '2$', qte: 2 },
+    { type: '1$', qte: 3 }
+  ], 'ex25a', { uniteResultat: '$' })
+  .argentQc('b) Combien d\'argent en tout ?', [
+    { type: '25c', qte: 2 },
+    { type: '10c', qte: 3 },
+    { type: '5c',  qte: 1 }
+  ], 'ex25b', { uniteResultat: '¢' });
+
+// ---------- Ex. 26 — le calendrier ----------
+d.exercice(26, '🔢 Le calendrier', 3)
+  .consigne('Complète avec le bon mot ou le bon nombre.')
+  .phraseATrous('a) Le jour après lundi, c\'est ___.', ['ex26a'], { width: '110px' })
+  .phraseATrous('b) Le mois après janvier, c\'est ___.', ['ex26b'], { width: '110px' })
+  .phraseATrous('c) Il y a ___ jours dans une semaine.', ['ex26c'], { width: '60px' });
+
+// ---------- Ex. 27 — lire un diagramme ----------
+d.exercice(27, '🔢 Lire un diagramme', 4)
+  .consigne('Regarde le diagramme, puis réponds aux questions.')
+  .diagrammeBandes({
+    titre: 'Fruit préféré des amis de Mia',
+    axeY: "Nombre d'amis",
+    donnees: [
+      { categorie: 'Pommes',  valeur: 6 },
+      { categorie: 'Bananes', valeur: 4 },
+      { categorie: 'Raisins', valeur: 8 },
+      { categorie: 'Fraises', valeur: 5 }
+    ]
+  })
+  .texte('a) Quel fruit est le plus aimé ?', 'ex27a')
+  .texte('b) Combien d\'amis préfèrent les bananes ?', 'ex27b')
+  .texte('c) Combien d\'amis ont voté en tout ?', 'ex27c');
+
+// ---------- Ex. 28 — résolution de problèmes ----------
+d.exercice(28, '🔢 Résous les problèmes', 6)
+  .consigne('Lis bien chaque problème. Écris ton calcul et ta réponse.')
+  .texte('a) Dans la classe, il y a 13 filles et 12 garçons. Combien d\'élèves en tout ?', 'ex28a')
+  .texte('b) Léa a 24 billes. Elle en donne 9 à son ami. Combien lui en reste-t-il ?', 'ex28b')
+  .texte('c) Mia avait 50 $. Elle achète un jeu à 35 $. Combien d\'argent lui reste-t-il ?', 'ex28c');
+
+// ---------- Bonus + signoff ----------
+d.bonus(
+  'Trouve trois mots de la même famille de sens que « <b>hiver</b> » :',
+  '+2 pts',
+  ['bonus1', 'bonus2', 'bonus3']
+);
+d.signoff('Bravo Mia ! Prends ton temps, lis bien chaque consigne, tu es capable. ✨');
+d.render();
+  </script>
+</body>
+</html>
