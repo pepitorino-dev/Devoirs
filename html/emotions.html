@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Feelings Detective</title>
+
+<!--
+  ============================================================
+   FEELINGS DETECTIVE  ·  one standalone file
+  ============================================================
+   A gentle "after the storm" reflection page for kids 8-12.
+   Use it when the child is CALM again — it's a curious detective
+   space, never a punishment.
+
+   HOW TO EDIT THE CONTENT:
+   Everything the page says lives in DETECTIVE_CONFIG below.
+   - childName ...... optional default name. Leave "" and the page
+                      will simply ASK who's playing on the welcome screen.
+                      (Whatever name is used keeps its own saved history.)
+   - happenedOptions  the "what happened" buttons
+   - feelingWords ... feeling words grouped by family (used in step 2)
+   - bodyCues ....... the body-signal buttons
+   - clueOptions .... the "detective clue" / hidden-trigger buttons
+   - helpedOptions .. the "what could have helped" buttons
+   Add or remove items freely — same shape, that's it.
+  ============================================================
+-->
+<script>
+const DETECTIVE_CONFIG = {
+
+  childName: "",   // leave "" to let the page ask. Or set e.g. "Amelia".
+
+  /* STEP: what happened */
+  happenedOptions: [
+    "Someone left me out",
+    "Something felt unfair",
+    "I had to stop something fun",
+    "Someone said something that hurt",
+    "Things kept going wrong",
+    "Someone took or broke my thing",
+    "I was told no",
+    "Too many things at once"
+  ],
+
+  /* STEP: what did I feel (grouped families) */
+  feelingWords: {
+    "Anger":   { color:"#E2562B", words:["annoyed","frustrated","mad","furious","outraged"] },
+    "Sad":     { color:"#2E86C9", words:["bummed","disappointed","hurt","sad","crushed"] },
+    "Worry":   { color:"#7E57C2", words:["unsure","nervous","worried","anxious","panicked"] },
+    "Friend":  { color:"#3FA66A", words:["left out","lonely","jealous","overlooked","rejected"] }
+  },
+
+  /* STEP: where did I feel it */
+  bodyCues: [
+    "🔥 hot face",
+    "✊ tight fists",
+    "💓 fast heartbeat",
+    "🌀 tight tummy",
+    "😮‍💨 hard to breathe",
+    "😢 lump in throat",
+    "🧱 heavy chest",
+    "⚡ shaky body",
+    "🤬 wanted to hit or throw"
+  ],
+
+  /* STEP: the detective clue (hidden triggers) */
+  clueOptions: [
+    "😴 I was tired",
+    "🍎 I was hungry",
+    "🌪️ Too much was going on",
+    "🙈 I felt left out",
+    "⚖️ Something felt unfair",
+    "🚫 I didn't get something I wanted",
+    "🥵 I was too hot or uncomfortable",
+    "❓ I'm not sure yet"
+  ],
+
+  /* STEP: what could have helped */
+  helpedOptions: [
+    "🧍 Take some space by myself",
+    "🤗 Get a hug or be close to someone",
+    "🗣️ Use words to say how I feel",
+    "🏃 Move my body or squeeze something",
+    "🎨 Do something I love",
+    "😄 A joke to make it lighter",
+    "🌬️ Take slow breaths",
+    "💧 Have a drink or a snack"
+  ]
+};
+</script>
+
+<style>
+  :root{
+    --paper:#EEF4F0;
+    --ink:#243530;
+    --ink-soft:#5C7068;
+    --card:#FFFFFF;
+    --line:#D7E3DC;
+    --accent:#3F7FA6;     /* detective blue */
+    --warm:#E8A33D;
+    --tape:#FBE7A2;
+    --shadow:0 10px 28px rgba(36,53,48,.10);
+    --radius:22px;
+    --font: ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN",
+            "Nunito", "Quicksand", "Segoe UI", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font);color:var(--ink);
+    background:
+      radial-gradient(circle at 14% 6%, #FFF6E6 0, transparent 36%),
+      radial-gradient(circle at 86% 4%, #E2EEF6 0, transparent 34%),
+      radial-gradient(circle at 50% 122%, #E8F6EC 0, transparent 55%),
+      var(--paper);
+    min-height:100vh;-webkit-tap-highlight-color:transparent;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:18px 18px 60px;}
+
+  header{text-align:center;padding:8px 4px 0;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;background:#fff;
+    border:2px dashed var(--line);padding:6px 14px;border-radius:999px;
+    font-weight:800;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  h1{font-size:clamp(1.8rem,6.5vw,2.6rem);line-height:1.04;margin:.32em 0 .12em;font-weight:900;}
+  .grownup{
+    background:#FFF8E8;border:1px solid #F0DDA6;border-radius:14px;
+    padding:10px 14px;font-size:.84rem;color:#7a5d10;font-weight:600;
+    margin:14px auto 0;max-width:560px;line-height:1.45;
+  }
+
+  /* progress dots */
+  .dots{display:flex;gap:7px;justify-content:center;margin:18px 0 4px;flex-wrap:wrap;}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--line);transition:background .2s, transform .2s;}
+  .dot.on{background:var(--accent);transform:scale(1.25);}
+  .dot.done{background:var(--accent);opacity:.45;}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:24px 22px;margin-top:14px;position:relative;
+    animation:rise .3s ease both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .step-emoji{font-size:2.6rem;line-height:1;margin-bottom:6px;}
+  .card h2{margin:.05em 0 .2em;font-size:1.4rem;font-weight:900;line-height:1.15;}
+  .card .lead{color:var(--ink-soft);margin:.1em 0 1.1em;font-weight:600;font-size:.98rem;line-height:1.45;}
+
+  .options{display:flex;flex-wrap:wrap;gap:9px;}
+  .opt{
+    border:2px solid var(--line);background:#fff;border-radius:14px;
+    padding:11px 15px;font-weight:800;font-size:1rem;font-family:var(--font);
+    cursor:pointer;color:var(--ink);transition:transform .1s;text-align:left;
+  }
+  .opt:hover{transform:translateY(-2px);}
+  .opt[aria-pressed="true"]{border-color:var(--accent);background:#E7F1F7;}
+  .opt:focus-visible{outline:3px solid #1E88E5;outline-offset:2px;}
+
+  .families{display:flex;flex-direction:column;gap:14px;}
+  .family .fname{font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:6px;}
+
+  .scale{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;}
+  .scaleLbl{font-size:.8rem;font-weight:800;color:var(--ink-soft);}
+  .pip{
+    width:42px;height:42px;border-radius:12px;border:2px solid var(--line);background:#fff;
+    font-weight:900;font-size:1rem;cursor:pointer;color:var(--ink-soft);font-family:var(--font);
+  }
+  .pip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:transparent;}
+  .pip:focus-visible{outline:3px solid #1E88E5;outline-offset:2px;}
+
+  .textbox{
+    width:100%;margin-top:10px;border:2px solid var(--line);border-radius:14px;
+    padding:12px 14px;font-family:var(--font);font-size:1rem;font-weight:600;color:var(--ink);
+    resize:vertical;min-height:46px;background:#fff;
+  }
+  .textbox:focus-visible{outline:3px solid #1E88E5;outline-offset:1px;border-color:var(--accent);}
+  .miniLabel{font-size:.82rem;font-weight:800;color:var(--ink-soft);margin:14px 0 0;}
+
+  .nameInput{
+    width:100%;border:2px solid var(--line);border-radius:14px;padding:13px 15px;
+    font-family:var(--font);font-size:1.1rem;font-weight:800;color:var(--ink);text-align:center;
+  }
+  .nameInput:focus-visible{outline:3px solid #1E88E5;outline-offset:1px;border-color:var(--accent);}
+
+  .nav{display:flex;gap:10px;margin-top:20px;align-items:center;}
+  .btn{
+    border:none;border-radius:15px;padding:13px 22px;font-family:var(--font);
+    font-weight:900;font-size:1rem;cursor:pointer;color:#fff;background:var(--accent);
+    box-shadow:0 5px 0 rgba(0,0,0,.12);transition:transform .1s, box-shadow .1s;
+  }
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.12);}
+  .btn.ghostbtn{background:#fff;color:var(--ink-soft);border:2px solid var(--line);box-shadow:none;}
+  .btn.warm{background:var(--warm);}
+  .btn:focus-visible{outline:3px solid #1E88E5;outline-offset:2px;}
+  .spacer{flex:1;}
+  .skip{background:none;border:none;color:var(--ink-soft);font-weight:800;font-family:var(--font);
+    font-size:.95rem;cursor:pointer;text-decoration:underline;}
+
+  /* summary */
+  .summary{display:flex;flex-direction:column;gap:12px;}
+  .sumRow{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#FAFCFB;}
+  .sumRow .k{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+  .sumRow .v{font-weight:700;margin-top:3px;}
+  .cool{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  .saved-msg{font-weight:800;color:var(--accent);min-height:1.3em;margin-top:6px;}
+
+  .confetti{position:fixed;width:11px;height:11px;top:-20px;z-index:1000;border-radius:2px;pointer-events:none;}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+  @media (max-width:520px){.card{padding:20px 16px;} .pip{width:38px;height:38px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">🔍 Feelings Detective</span>
+    <h1 id="title">Let's solve the mystery 🕵️</h1>
+    <div class="grownup">For grown-ups: this is a calm-down reflection space to use <b>after</b> the storm has passed — a curious detective game, not a punishment. Every step can be skipped.</div>
+  </header>
+
+  <div class="dots" id="dots" aria-hidden="true"></div>
+  <div id="stage"></div>
+</div>
+
+<script>
+const CFG = DETECTIVE_CONFIG;
+
+/* ---------- safe storage (real localStorage + memory fallback) ---------- */
+const Store = (() => {
+  let ok=false;
+  try{ const k="__fd__"; localStorage.setItem(k,"1"); localStorage.removeItem(k); ok=true; }catch(e){}
+  const mem={};
+  return {
+    get(k){ try{ return ok?localStorage.getItem(k):(mem[k]??null);}catch(e){return mem[k]??null;} },
+    set(k,v){ try{ ok?localStorage.setItem(k,v):(mem[k]=v);}catch(e){mem[k]=v;} }
+  };
+})();
+
+/* ---------- session state ---------- */
+const state = {
+  name: (CFG.childName||"").trim(),
+  happened: [], happenedOther:"",
+  feelings: [], intensity:null,
+  body: [],
+  clue: [],
+  helped: [], helpedOther:"",
+  reframe:"",
+  fix:"",
+  cool:null
+};
+
+/* ---------- step list ---------- */
+const steps = [];
+if(!state.name) steps.push("name");
+steps.push("safe","happened","feel","body","clue","helped","reframe","fix","done");
+let idx = 0;
+
+const stage = document.getElementById("stage");
+const dotsEl = document.getElementById("dots");
+
+function renderDots(){
+  dotsEl.innerHTML="";
+  steps.forEach((s,i)=>{
+    if(s==="name") return;
+    const d=document.createElement("div");
+    d.className="dot"+(i===idx?" on":(i<idx?" done":""));
+    dotsEl.appendChild(d);
+  });
+}
+
+function who(){ return state.name ? state.name : "you"; }
+function setTitle(t){ document.getElementById("title").innerHTML=t; }
+
+/* generic multi-select chip builder */
+function chips(container, items, arr){
+  items.forEach(label=>{
+    const b=document.createElement("button");
+    b.className="opt"; b.textContent=label;
+    b.setAttribute("aria-pressed", arr.includes(label)?"true":"false");
+    b.addEventListener("click",()=>{
+      const i=arr.indexOf(label);
+      if(i>=0) arr.splice(i,1); else arr.push(label);
+      b.setAttribute("aria-pressed", arr.includes(label)?"true":"false");
+    });
+    container.appendChild(b);
+  });
+}
+
+function navBar({back=true, next="Next →", skip=false, nextWarm=false, onNext, onSkip}){
+  const nav=document.createElement("div"); nav.className="nav";
+  if(back){
+    const b=document.createElement("button"); b.className="btn ghostbtn"; b.textContent="← Back";
+    b.addEventListener("click",()=>{ idx=Math.max(0,idx-1); render(); });
+    nav.appendChild(b);
+  }
+  const sp=document.createElement("div"); sp.className="spacer"; nav.appendChild(sp);
+  if(skip){
+    const s=document.createElement("button"); s.className="skip"; s.textContent="Skip";
+    s.addEventListener("click", onSkip||(()=>{ idx++; render(); }));
+    nav.appendChild(s);
+  }
+  const n=document.createElement("button"); n.className="btn"+(nextWarm?" warm":""); n.textContent=next;
+  n.addEventListener("click", onNext||(()=>{ idx++; render(); }));
+  nav.appendChild(n);
+  return nav;
+}
+
+function card(html){
+  const c=document.createElement("div"); c.className="card"; c.innerHTML=html; return c;
+}
+
+/* ---------- render each step ---------- */
+function render(){
+  renderDots();
+  stage.innerHTML="";
+  const s=steps[idx];
+
+  if(s==="name"){
+    setTitle("Who's the detective today? 🕵️");
+    const c=card(`<div class="step-emoji">🕵️</div>
+      <h2>What should I call you?</h2>
+      <p class="lead">Type your name so I can save your detective notes just for you. (It stays on this tablet.)</p>
+      <input class="nameInput" id="nameField" placeholder="Your name" maxlength="20" />`);
+    const nav=navBar({back:false, next:"Start →", onNext:()=>{
+      const v=document.getElementById("nameField").value.trim();
+      state.name = v || "";
+      idx++; render();
+    }});
+    c.appendChild(nav); stage.appendChild(c);
+    setTimeout(()=>document.getElementById("nameField").focus(),50);
+    return;
+  }
+
+  if(s==="safe"){
+    setTitle(state.name?`Hi ${state.name} 💛`:"You're safe 💛");
+    const c=card(`<div class="step-emoji">💛</div>
+      <h2>You're not in trouble.</h2>
+      <p class="lead">Everybody has big feelings sometimes — that's totally okay. We're just going to be detectives and figure out what happened, so it feels easier next time. Ready?</p>`);
+    c.appendChild(navBar({back: steps[0]!=="name"?false:true, next:"I'm ready →"}));
+    stage.appendChild(c); return;
+  }
+
+  if(s==="happened"){
+    setTitle("Clue #1: What happened? 🔍");
+    const c=card(`<div class="step-emoji">🔍</div>
+      <h2>What happened right before?</h2>
+      <p class="lead">Tap anything that fits. There's no wrong answer — we're just looking for clues.</p>
+      <div class="options" id="opts"></div>
+      <p class="miniLabel">Or tell it in your own words:</p>
+      <textarea class="textbox" id="otherBox" placeholder="What happened…">${state.happenedOther}</textarea>`);
+    chips(c.querySelector("#opts"), CFG.happenedOptions, state.happened);
+    c.appendChild(navBar({onNext:()=>{ state.happenedOther=c.querySelector("#otherBox").value.trim(); idx++; render(); }}));
+    stage.appendChild(c); return;
+  }
+
+  if(s==="feel"){
+    setTitle("Clue #2: The feeling 🎨");
+    const c=card(`<div class="step-emoji">🎨</div>
+      <h2>What did you feel?</h2>
+      <p class="lead">Tap every feeling that was there — more than one can be true at once.</p>
+      <div class="families" id="fams"></div>
+      <p class="miniLabel">How BIG was the feeling?</p>
+      <div class="scale" id="scale">
+        <span class="scaleLbl">gentle</span>
+      </div>`);
+    const fams=c.querySelector("#fams");
+    Object.entries(CFG.feelingWords).forEach(([fam,obj])=>{
+      const wrap=document.createElement("div"); wrap.className="family";
+      wrap.innerHTML=`<div class="fname" style="color:${obj.color}">${fam}</div>`;
+      const row=document.createElement("div"); row.className="options";
+      chips(row, obj.words, state.feelings);
+      wrap.appendChild(row); fams.appendChild(wrap);
+    });
+    const scale=c.querySelector("#scale");
+    for(let i=1;i<=5;i++){
+      const p=document.createElement("button"); p.className="pip"; p.textContent=i;
+      p.setAttribute("aria-pressed", state.intensity===i?"true":"false");
+      p.addEventListener("click",()=>{ state.intensity=i; scale.querySelectorAll(".pip").forEach(x=>x.setAttribute("aria-pressed","false")); p.setAttribute("aria-pressed","true"); });
+      scale.appendChild(p);
+    }
+    const big=document.createElement("span"); big.className="scaleLbl"; big.textContent="HUGE"; scale.appendChild(big);
+    c.appendChild(navBar({}));
+    stage.appendChild(c); return;
+  }
+
+  if(s==="body"){
+    setTitle("Clue #3: Your body 💓");
+    const c=card(`<div class="step-emoji">💓</div>
+      <h2>Where did you feel it?</h2>
+      <p class="lead">Our body gives us clues before our brain does. Tap what you noticed — these are your early warning signs.</p>
+      <div class="options" id="opts"></div>`);
+    chips(c.querySelector("#opts"), CFG.bodyCues, state.body);
+    c.appendChild(navBar({skip:true}));
+    stage.appendChild(c); return;
+  }
+
+  if(s==="clue"){
+    setTitle("The BIG clue 🕵️");
+    const c=card(`<div class="step-emoji">🕵️</div>
+      <h2>What might have been hiding underneath?</h2>
+      <p class="lead">Sometimes a feeling feels like it came from nowhere — but there's usually a hidden clue. Tap any that might fit.</p>
+      <div class="options" id="opts"></div>`);
+    chips(c.querySelector("#opts"), CFG.clueOptions, state.clue);
+    c.appendChild(navBar({skip:true}));
+    stage.appendChild(c); return;
+  }
+
+  if(s==="helped"){
+    setTitle("The plan 🧰");
+    const c=card(`<div class="step-emoji">🧰</div>
+      <h2>What could help next time?</h2>
+      <p class="lead">If a feeling that big comes again, what might help you feel calmer? Tap your favorites — and add your own.</p>
+      <div class="options" id="opts"></div>
+      <p class="miniLabel">My own idea:</p>
+      <textarea class="textbox" id="otherBox" placeholder="Something else that helps me…">${state.helpedOther}</textarea>`);
+    chips(c.querySelector("#opts"), CFG.helpedOptions, state.helped);
+    c.appendChild(navBar({onNext:()=>{ state.helpedOther=c.querySelector("#otherBox").value.trim(); idx++; render(); }}));
+    stage.appendChild(c); return;
+  }
+
+  if(s==="reframe"){
+    setTitle("See it another way 🔭");
+    const c=card(`<div class="step-emoji">🔭</div>
+      <h2>What would you tell a friend?</h2>
+      <p class="lead">Imagine a friend had this exact same thing happen. What kind, true thing would you say to them? (You can skip this one.)</p>
+      <textarea class="textbox" id="reBox" placeholder="I'd tell my friend…">${state.reframe}</textarea>`);
+    c.appendChild(navBar({skip:true, onNext:()=>{ state.reframe=c.querySelector("#reBox").value.trim(); idx++; render(); }}));
+    stage.appendChild(c); return;
+  }
+
+  if(s==="fix"){
+    setTitle("Making it right 🤝");
+    const c=card(`<div class="step-emoji">🤝</div>
+      <h2>Anything you want to fix or say?</h2>
+      <p class="lead">All feelings are okay — and sometimes our actions need a little repair. Is there something you'd like to say or do? (Totally okay to skip.)</p>
+      <textarea class="textbox" id="fixBox" placeholder="Maybe I could…">${state.fix}</textarea>`);
+    c.appendChild(navBar({skip:true, next:"Finish →", nextWarm:true, onNext:()=>{ state.fix=c.querySelector("#fixBox").value.trim(); idx++; render(); }, onSkip:()=>{ idx++; render(); }}));
+    stage.appendChild(c); return;
+  }
+
+  if(s==="done"){
+    setTitle(state.name?`Great detective work, ${state.name}! 🎉`:"Great detective work! 🎉");
+    burst("#3F7FA6");
+    const c=card(`<div class="step-emoji">🌈</div>
+      <h2>Case closed.</h2>
+      <p class="lead">Before we go — are you feeling hotter or cooler than when you started?</p>
+      <div class="cool" id="cool"></div>
+      <div class="summary" id="sum" style="margin-top:18px;"></div>
+      <div class="saved-msg" id="savedMsg"></div>
+      <div class="nav">
+        <button class="btn ghostbtn" id="restart">Start over</button>
+        <div class="spacer"></div>
+        <button class="btn warm" id="dl">Save for a grown-up</button>
+      </div>`);
+    /* cool-down check */
+    const cool=c.querySelector("#cool");
+    [["🔥 hotter","hotter"],["😐 about the same","same"],["❄️ cooler","cooler"]].forEach(([lbl,val])=>{
+      const b=document.createElement("button"); b.className="opt"; b.textContent=lbl;
+      b.setAttribute("aria-pressed", state.cool===val?"true":"false");
+      b.addEventListener("click",()=>{ state.cool=val; cool.querySelectorAll(".opt").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); });
+      cool.appendChild(b);
+    });
+    /* summary */
+    c.querySelector("#sum").innerHTML = summaryHTML();
+    c.querySelector("#restart").addEventListener("click",()=>{ resetState(); idx = steps[0]==="name"?0:0; render(); });
+    c.querySelector("#dl").addEventListener("click",()=>{ saveEntry(); downloadEntry(); c.querySelector("#savedMsg").textContent="Saved on this tablet, and a copy downloaded. 💾"; });
+    stage.appendChild(c); return;
+  }
+}
+
+/* ---------- summary helpers ---------- */
+function listOrDash(arr, other){
+  const all=[...arr]; if(other) all.push("“"+other+"”");
+  return all.length?all.join(", "):"—";
+}
+function summaryHTML(){
+  const rows=[
+    ["What happened", listOrDash(state.happened, state.happenedOther)],
+    ["What I felt", listOrDash(state.feelings,"") + (state.intensity?`  (size ${state.intensity}/5)`:"")],
+    ["My body clues", listOrDash(state.body,"")],
+    ["Hidden clue", listOrDash(state.clue,"")],
+    ["What could help next time", listOrDash(state.helped, state.helpedOther)],
+  ];
+  if(state.reframe) rows.push(["Kind thought", "“"+state.reframe+"”"]);
+  if(state.fix) rows.push(["To make it right", "“"+state.fix+"”"]);
+  return rows.map(([k,v])=>`<div class="sumRow"><div class="k">${k}</div><div class="v">${escapeHTML(v)}</div></div>`).join("");
+}
+function escapeHTML(s){ return String(s).replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
+
+/* ---------- save + download ---------- */
+function historyKey(){ return "feelingsDetective.history." + (state.name?state.name.toLowerCase():"default"); }
+function saveEntry(){
+  let hist=[]; try{ const raw=Store.get(historyKey()); hist=raw?JSON.parse(raw):[]; }catch(e){ hist=[]; }
+  hist.push({ when:new Date().toISOString(), ...stateSnapshot() });
+  Store.set(historyKey(), JSON.stringify(hist));
+}
+function stateSnapshot(){
+  return {
+    name:state.name, happened:state.happened, happenedOther:state.happenedOther,
+    feelings:state.feelings, intensity:state.intensity, body:state.body, clue:state.clue,
+    helped:state.helped, helpedOther:state.helpedOther, reframe:state.reframe, fix:state.fix, cool:state.cool
+  };
+}
+function downloadEntry(){
+  const d=new Date();
+  const who = state.name ? state.name+"'s" : "My";
+  const lines=[
+    `${who} Feelings Detective notes`,
+    d.toLocaleString(),
+    "",
+    `What happened: ${listOrDash(state.happened,state.happenedOther)}`,
+    `What I felt: ${listOrDash(state.feelings,"")}${state.intensity?` (size ${state.intensity}/5)`:""}`,
+    `Body clues: ${listOrDash(state.body,"")}`,
+    `Hidden clue: ${listOrDash(state.clue,"")}`,
+    `What could help next time: ${listOrDash(state.helped,state.helpedOther)}`,
+  ];
+  if(state.reframe) lines.push(`Kind thought: ${state.reframe}`);
+  if(state.fix) lines.push(`To make it right: ${state.fix}`);
+  if(state.cool) lines.push(`Cool-down check: ${state.cool}`);
+  lines.push("");
+  const blob=new Blob([lines.join("\n")],{type:"text/plain"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=(state.name?state.name.toLowerCase()+"-":"")+"detective-notes.txt";
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+function resetState(){
+  state.happened=[]; state.happenedOther=""; state.feelings=[]; state.intensity=null;
+  state.body=[]; state.clue=[]; state.helped=[]; state.helpedOther="";
+  state.reframe=""; state.fix=""; state.cool=null;
+}
+
+/* ---------- confetti ---------- */
+function burst(color){
+  if(window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  const colors=[color,"#E8A33D","#66BB6A","#EC7BA6","#42A5F5"];
+  for(let i=0;i<24;i++){
+    const c=document.createElement("div"); c.className="confetti";
+    c.style.left=Math.random()*100+"vw"; c.style.background=colors[i%colors.length];
+    document.body.appendChild(c);
+    c.animate(
+      [{transform:"translateY(0) rotate(0)",opacity:1},
+       {transform:`translateY(105vh) rotate(${360+Math.random()*360}deg)`,opacity:.9}],
+      {duration:1500+Math.random()*900,easing:"cubic-bezier(.2,.6,.4,1)"}
+    ).onfinish=()=>c.remove();
+  }
+}
+
+render();
+</script>
+</body>
+</html>
