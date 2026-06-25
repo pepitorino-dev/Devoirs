@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Devoir de Cassie — Séance 1 · jeudi 25 juin 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bibliothèque devoir-engine (mode CDN, version pinned) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+const d = Devoir.creer({
+  cible: '#app',
+  eleve: 'Cassie',
+  type: 'devoir',
+  matiere: 'Devoir du jour — révision estivale',
+  sujet: 'Séance 1 · jeudi 25 juin 2026',
+  niveau: '4<sup>e</sup> année',
+  cycle: '2e cycle du primaire',
+  difficulte: 'Moyen',
+  objectif: "Réviser les nombres jusqu'à 100 000 (lire, décomposer, comparer), "
+          + "comprendre des textes narratif, informatif et poétique, puis explorer "
+          + "les propriétés des matériaux, la Nouvelle-France vers 1645 et tes champs d'intérêt.",
+  total: 36,
+  storageKey: 'devoir_cassie_seance01_25juin_moyen',
+  theme: 'default'
+});
+
+/* ========================= MATHÉMATIQUE (4 questions) ========================= */
+
+// ---------- Ex. 1 — 2.1.1 Lecture et écriture de nombres ----------
+d.exercice(1, '🔢 Je lis et j\u2019écris les nombres', 4)
+  .consigne("Écris les nombres demandés. Attention aux espaces entre les groupes de chiffres.")
+  .texte('<span class="de-letter">a)</span> Écris en chiffres : « vingt-trois mille huit cent quatre »', 'm1a')
+  .texte('<span class="de-letter">b)</span> Écris en chiffres : « soixante mille soixante »', 'm1b')
+  .texte('<span class="de-letter">c)</span> Écris en lettres : 45 207', 'm1c')
+  .texte('<span class="de-letter">d)</span> Écris en lettres : 8 050', 'm1d');
+
+// ---------- Ex. 2 — 2.1.2 Valeur de position ----------
+d.exercice(2, '🔢 La valeur de position', 3)
+  .consigne("Dans le nombre 47 583, indique la valeur de chaque chiffre souligné (en réfléchissant à sa position).")
+  .texte('<span class="de-letter">a)</span> Quelle est la valeur du chiffre <b>7</b> dans 4<u>7</u> 583 ?', 'm2a')
+  .texte('<span class="de-letter">b)</span> Quelle est la valeur du chiffre <b>5</b> dans 47 <u>5</u>83 ?', 'm2b')
+  .texte('<span class="de-letter">c)</span> Quelle est la valeur du chiffre <b>4</b> dans <u>4</u>7 583 ?', 'm2c');
+
+// ---------- Ex. 3 — 2.1.3 Décomposition des nombres ----------
+d.exercice(3, '🔢 Je décompose les nombres', 3)
+  .consigne("Décompose chaque nombre selon la valeur de position.")
+  .decomposition({
+    nombre: 34521,
+    positions: ['DM','UM','C','D','U'],
+    keys: ['m3a1','m3a2','m3a3','m3a4','m3a5'],
+    label: 'a) 34 521 →'
+  })
+  .espace(10)
+  .decomposition({
+    nombre: 60308,
+    positions: ['DM','UM','C','D','U'],
+    keys: ['m3b1','m3b2','m3b3','m3b4','m3b5'],
+    label: 'b) 60 308 →'
+  });
+
+// ---------- Ex. 4 — 2.1.4 Comparaison et ordre ----------
+d.exercice(4, '🔢 Je compare et j\u2019ordonne', 4)
+  .consigne("Écris le bon symbole < , > ou = dans la case. Pour la dernière question, écris les nombres dans l\u2019ordre.")
+  .phraseATrous('<span class="de-letter">a)</span> 45 207 ___ 45 270', ['m4a'], { width: '70px' })
+  .phraseATrous('<span class="de-letter">b)</span> 8 050 ___ 8 050', ['m4b'], { width: '70px' })
+  .phraseATrous('<span class="de-letter">c)</span> 19 999 ___ 20 001', ['m4c'], { width: '70px' })
+  .texte('<span class="de-letter">d)</span> Ordonne du plus petit au plus grand : 12 340 ; 12 304 ; 12 430 ; 12 043', 'm4d');
+
+/* ========================= FRANÇAIS (3 questions) ========================= */
+
+// ---------- Ex. 5 — 1.1.1 Compréhension d'un texte narratif ----------
+d.exercice(5, '📖 Je lis un récit et je comprends', 5)
+  .consigne('Lis bien le texte, puis réponds aux questions.')
+  .histoire(
+    "C'est la fin de semaine. Mathis et sa sœur Olivia partent au parc avec leur chien Caramel. " +
+    "En chemin, Caramel aperçoit un écureuil et se met à courir : la laisse glisse des mains de Mathis ! " +
+    "Le chien file entre les arbres. Olivia garde son calme : elle sort un biscuit de sa poche et siffle doucement. " +
+    "Caramel revient aussitôt, tout content. Soulagés, les enfants rattachent bien la laisse et continuent leur promenade."
+  )
+  .texte('<span class="de-letter">a)</span> Qui sont les deux enfants de l\u2019histoire ?', 'f5a')
+  .texte('<span class="de-letter">b)</span> Où vont-ils ?', 'f5b')
+  .texte('<span class="de-letter">c)</span> Quel est le problème dans l\u2019histoire ?', 'f5c')
+  .texte('<span class="de-letter">d)</span> Comment Olivia règle-t-elle le problème ?', 'f5d')
+  .texte('<span class="de-letter">e)</span> Écris un mot qui décrit comment se sentent les enfants à la fin.', 'f5e');
+
+// ---------- Ex. 6 — 1.1.2 Compréhension d'un texte informatif ----------
+d.exercice(6, '📖 Je comprends un texte documentaire', 4)
+  .consigne("Lis ce court texte d'information, puis réponds.")
+  .histoire(
+    "Le castor est un animal du Québec. Il vit près des rivières et des lacs. " +
+    "Avec ses dents solides, il coupe des branches et des troncs d'arbres. " +
+    "Il construit un barrage qui retient l'eau, puis une hutte où il s'abrite. " +
+    "Sa large queue plate fait de lui un excellent nageur. On l'observe surtout au lever et au coucher du soleil."
+  )
+  .texte('<span class="de-letter">a)</span> De quel animal parle le texte ? (le sujet principal)', 'f6a')
+  .texte('<span class="de-letter">b)</span> Où vit cet animal ?', 'f6b')
+  .texte('<span class="de-letter">c)</span> Nomme deux choses que le castor construit.', 'f6c')
+  .texte('<span class="de-letter">d)</span> Écris un mot-clé important de ce texte.', 'f6d');
+
+// ---------- Ex. 7 — 1.1.3 Compréhension d'un texte poétique ----------
+d.exercice(7, '📖 Je découvre un poème', 3)
+  .consigne('Lis ce petit poème, puis réponds aux questions.')
+  .histoire([
+    "L'été",
+    "Le soleil rit dans le grand ciel bleu,",
+    "les oiseaux chantent un air joyeux.",
+    "Sous l'arbre vert, je ferme les yeux,",
+    "et je rêve d'un monde merveilleux."
+  ])
+  .texte('<span class="de-letter">a)</span> Trouve deux mots qui riment dans le poème.', 'f7a')
+  .texte('<span class="de-letter">b)</span> Quel sentiment ce poème fait-il ressentir ? (joie, peur, tristesse…)', 'f7b')
+  .texte('<span class="de-letter">c)</span> Recopie une image (un passage) que tu trouves belle.', 'f7c');
+
+/* ========================= MATIÈRES SECONDAIRES (3 questions) ========================= */
+
+// ---------- Ex. 8 — 🔬 Sciences 4.1.1 Propriétés des matériaux ----------
+d.exercice(8, '🔬 Sciences — les propriétés des matériaux', 4)
+  .consigne("Classe chaque objet selon qu'on peut voir à travers (transparent) ou non (opaque).")
+  .glisserDeposerCategories({
+    items: ['une vitre', 'un carton', "un verre d'eau", 'un mur de brique', 'un sac de plastique clair', 'une planche de bois'],
+    categories: ['Transparent', 'Opaque'],
+    key: 'sci8_tri',
+    consigne: 'Touche un objet, puis la catégorie où le placer.'
+  })
+  .espace(8)
+  .texte("<span class=\"de-letter\">b)</span> Nomme un objet fait d'un matériau magnétique (que l'aimant attire).", 'sci8b');
+
+// ---------- Ex. 9 — 🗺️ Univers social 5.1.1 Territoire et population (N.-F. vers 1645) ----------
+d.exercice(9, '🗺️ Univers social — la Nouvelle-France vers 1645', 3)
+  .consigne('Lis le court texte, puis réponds.')
+  .histoire(
+    "Vers 1645, les premiers colons français s'installent le long du fleuve Saint-Laurent, en Nouvelle-France. " +
+    "Trois petits villages grandissent : Québec, Trois-Rivières et Ville-Marie, qui deviendra plus tard la ville de Montréal."
+  )
+  .vraiFaux([
+    { label: 'Les colons s\u2019installent près du fleuve Saint-Laurent.', key: 'us9_vf_a' },
+    { label: 'Ville-Marie est devenue la ville de Montréal.',            key: 'us9_vf_b' },
+    { label: 'En 1645, il y avait déjà des autos dans les rues.',        key: 'us9_vf_c' }
+  ])
+  .texte('<span class="de-letter">d)</span> Nomme une des trois villes fondées le long du fleuve vers 1645.', 'us9d');
+
+// ---------- Ex. 10 — 🤝 CCQ 6.1.1 Champs d'intérêt et talents ----------
+d.exercice(10, '🤝 Mieux me connaître — mes intérêts et mes talents', 3)
+  .consigne('Ces questions parlent de toi ! Réponds avec tes propres idées.')
+  .texte('<span class="de-letter">a)</span> Nomme deux activités que tu aimes vraiment faire.', 'ccq10a')
+  .texte('<span class="de-letter">b)</span> Écris un talent que tu as (quelque chose que tu réussis bien).', 'ccq10b')
+  .redaction('<span class="de-letter">c)</span> Choisis une de tes passions et explique en 2 ou 3 phrases pourquoi tu l\u2019aimes.',
+             'ccq10c', { placeholder: "J'aime…", hauteur: 120 });
+
+/* ========================= BONUS + SIGNATURE ========================= */
+
+d.bonus('Trouve trois nombres entre 10 000 et 100 000 qui contiennent le chiffre 7 :',
+        '+2 pts',
+        ['bonus1', 'bonus2', 'bonus3']);
+
+d.signoff('Bravo Cassie ! Prends ton temps, une question à la fois. Tu es capable. 🌟');
+d.render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devoir de Mia — Jeudi 25 juin (Séance 1)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+    const d = Devoir.creer({
+      cible: '#app',
+      eleve: 'Mia',
+      type: 'devoir',
+      matiere: 'Révision de l\'été — plusieurs matières',
+      sujet: 'Devoir du jeudi 25 juin — Séance 1',
+      niveau: '2e année',
+      cycle: '1er cycle du primaire',
+      difficulte: 'Moyen',
+      objectif: "Lire et écrire les nombres jusqu'à 1000, comparer et compter par bonds, "
+              + "lire de courtes phrases et un petit récit, reconnaître des matériaux, "
+              + "et parler de sa famille et de ses goûts.",
+      total: 30,
+      storageKey: 'devoir_mia_25juin_seance1_moyen',
+      theme: 'default'
+    });
+
+    // ===== MATHÉMATIQUE (4 questions) =====
+
+    // ---------- Ex. 1 — 2.1.1 Lecture et écriture des nombres ----------
+    d.exercice(1, '🔢 Je lis et j\'écris les nombres', 4)
+      .consigne('Écris chaque nombre de la bonne façon. Travaille lentement.')
+      .texte('<span class="de-letter">a)</span> Écris en chiffres : <b>deux cent quarante</b>', 'm1a')
+      .texte('<span class="de-letter">b)</span> Écris en chiffres : <b>cent six</b>', 'm1b')
+      .texte('<span class="de-letter">c)</span> Écris en mots : <b>75</b>', 'm1c')
+      .texte('<span class="de-letter">d)</span> Écris en mots : <b>318</b>', 'm1d');
+
+    // ---------- Ex. 2 — 2.1.2 Valeur de position ----------
+    d.exercice(2, '🔢 La valeur des chiffres', 3)
+      .consigne('Sépare chaque nombre en centaines, dizaines et unités.')
+      .decomposition({
+        nombre: 347,
+        positions: ['C', 'D', 'U'],
+        keys: ['m2a_c', 'm2a_d', 'm2a_u'],
+        label: 'a) 347 →'
+      })
+      .decomposition({
+        nombre: 480,
+        positions: ['C', 'D', 'U'],
+        keys: ['m2b_c', 'm2b_d', 'm2b_u'],
+        label: 'b) 480 →'
+      })
+      .texte('<span class="de-letter">c)</span> Dans le nombre <b>692</b>, quelle est la valeur du chiffre <b>9</b> ?', 'm2c');
+
+    // ---------- Ex. 3 — 2.1.3 Comparer et ordonner ----------
+    d.exercice(3, '🔢 Plus grand, plus petit', 3)
+      .consigne('Écris le bon signe : < (plus petit), > (plus grand) ou = (égal).')
+      .phraseATrous('a) 245 ___ 254', ['m3a'], { width: '52px' })
+      .phraseATrous('b) 130 ___ 103', ['m3b'], { width: '52px' })
+      .phraseATrous('c) 500 ___ 500', ['m3c'], { width: '52px' })
+      .texte('<span class="de-letter">d)</span> Place ces nombres du plus petit au plus grand : <b>318 · 83 · 405 · 130</b>',
+             'm3d', { placeholder: '83, ...' });
+
+    // ---------- Ex. 4 — 2.1.4 Compter par bonds ----------
+    d.exercice(4, '🔢 Je compte par bonds', 3)
+      .consigne('Complète chaque suite de nombres.')
+      .phraseATrous('a) Par 2 : 2, 4, 6, ___, ___, 12', ['m4a1', 'm4a2'], { width: '60px' })
+      .phraseATrous('b) Par 5 : 5, 10, 15, ___, ___, 30', ['m4b1', 'm4b2'], { width: '60px' })
+      .phraseATrous('c) Par 10 : 60, 70, ___, ___, 100', ['m4c1', 'm4c2'], { width: '60px' });
+
+    // ===== FRANÇAIS (3 questions) =====
+
+    // ---------- Ex. 5 — 1.1.1 Reconnaissance des lettres et des sons ----------
+    d.exercice(5, '📖 J\'entends les sons', 3)
+      .consigne('Touche TOUS les mots où tu entends le son demandé.')
+      .motsChips('a) Le son <b>[ou]</b> comme dans « loup » :',
+                 ['loup', 'chou', 'lit', 'genou', 'table'],
+                 'f5a', 'multi')
+      .motsChips('b) Le son <b>[an]</b> comme dans « maman » :',
+                 ['maman', 'chat', 'enfant', 'dent', 'lune'],
+                 'f5b', 'multi');
+
+    // ---------- Ex. 6 — 1.1.2 Lecture de phrases courtes ----------
+    d.exercice(6, '📖 Je lis et je choisis le bon mot', 3)
+      .consigne('Lis chaque phrase, puis touche le mot qui a du sens.')
+      .choixInline('a) Le chat boit du', 'f6a', ['lait', 'vélo', 'livre'], '.')
+      .choixInline('b) La nuit, je dors dans mon', 'f6b', ['lit', 'pain', 'arbre'], '.')
+      .choixInline('c) Maman coupe le pain avec un', 'f6c', ['couteau', 'chapeau', 'ballon'], '.');
+
+    // ---------- Ex. 7 — 1.1.3 Compréhension d'un court récit ----------
+    d.exercice(7, '📖 Je lis une histoire et je comprends', 4)
+      .consigne('Lis bien le texte, puis réponds aux questions.')
+      .histoire(
+        "C'est samedi matin. Tom met ses espadrilles et part au parc avec son chien Biscuit. " +
+        "Il apporte un ballon rouge tout neuf. Au parc, il rencontre son amie Lili. " +
+        "Ensemble, ils jouent au ballon jusqu'à l'heure du dîner."
+      )
+      .texte('<span class="de-letter">a)</span> Qui est le personnage principal de l\'histoire ?', 'f7a')
+      .texte('<span class="de-letter">b)</span> Où va Tom ?', 'f7b')
+      .texte('<span class="de-letter">c)</span> Comment s\'appelle son chien ?', 'f7c')
+      .texte('<span class="de-letter">d)</span> Avec qui joue-t-il au ballon ?', 'f7d');
+
+    // ===== MATIÈRES SECONDAIRES (3 questions) =====
+
+    // ---------- Ex. 8 — Sciences 4.1.1 Les matériaux autour de moi ----------
+    d.exercice(8, '🔬 De quel matériau ?', 3)
+      .consigne('Touche un objet, puis la boîte du matériau dont il est fait.')
+      .glisserDeposerCategories({
+        items: ['une bûche', 'un clou', 'une paille', 'un bâton', 'une cannette', 'un bloc Lego'],
+        categories: ['Bois', 'Métal', 'Plastique'],
+        key: 'sc8',
+        consigne: 'Touche un mot, puis la catégorie où le placer.'
+      });
+
+    // ---------- Ex. 9 — Univers social 5.1.1 Ma famille et mes proches ----------
+    d.exercice(9, '🗺️ Ma famille et mes proches', 2)
+      .consigne('Réponds avec ce que tu connais. Il n\'y a pas de mauvaise réponse.')
+      .texte('<span class="de-letter">a)</span> Nomme deux personnes de ta famille.', 'us9a')
+      .texte('<span class="de-letter">b)</span> Qui prend soin de toi à la maison ?', 'us9b');
+
+    // ---------- Ex. 10 — CCQ 6.1.1 Mes goûts et mes forces ----------
+    d.exercice(10, '🤝 Mes goûts et mes forces', 2)
+      .consigne('Parle un peu de toi !')
+      .texte('<span class="de-letter">a)</span> Nomme une activité que tu aimes beaucoup.', 'cc10a')
+      .texte('<span class="de-letter">b)</span> Nomme quelque chose que tu réussis bien.', 'cc10b');
+
+    // ---------- Bonus + signoff ----------
+    d.bonus(
+      'Compte par bonds de <b>50</b> : 50, 100, 150, puis écris les 3 nombres suivants.',
+      '+2 pts',
+      ['bonus1', 'bonus2', 'bonus3']
+    );
+    d.signoff('Bravo Mia ! C\'est le début de ton été d\'apprentissage. Prends ton temps. 🌞');
+    d.render();
+  </script>
+</body>
+</html>
