@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Devoir de Cassie — Vendredi 26 juin 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+    const d = Devoir.creer({
+      cible: '#app',
+      eleve: 'Cassie',
+      type: 'devoir',
+      matiere: 'Math · Français · Anglais · Univers social · CCQ',
+      sujet: 'Devoir du jour — vendredi 26 juin 2026',
+      niveau: '4e année',
+      cycle: '2e cycle du primaire',
+      difficulte: 'Moyen',
+      objectif: "Arrondir, additionner, soustraire et multiplier ; faire des inférences, comprendre un mot en contexte et écrire un court récit ; réviser la famille en anglais, les activités économiques de 1645 et les valeurs personnelles.",
+      total: 30,
+      storageKey: 'devoir_cassie_mix_26juin2026_moyen',
+      theme: 'default'
+    });
+
+    /* ============== MATHÉMATIQUE (4 questions) ============== */
+
+    // ---------- Ex. 1 — Arrondissement (2.1.5) ----------
+    d.exercice(1, 'Arrondir les nombres', 3)
+      .consigne('Arrondis chaque nombre comme demandé.')
+      .texte('a) Arrondis 3 847 à la dizaine près :', 'm1a')
+      .texte('b) Arrondis 3 847 à la centaine près :', 'm1b')
+      .texte('c) Arrondis 12 615 au millier près :', 'm1c');
+
+    // ---------- Ex. 2 — Addition (2.2.1) ----------
+    d.exercice(2, 'Additions', 3)
+      .consigne('Pose et calcule. Attention aux retenues.')
+      .operationColonne({ label: 'a)', operande1: '3462', operande2: '1879', operateur: '+', key: 'm2a' })
+      .operationColonne({ label: 'b)', operande1: '5704', operande2: '2968', operateur: '+', key: 'm2b' })
+      .texte('c) Léa a 1 250 billes et Sam en a 3 480. Combien en ont-ils ensemble ?', 'm2c');
+
+    // ---------- Ex. 3 — Soustraction (2.2.2) ----------
+    d.exercice(3, 'Soustractions', 3)
+      .consigne("Pose et calcule. Attention aux emprunts. Tu peux vérifier avec une addition.")
+      .operationColonne({ label: 'a)', operande1: '7200', operande2: '3456', operateur: '−', key: 'm3a' })
+      .operationColonne({ label: 'b)', operande1: '4083', operande2: '1975', operateur: '−', key: 'm3b' })
+      .texte('c) Un jeu coûte 1 999 points. Mia en a 4 500. Combien lui en reste-t-il après l\'achat ?', 'm3c');
+
+    // ---------- Ex. 4 — Multiplication, tables jusqu'à 10×10 (2.2.3) ----------
+    d.exercice(4, 'Multiplications', 3)
+      .consigne('Complète les tables, puis pose la dernière multiplication.')
+      .phraseATrous('a) 7 × 8 = ___', ['m4a'])
+      .phraseATrous('b) 9 × 6 = ___', ['m4b'])
+      .phraseATrous('c) 4 × 7 = ___', ['m4c'])
+      .operationColonne({ label: 'd)', operande1: '234', operande2: '3', operateur: '×', key: 'm4d' });
+
+    /* ============== FRANÇAIS (3 questions) ============== */
+
+    // ---------- Ex. 5 — Inférences et déductions (1.1.4) ----------
+    d.exercice(5, 'Je lis entre les lignes', 4)
+      .consigne('Lis le texte, puis réponds en utilisant les indices.')
+      .histoire([
+        "En entrant dans la cuisine, Maya voit le bol de pâte vide et le four allumé.",
+        "Sur le comptoir, il y a de la farine partout et le tablier de son père est tout taché de chocolat.",
+        "Une bonne odeur sucrée remplit la maison. Papa sourit et cache quelque chose derrière son dos."
+      ])
+      .texte("a) Qu'est-ce que le père de Maya est en train de faire ? Quel indice te le dit ?", 'f5a', { lignes: 2 })
+      .texte('b) Crois-tu que Maya sera contente ? Explique pourquoi.', 'f5b', { lignes: 2 })
+      .texte('c) Que cache le père derrière son dos, selon toi ?', 'f5c', { lignes: 2 });
+
+    // ---------- Ex. 6 — Vocabulaire en contexte (1.1.5) ----------
+    d.exercice(6, 'Le sens des mots dans la phrase', 3)
+      .consigne("Trouve le sens du mot souligné grâce au reste de la phrase.")
+      .motsChips('a) « Le sentier était si escarpé que nous devions grimper à quatre pattes. » Ici, « escarpé » veut dire :',
+                 ['en pente très raide', 'plein de boue', 'très long', 'plat et facile'],
+                 'f6a', 'select')
+      .motsChips('b) « Grand-maman était ravie de nous voir : elle souriait sans arrêt. » Ici, « ravie » veut dire :',
+                 ['très contente', 'fatiguée', 'fâchée', 'pressée'],
+                 'f6b', 'select')
+      .texte('c) « Le chien gambadait joyeusement dans le pré. » Que veut dire « gambadait » ? Écris-le dans tes mots.', 'f6c', { lignes: 2 });
+
+    // ---------- Ex. 7 — Écrire un récit (1.2.1) ----------
+    d.exercice(7, "J'invente une histoire", 5)
+      .consigne("Écris une courte histoire (5 à 8 phrases) à partir de l'idée ci-dessous.")
+      .rappel("<b>Rappel :</b> un bon récit a un <i>début</i> (qui ? où ?), un <i>milieu</i> (un problème ou une surprise) et une <i>fin</i> (comment ça se termine), avec au moins un personnage.")
+      .intro("<p><b>Ton idée de départ :</b> Un enfant trouve une porte mystérieuse au fond du garage…</p>")
+      .redaction('', 'f7', { placeholder: 'Il était une fois…', hauteur: 180 });
+
+    /* ============== MATIÈRES SECONDAIRES (3 questions) ============== */
+
+    // ---------- Ex. 8 — Anglais : Family and people (3.1.1) ----------
+    d.exercice(8, '🌍 Anglais — Family and people', 2)
+      .consigne('Relie chaque mot anglais à sa traduction française.')
+      .paires(
+        ['mother', 'brother', 'grandfather', 'friend'],
+        ['ami(e)', 'grand-père', 'mère', 'frère'],
+        'a8'
+      );
+
+    // ---------- Ex. 9 — Univers social : Activités économiques 1645 (5.1.2) ----------
+    d.exercice(9, '🗺️ Univers social — La Nouvelle-France vers 1645', 2)
+      .consigne('Touche Vrai ou Faux, puis réponds à la dernière question.')
+      .intro("<p>Vers 1645, les colons de la Nouvelle-France vivaient surtout de quelques activités économiques.</p>")
+      .vraiFaux([
+        { label: '<span class="de-letter">a)</span> La traite des fourrures était une activité économique importante.', key: 'u9a' },
+        { label: '<span class="de-letter">b)</span> Vers 1645, personne ne pratiquait l\'agriculture dans la colonie.', key: 'u9b' },
+        { label: '<span class="de-letter">c)</span> La pêche faisait aussi partie des activités économiques.', key: 'u9c' }
+      ])
+      .texte("d) Nomme un animal dont la fourrure était très recherchée à cette époque.", 'u9d');
+
+    // ---------- Ex. 10 — CCQ : Valeurs personnelles (6.1.2) ----------
+    d.exercice(10, '🤝 Culture et citoyenneté — Mes valeurs', 2)
+      .consigne("Pense à ce qui compte vraiment pour toi (honnêteté, partage, respect, persévérance…).")
+      .texte('a) Une valeur importante pour toi :', 'c10a')
+      .texte('b) Explique pourquoi cette valeur compte pour toi (1 ou 2 phrases).', 'c10b', { lignes: 2 });
+
+    /* ============== Bonus + signature ============== */
+    d.bonus(
+      'Trouve trois mots de la même famille que « <b>jardin</b> » (par exemple : <i>jardinier</i>…) :',
+      '+2 pts',
+      ['bonus1', 'bonus2', 'bonus3']
+    );
+    d.signoff('Bravo Cassie ! Prends ton temps, tu es capable. 🌞');
+    d.render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devoir de Mia — Vendredi 26 juin (Séance 2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+    const d = Devoir.creer({
+      cible: '#app',
+      eleve: 'Mia',
+      type: 'devoir',
+      matiere: 'Plusieurs matières (révision quotidienne)',
+      sujet: 'Devoir du jour — vendredi 26 juin · Séance 2',
+      niveau: '2<sup>e</sup> année',
+      cycle: '1er cycle du primaire',
+      difficulte: 'Moyen',
+      objectif: "Reconnaître les nombres pairs et impairs, additionner (avec et sans retenue) et "
+              + "soustraire sans emprunt, lire un court texte informatif, repérer les petits mots, "
+              + "bien copier, puis explorer l'anglais, son quartier et ses émotions.",
+      total: 25,
+      storageKey: 'devoir_mia_jour_s2_26juin_moyen',
+      theme: 'default'
+    });
+
+    /* ===================== MATHÉMATIQUE (4 questions) ===================== */
+
+    // ---------- Ex. 1 — 2.1.5 Nombres pairs et impairs ----------
+    d.exercice(1, '🔢 Pair ou impair ?', 3)
+      .consigne("Un nombre PAIR se termine par 0, 2, 4, 6 ou 8. Un nombre IMPAIR se termine par 1, 3, 5, 7 ou 9. "
+              + "Pour chaque nombre, touche « Pair » ou « Impair ».")
+      .toggleGrille(
+        [
+          { label: '8',  key: 'pi_a' },
+          { label: '5',  key: 'pi_b' },
+          { label: '12', key: 'pi_c' },
+          { label: '7',  key: 'pi_d' },
+          { label: '20', key: 'pi_e' },
+          { label: '13', key: 'pi_f' }
+        ],
+        ['Pair', 'Impair'],
+        { colonnes: 2 }
+      );
+
+    // ---------- Ex. 2 — 2.2.1 Addition sans retenue ----------
+    d.exercice(2, '🔢 J\'additionne (sans retenue)', 3)
+      .consigne('Additionne les unités, puis les dizaines. Ici, pas besoin de retenue.')
+      .operationColonne({ label: 'a)', operande1: '24', operande2: '13', operateur: '+', key: 'add_a' })
+      .operationColonne({ label: 'b)', operande1: '52', operande2: '36', operateur: '+', key: 'add_b' });
+
+    // ---------- Ex. 3 — 2.2.2 Addition avec retenue ----------
+    d.exercice(3, '🔢 J\'additionne (avec retenue)', 3)
+      .consigne('Quand les unités font 10 ou plus, on retient 1 dizaine. N\'oublie pas la retenue !')
+      .operationColonne({ label: 'a)', operande1: '28', operande2: '15', operateur: '+', key: 'addr_a' })
+      .operationColonne({ label: 'b)', operande1: '47', operande2: '38', operateur: '+', key: 'addr_b' });
+
+    // ---------- Ex. 4 — 2.2.3 Soustraction sans emprunt ----------
+    d.exercice(4, '🔢 Je soustrais (sans emprunt)', 3)
+      .consigne('Enlève les unités, puis les dizaines. Ici, pas besoin d\'emprunter.')
+      .operationColonne({ label: 'a)', operande1: '58', operande2: '23', operateur: '−', key: 'sous_a' })
+      .operationColonne({ label: 'b)', operande1: '76', operande2: '41', operateur: '−', key: 'sous_b' });
+
+    /* ===================== FRANÇAIS (3 questions) ===================== */
+
+    // ---------- Ex. 5 — 1.1.4 Compréhension d'un texte informatif simple ----------
+    d.exercice(5, '📖 Je lis pour m\'informer', 3)
+      .consigne('Lis ce petit texte sur le castor, puis réponds aux questions.')
+      .histoire(
+        "Le castor est un animal du Québec. Il vit près des rivières et des lacs. " +
+        "Avec ses dents solides, il coupe des branches pour bâtir sa hutte dans l'eau. " +
+        "Le castor mange surtout de l'écorce et des feuilles. Sa grande queue plate l'aide à nager."
+      )
+      .texte('<span class="de-letter">a)</span> Où vit le castor ?', 'fr_info_a')
+      .texte('<span class="de-letter">b)</span> Avec quoi le castor coupe-t-il les branches ?', 'fr_info_b')
+      .texte('<span class="de-letter">c)</span> Que mange surtout le castor ?', 'fr_info_c');
+
+    // ---------- Ex. 6 — 1.1.5 Mots fréquents à reconnaître ----------
+    d.exercice(6, '📖 Je trouve les petits mots', 2)
+      .consigne('Touche tous les petits mots outils (le, la, un, dans, avec, est…) que tu vois dans la liste.')
+      .motsChips('a) Coche les petits mots :',
+                 ['le', 'chat', 'dans', 'maison', 'avec', 'fleur', 'est'],
+                 'fr_mots_a', 'multi');
+
+    // ---------- Ex. 7 — 1.2.1 Former ses lettres et copier ----------
+    d.exercice(7, '📖 Je copie sans erreur', 2)
+      .consigne('Recopie cette phrase en soignant bien tes lettres. N\'oublie pas la majuscule et le point.')
+      .intro('<p style="font-family:Fraunces,serif;font-size:1.15rem">« Mia joue dehors avec son petit chien. »</p>')
+      .redaction('', 'fr_copie', { placeholder: 'Recopie la phrase ici…', hauteur: 80 });
+
+    /* ===================== MATIÈRES SECONDAIRES (3 questions) ===================== */
+
+    // ---------- Ex. 8 — Anglais 3.1.1 Colors and numbers ----------
+    d.exercice(8, '🌍 Anglais — Colors', 2)
+      .consigne('Relie chaque couleur en anglais à son nom en français. Touche un mot à gauche, puis son ami à droite.')
+      .paires(
+        ['red', 'blue', 'green', 'yellow'],
+        ['bleu', 'jaune', 'rouge', 'vert'],   // ordre brouillé
+        'en_colors'
+      );
+
+    // ---------- Ex. 9 — Univers social 5.1.2 Mon école et mon quartier ----------
+    d.exercice(9, '🗺️ Mon école et mon quartier', 2)
+      .consigne('Réponds avec tes mots à toi.')
+      .texte('<span class="de-letter">a)</span> Quel est le nom de ton école ?', 'us_a')
+      .texte('<span class="de-letter">b)</span> Nomme deux choses que l\'on trouve dans ton quartier.', 'us_b');
+
+    // ---------- Ex. 10 — CCQ 6.1.2 Mes émotions ----------
+    d.exercice(10, '🤝 Mes émotions', 2)
+      .consigne('Relie chaque situation à l\'émotion qu\'elle fait ressentir.')
+      .paires(
+        ['Je reçois un cadeau', 'Je perds mon toutou', 'Un gros chien aboie', 'On brise mon dessin'],
+        ['la peur', 'la joie', 'la colère', 'la tristesse'],   // ordre brouillé
+        'ccq_emotions'
+      );
+
+    /* ===================== Bonus + signoff ===================== */
+    d.bonus(
+      'Petit défi : écris trois nombres <b>pairs</b> entre 10 et 20 :',
+      '+2 pts',
+      ['bonus1', 'bonus2', 'bonus3']
+    );
+    d.signoff('Bravo Mia ! Prends ton temps, tu es capable. 🌟');
+    d.render();
+  </script>
+</body>
+</html>
