@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Devoir de Cassie — Lundi 29 juin (4e année)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+    const d = Devoir.creer({
+      cible: '#app',
+      eleve: 'Cassie',
+      type: 'devoir',
+      matiere: 'Devoir du jour — plusieurs matières',
+      sujet: 'Séance 3 — lundi 29 juin 2026',
+      niveau: '4<sup>e</sup> année',
+      cycle: '2e cycle du primaire',
+      difficulte: 'Moyen',
+      objectif: "Réviser la multiplication, la division, le calcul mental et la lecture des fractions ; "
+              + "écrire une description et un court message, structurer ses phrases ; "
+              + "vocabulaire anglais de la classe, états de la matière et nos émotions.",
+      total: 35,
+      storageKey: 'devoir_cassie_4e_29juin_moyen',
+      theme: 'aqua'
+    });
+
+    /* ===================== MATHÉMATIQUE (4 questions) ===================== */
+
+    // ---------- 1 · 2.2.4 Multiplication à plusieurs chiffres ----------
+    d.exercice(1, '🔢 Multiplication à plusieurs chiffres', 4)
+      .consigne('Pose et calcule. Écris le résultat chiffre par chiffre.')
+      .operationColonne({ label: 'a)', operande1: '124', operande2: '3', operateur: '×', key: 'm1_a' })
+      .operationColonne({ label: 'b)', operande1: '235', operande2: '4', operateur: '×', key: 'm1_b' })
+      .operationColonne({ label: 'c)', operande1: '318', operande2: '5', operateur: '×', key: 'm1_c' })
+      .texte("<span class=\"de-letter\">d)</span> Une boîte contient 144 crayons. Combien de crayons y a-t-il dans 4 boîtes ?", 'm1_d');
+
+    // ---------- 2 · 2.2.5 Division ----------
+    d.exercice(2, '🔢 Division (avec ou sans reste)', 4)
+      .consigne('Pose et calcule. Pense à vérifier ton résultat.')
+      .operationColonne({ label: 'a)', operande1: '84', operande2: '4', operateur: '÷', key: 'm2_a' })
+      .operationColonne({ label: 'b)', operande1: '96', operande2: '3', operateur: '÷', key: 'm2_b' })
+      .operationColonne({ label: 'c)', operande1: '75', operande2: '5', operateur: '÷', key: 'm2_c' })
+      .texte("<span class=\"de-letter\">d)</span> Mathis range 78 cartes de hockey dans des paquets de 6. Combien de paquets complets fait-il ?", 'm2_d');
+
+    // ---------- 3 · 2.2.6 Calcul mental et estimation ----------
+    d.exercice(3, '🔢 Calcul mental et estimation', 3)
+      .consigne('Réponds vite, sans tout poser. Pour estimer, arrondis d\'abord.')
+      .phraseATrous('a) 6 × 40 = ___', ['m3_a'])
+      .phraseATrous('b) 350 + 150 = ___', ['m3_b'])
+      .phraseATrous('c) 1000 − 250 = ___', ['m3_c'])
+      .phraseATrous("d) Estimation : 297 + 198 ≈ ___ (arrondis à la centaine)", ['m3_d'])
+      .phraseATrous("e) Estimation : 41 × 5 ≈ ___ (arrondis la dizaine)", ['m3_e']);
+
+    // ---------- 4 · 2.3.1 Lire et représenter une fraction ----------
+    d.exercice(4, '🔢 Lire et représenter une fraction', 4)
+      .consigne('Colorie les fractions demandées, puis complète.')
+      .fractionCercle('a) Colorie 3/8 du gâteau.', 8, 'm4_a')
+      .fractionAColorier('b) Colorie 2/5 de la barre.', 5, 'm4_b')
+      .phraseATrous("c) Dans la fraction 4/7, le numérateur est ___ et le dénominateur est ___.",
+                    ['m4_c_num', 'm4_c_den']);
+
+    /* ===================== FRANÇAIS (3 questions) ===================== */
+
+    // ---------- 5 · 1.2.2 Écrire une description ----------
+    d.exercice(5, '📖 Écrire une description', 4)
+      .consigne('Décris avec des adjectifs précis et au moins une comparaison (… comme …).')
+      .rappel('<b>Truc :</b> une comparaison aide le lecteur à imaginer : ' +
+              '<i>« doux comme un nuage », « rapide comme l\'éclair »</i>.')
+      .redaction('Décris ton animal préféré (ou un animal imaginaire) en 4 ou 5 phrases. ' +
+                 'Emploie au moins 3 adjectifs et 1 comparaison.',
+                 'fr5', { placeholder: 'Mon animal…', hauteur: 150 });
+
+    // ---------- 6 · 1.2.3 Écrire une lettre ou un message ----------
+    d.exercice(6, '📖 Écrire un message d\'invitation', 4)
+      .consigne('Écris un court message pour inviter un ami. N\'oublie pas les formules d\'usage.')
+      .phraseATrous('a) Formule pour commencer : ___', ['fr6_debut'])
+      .phraseATrous('b) Formule pour terminer : ___', ['fr6_fin'])
+      .redaction('c) Écris ton invitation (3 ou 4 phrases) : dis quoi, quand et où, ' +
+                 'et demande une réponse.',
+                 'fr6_msg', { placeholder: 'Allô Maya, …', hauteur: 130 });
+
+    // ---------- 7 · 1.2.4 Structurer ses phrases et ses paragraphes ----------
+    d.exercice(7, '📖 Des phrases bien construites', 3)
+      .consigne('Une phrase complète a un sens, commence par une majuscule et finit par un point.')
+      .vraiFaux([
+        { label: 'Maya court dans le grand parc.',   key: 'fr7_a' },
+        { label: 'Le gros chien noir du voisin.',     key: 'fr7_b' },
+        { label: 'Quand il pleut très fort dehors.',  key: 'fr7_c' },
+        { label: 'Nous partons à la cabane à sucre.',  key: 'fr7_d' }
+      ])
+      .texte("<span class=\"de-letter\">e)</span> Remets ces idées dans l\'ordre pour faire un petit paragraphe (écris 1, 2, 3) : " +
+             "« Ensuite, il déjeune. » · « Le matin, Léo se réveille. » · « Enfin, il part à l\'école. »",
+             'fr7_e');
+
+    /* ===================== MATIÈRES SECONDAIRES (3 questions) ===================== */
+
+    // ---------- 8 · 3.1.2 Anglais — School and objects ----------
+    d.exercice(8, '🌍 Anglais — School and objects', 3)
+      .consigne('Relie chaque mot anglais au bon mot français.')
+      .paires(
+        ['pencil', 'book', 'desk', 'eraser', 'teacher'],
+        ['livre', 'gomme à effacer', 'enseignant(e)', 'crayon', 'pupitre'],
+        'an8_paires'
+      )
+      .texte("<span class=\"de-letter\">f)</span> Écris en anglais : une salle de classe = ___", 'an8_f');
+
+    // ---------- 9 · 4.1.2 Sciences — États de la matière ----------
+    d.exercice(9, '🔬 Sciences — Les états de la matière', 3)
+      .consigne('Classe chaque chose selon son état : solide, liquide ou gazeux.')
+      .glisserDeposerCategories({
+        items: ['un glaçon', 'le lait', 'la vapeur', 'une roche', "l'air d'un ballon", "le jus d'orange"],
+        categories: ['Solide', 'Liquide', 'Gazeux'],
+        key: 'sc9_tri',
+        consigne: 'Touche une chose, puis la catégorie où la placer.'
+      })
+      .vraiFaux([
+        { label: 'Un solide garde toujours sa forme.',           key: 'sc9_a' },
+        { label: 'Un liquide prend la forme de son contenant.',  key: 'sc9_b' },
+        { label: 'Un gaz a une forme fixe qui ne change jamais.', key: 'sc9_c' }
+      ]);
+
+    // ---------- 10 · 6.1.3 CCQ — Sentiments et émotions ----------
+    d.exercice(10, '🤝 Mes sentiments et mes émotions', 3)
+      .consigne('Nomme l\'émotion, puis explique pourquoi on la ressent.')
+      .texte("<span class=\"de-letter\">a)</span> Tu reçois un cadeau surprise. Quelle émotion ressens-tu ?", 'cc10_a')
+      .texte("<span class=\"de-letter\">b)</span> Ton ami déménage loin. Quelle émotion ressens-tu ?", 'cc10_b')
+      .redaction("c) Raconte un moment où tu as été fière de toi. Qu\'as-tu ressenti et pourquoi ?",
+                 'cc10_c', { placeholder: 'Une fois, …', hauteur: 110 });
+
+    /* ===================== BONUS + SIGNATURE ===================== */
+    d.bonus('Défi éclair ! Trouve un mot français et son contraire pour décrire une émotion ' +
+            '(exemple : content ↔ ___). Donne 3 paires différentes.', '+2 pts',
+            ['bonus1', 'bonus2', 'bonus3']);
+
+    d.signoff('Bravo Cassie ! Bon lundi de révision ! 🌞');
+    d.render();
+  </script>
+</body>
+</html>

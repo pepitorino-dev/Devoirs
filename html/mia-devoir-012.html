@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Devoir de Mia — Séance 3 (lundi 29 juin 2026)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+
+const d = Devoir.creer({
+  cible: '#app',
+  eleve: 'Mia',
+  type: 'devoir',
+  matiere: 'Révision estivale (multimatières)',
+  sujet: 'Séance 3 — lundi 29 juin 2026',
+  niveau: '2<sup>e</sup> année',
+  cycle: '1er cycle du primaire',
+  difficulte: 'Moyen',
+  objectif: "Réviser la soustraction avec emprunt, le calcul mental, la multiplication "
+          + "et les fractions; écrire des phrases et une courte histoire, décrire une image; "
+          + "puis explorer l'anglais, les sciences et le vivre-ensemble.",
+  total: 34,
+  storageKey: 'devoir_mia_seance3_29juin_moyen',
+  theme: 'default'
+});
+
+// ================= MATHÉMATIQUE =================
+
+// ---------- Ex. 1 — 2.2.4 Soustraction avec emprunt ----------
+d.exercice(1, '🔢 Je soustrais avec emprunt', 4)
+  .consigne("Calcule chaque soustraction. Tu peux poser l'opération sur une feuille brouillon.")
+  .phraseATrous('<span class="de-letter">a)</span> 52 &minus; 27 = ___', ['ex1a'], { width:'70px' })
+  .phraseATrous('<span class="de-letter">b)</span> 63 &minus; 38 = ___', ['ex1b'], { width:'70px' })
+  .phraseATrous('<span class="de-letter">c)</span> 41 &minus; 19 = ___', ['ex1c'], { width:'70px' })
+  .phraseATrous('<span class="de-letter">d)</span> 75 &minus; 46 = ___', ['ex1d'], { width:'70px' });
+
+// ---------- Ex. 2 — 2.2.5 Calcul mental et faits numériques ----------
+d.exercice(2, '🔢 Calcul mental (faits jusqu\'à 20)', 3)
+  .consigne('Réponds le plus vite possible, dans ta tête.')
+  .phraseATrous('<span class="de-letter">a)</span> 8 + 7 = ___', ['ex2a'], { width:'60px' })
+  .phraseATrous('<span class="de-letter">b)</span> 15 &minus; 6 = ___', ['ex2b'], { width:'60px' })
+  .phraseATrous('<span class="de-letter">c)</span> 9 + 9 = ___', ['ex2c'], { width:'60px' })
+  .phraseATrous('<span class="de-letter">d)</span> 13 &minus; 8 = ___', ['ex2d'], { width:'60px' })
+  .phraseATrous('<span class="de-letter">e)</span> 6 + 8 = ___', ['ex2e'], { width:'60px' })
+  .phraseATrous('<span class="de-letter">f)</span> 17 &minus; 9 = ___', ['ex2f'], { width:'60px' });
+
+// ---------- Ex. 3 — 2.2.6 Première approche de la multiplication ----------
+d.exercice(3, '🔢 Des additions répétées', 4)
+  .consigne("Multiplier, c'est additionner plusieurs fois le même nombre. Regarde les groupes, puis réponds.")
+  .svg(
+    '<svg width="100%" height="150" viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect x="6" y="20" width="100" height="110" rx="12" fill="#F1EAD8" stroke="#D9D2BF" stroke-width="2"/>' +
+    '<rect x="130" y="20" width="100" height="110" rx="12" fill="#F1EAD8" stroke="#D9D2BF" stroke-width="2"/>' +
+    '<rect x="254" y="20" width="100" height="110" rx="12" fill="#F1EAD8" stroke="#D9D2BF" stroke-width="2"/>' +
+    '<g fill="#C2543A">' +
+    '<circle cx="36" cy="50" r="11"/><circle cx="76" cy="50" r="11"/><circle cx="36" cy="100" r="11"/><circle cx="76" cy="100" r="11"/>' +
+    '<circle cx="160" cy="50" r="11"/><circle cx="200" cy="50" r="11"/><circle cx="160" cy="100" r="11"/><circle cx="200" cy="100" r="11"/>' +
+    '<circle cx="284" cy="50" r="11"/><circle cx="324" cy="50" r="11"/><circle cx="284" cy="100" r="11"/><circle cx="324" cy="100" r="11"/>' +
+    '</g>' +
+    '<text x="180" y="146" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#5C5A53">3 paniers · 4 pommes dans chaque panier</text>' +
+    '</svg>',
+    { caption: 'Combien de pommes en tout ?' }
+  )
+  .phraseATrous('<span class="de-letter">a)</span> Écris l\'addition : 4 + 4 + 4 = ___', ['ex3a'], { width:'60px' })
+  .phraseATrous('<span class="de-letter">b)</span> C\'est ___ fois 4.', ['ex3b'], { width:'60px' })
+  .phraseATrous('<span class="de-letter">c)</span> 5 + 5 + 5 = ___', ['ex3c'], { width:'60px' })
+  .phraseATrous('<span class="de-letter">d)</span> 2 + 2 + 2 + 2 = ___', ['ex3d'], { width:'60px' });
+
+// ---------- Ex. 4 — 2.3.1 La moitié et le quart ----------
+d.exercice(4, '🔢 La moitié et le quart', 4)
+  .consigne('Colorie la bonne partie de chaque figure, puis réponds à la dernière question.')
+  .fractionAColorier('a) Colorie la MOITIÉ de la figure.', 2, 'ex4a')
+  .espace(8)
+  .fractionAColorier('b) Colorie le QUART de la figure.', 4, 'ex4b')
+  .espace(8)
+  .phraseATrous('<span class="de-letter">c)</span> La moitié de 8 biscuits, c\'est ___ biscuits.', ['ex4c'], { width:'60px' });
+
+// ================= FRANÇAIS =================
+
+// ---------- Ex. 5 — 1.2.2 Écrire des phrases simples ----------
+d.exercice(5, '📖 J\'écris une vraie phrase', 3)
+  .consigne("Recopie chaque phrase avec une MAJUSCULE au début et un POINT à la fin.")
+  .texte('<span class="de-letter">a)</span> le chien court dans le parc', 'ex5a')
+  .texte('<span class="de-letter">b)</span> mia aime les pommes rouges', 'ex5b')
+  .texte('<span class="de-letter">c)</span> nous jouons dehors au soleil', 'ex5c');
+
+// ---------- Ex. 6 — 1.2.3 Écrire une courte histoire ----------
+d.exercice(6, '📖 J\'invente une petite histoire', 4)
+  .consigne("Écris 2 ou 3 phrases qui ont un DÉBUT et une FIN. N'oublie pas la majuscule et le point.")
+  .intro('<p>Pour t\'aider, voici un départ possible : « Un matin, Mia trouve un petit chat sous la galerie… » '
+       + 'Tu peux continuer cette histoire ou en inventer une autre.</p>')
+  .redaction('', 'ex6', { placeholder: 'Mon histoire…', hauteur: 130 });
+
+// ---------- Ex. 7 — 1.2.4 Décrire une image ----------
+d.exercice(7, '📖 Je décris l\'image', 4)
+  .consigne('Regarde bien l\'image, puis écris 3 phrases pour dire ce que tu vois.')
+  .svg(
+    '<svg width="100%" height="200" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect x="0" y="0" width="360" height="140" fill="#EAF3F7"/>' +
+    '<rect x="0" y="140" width="360" height="60" fill="#DCE9CF"/>' +
+    '<circle cx="312" cy="40" r="24" fill="#F2C84B"/>' +
+    '<g stroke="#F2C84B" stroke-width="3"><line x1="312" y1="6" x2="312" y2="-2"/><line x1="345" y1="40" x2="353" y2="40"/><line x1="336" y1="18" x2="343" y2="11"/></g>' +
+    '<rect x="60" y="92" width="12" height="48" fill="#8A5A33"/>' +
+    '<circle cx="66" cy="80" r="30" fill="#6F8B5B"/>' +
+    '<circle cx="48" cy="92" r="20" fill="#7C9966"/>' +
+    '<circle cx="84" cy="92" r="20" fill="#7C9966"/>' +
+    '<circle cx="180" cy="118" r="12" fill="#F2C84B"/>' +
+    '<rect x="172" y="130" width="16" height="26" rx="6" fill="#C2543A"/>' +
+    '<line x1="180" y1="156" x2="174" y2="174" stroke="#2B2A26" stroke-width="3"/>' +
+    '<line x1="180" y1="156" x2="186" y2="174" stroke="#2B2A26" stroke-width="3"/>' +
+    '<circle cx="232" cy="150" r="13" fill="#E07A5F"/>' +
+    '<ellipse cx="278" cy="160" rx="22" ry="12" fill="#9C7B53"/>' +
+    '<circle cx="298" cy="152" r="9" fill="#9C7B53"/>' +
+    '<line x1="262" y1="158" x2="252" y2="150" stroke="#9C7B53" stroke-width="4"/>' +
+    '</svg>',
+    { caption: 'Une journée au parc' }
+  )
+  .redaction('', 'ex7', { placeholder: 'Sur l\'image, je vois…', hauteur: 110 });
+
+// ================= MATIÈRES SECONDAIRES =================
+
+// ---------- Ex. 8 — Anglais 3.1.2 Family and friends ----------
+d.exercice(8, '🌍 Anglais — Family and friends', 3)
+  .consigne('Touche un mot anglais à gauche, puis le bon mot français à droite, pour les relier.')
+  .paires(
+    ['mom', 'dad', 'sister', 'brother', 'friend'],
+    ['frère', 'maman', 'ami', 'papa', 'sœur'],   // ordre brouillé
+    'ex8_pairs'
+  );
+
+// ---------- Ex. 9 — Sciences 4.1.2 Propriétés des objets ----------
+d.exercice(9, '🔬 Sciences — Dur ou mou ?', 3)
+  .consigne('Pour chaque objet, choisis s\'il est plutôt DUR ou plutôt MOU.')
+  .toggleGrille(
+    [
+      { label: 'une roche',        key: 'ex9_a' },
+      { label: 'un coussin',       key: 'ex9_b' },
+      { label: 'une table en bois', key: 'ex9_c' },
+      { label: 'une guimauve',     key: 'ex9_d' }
+    ],
+    ['Dur', 'Mou']
+  );
+
+// ---------- Ex. 10 — CCQ 6.2.1 Les amis et la famille ----------
+d.exercice(10, '🤝 Un bon ami', 2)
+  .consigne('Réponds aux deux questions.')
+  .vraiFaux([
+    { label: '<span class="de-letter">a)</span> Un bon ami partage et écoute les autres.', key:'ex10a' },
+    { label: '<span class="de-letter">b)</span> C\'est gentil de se moquer de quelqu\'un.', key:'ex10b' }
+  ])
+  .texte('<span class="de-letter">c)</span> Nomme une personne de ta famille que tu aimes et dis pourquoi en une phrase.', 'ex10c');
+
+// ---------- Bonus + signoff ----------
+d.bonus(
+  'Compte par bonds de 2 à partir de 10 : 10, 12, ___, ___, ___.',
+  '+2 pts',
+  ['bonus1', 'bonus2', 'bonus3']
+);
+d.signoff('Bravo Mia ! Tu travailles fort cet été. 🌞 Prends ton temps, tu es capable.');
+d.render();
+
+  </script>
+</body>
+</html>
