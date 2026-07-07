@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Devoir de Cassie — 6 juillet 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+  const d = Devoir.creer({
+    cible: '#app',
+    eleve: 'Cassie',
+    type: 'devoir',
+    matiere: 'Révision estivale — plusieurs matières',
+    sujet: 'Devoir du 6 juillet 2026 · Séance 8',
+    niveau: '4<sup>e</sup> année',
+    cycle: '2e cycle du primaire',
+    difficulte: 'Moyen',
+    objectif: "Travailler 10 questions du jour : axes de symétrie, plan cartésien, "
+            + "longueurs et périmètre en math ; passé composé, infinitif/participes et "
+            + "synonymes/antonymes en français ; puis anglais (couleurs et nombres), "
+            + "sciences (le vivant) et culture et citoyenneté (résoudre un conflit).",
+    total: 33,
+    storageKey: 'devoir_cassie_mixte_2026_07_06_moyen',
+    theme: 'default'
+  });
+
+  /* ================= MATHÉMATIQUE (4 questions) ================= */
+
+  // ---- Q1 — 2.5.4 Axes de symétrie ----
+  d.exercice(1, '🔢 Math — Les axes de symétrie', 3)
+    .consigne("Touche le ou les axes qui coupent la figure en deux parties identiques (qui se replient parfaitement l'une sur l'autre).")
+    .symetrie({
+      figure: 'rectangle',
+      axes: [
+        { id: 'h',  type: 'horizontal' },
+        { id: 'v',  type: 'vertical' },
+        { id: 'd1', type: 'diagonal', pente: 1 },
+        { id: 'd2', type: 'diagonal', pente: -1 }
+      ],
+      key: 'q1_sym',
+      mode: 'multi'
+    })
+    .texte("<span class=\"de-letter\">b)</span> Combien d'axes de symétrie possède un carré ?", 'q1_carre');
+
+  // ---- Q2 — 2.5.5 Plan cartésien (1er quadrant) ----
+  d.exercice(2, '🔢 Math — Le plan cartésien', 4)
+    .consigne("Regarde bien la position de chaque point, puis écris ses coordonnées ( x ; y ).")
+    .planCartesien({
+      maxX: 6, maxY: 6,
+      points: [
+        { x: 2, y: 3, label: 'A' },
+        { x: 5, y: 1, label: 'B' },
+        { x: 4, y: 5, label: 'C' }
+      ]
+    })
+    .phraseATrous('<span class="de-letter">a)</span> A = ( ___ ; ___ )', ['q2_ax', 'q2_ay'], { width: '60px' })
+    .phraseATrous('<span class="de-letter">b)</span> B = ( ___ ; ___ )', ['q2_bx', 'q2_by'], { width: '60px' })
+    .phraseATrous('<span class="de-letter">c)</span> C = ( ___ ; ___ )', ['q2_cx', 'q2_cy'], { width: '60px' });
+
+  // ---- Q3 — 2.6.1 Longueur (conversions) ----
+  d.exercice(3, '🔢 Math — Les unités de longueur', 3)
+    .consigne("Complète chaque conversion. Rappel : 1 m = 100 cm, 1 cm = 10 mm, 1 km = 1000 m, 1 m = 10 dm.")
+    .phraseATrous('<span class="de-letter">a)</span> 3 m = ___ cm', ['q3_a'], { width: '80px' })
+    .phraseATrous('<span class="de-letter">b)</span> 50 mm = ___ cm', ['q3_b'], { width: '80px' })
+    .phraseATrous('<span class="de-letter">c)</span> 2 km = ___ m', ['q3_c'], { width: '80px' })
+    .phraseATrous('<span class="de-letter">d)</span> 40 dm = ___ m', ['q3_d'], { width: '80px' });
+
+  // ---- Q4 — 2.6.2 Périmètre ----
+  d.exercice(4, '🔢 Math — Le périmètre', 4)
+    .consigne("Le périmètre, c'est le tour complet d'une figure : on additionne tous les côtés.")
+    .svg(
+      '<svg viewBox="0 0 260 150" width="100%" height="150" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="40" y="35" width="180" height="80" fill="none" stroke="#2C7A8C" stroke-width="3"/>' +
+      '<text x="130" y="26" text-anchor="middle" font-size="15" fill="#2B2A26">9 cm</text>' +
+      '<text x="30" y="80" text-anchor="end" font-size="15" fill="#2B2A26">4 cm</text>' +
+      '</svg>',
+      { caption: 'Rectangle' }
+    )
+    .texte("<span class=\"de-letter\">a)</span> Quel est le périmètre de ce rectangle ? (n'oublie pas l'unité)", 'q4_a')
+    .phraseATrous('<span class="de-letter">b)</span> Un triangle a des côtés de 6 cm, 8 cm et 5 cm. Périmètre = ___ cm', ['q4_b'], { width: '80px' })
+    .phraseATrous('<span class="de-letter">c)</span> Un carré a des côtés de 7 cm. Périmètre = ___ cm', ['q4_c'], { width: '80px' });
+
+  /* ================= FRANÇAIS (3 questions) ================= */
+
+  // ---- Q5 — 1.4.4 Passé composé ----
+  d.exercice(5, '📖 Français — Le passé composé', 3)
+    .consigne("Écris le verbe entre parenthèses au passé composé. Attention à l'accord avec « être » !")
+    .phraseATrous("<span class=\"de-letter\">a)</span> Hier, Cassie ___ (finir) ses devoirs.", ['q5_a'])
+    .phraseATrous("<span class=\"de-letter\">b)</span> Nous ___ (manger) de la tarte au sucre.", ['q5_b'])
+    .phraseATrous("<span class=\"de-letter\">c)</span> Elles ___ (arriver) en retard à l'école.", ['q5_c']);
+
+  // ---- Q6 — 1.4.5 Infinitif et participes ----
+  d.exercice(6, '📖 Français — Infinitif ou participe ?', 3)
+    .consigne("Classe chaque mot dans la bonne colonne : infinitif (-er, -ir…), participe présent (-ant) ou participe passé (-é, -i, -u).")
+    .glisserDeposerCategories({
+      items: ['marcher', 'mangeant', 'parti', 'finir', 'courant', 'vu'],
+      categories: ['Infinitif', 'Participe présent', 'Participe passé'],
+      key: 'q6_tri',
+      consigne: 'Touche un mot, puis la colonne où le placer.'
+    });
+
+  // ---- Q7 — 1.5.1 Synonymes et antonymes ----
+  d.exercice(7, '📖 Français — Synonymes et antonymes', 4)
+    .consigne("a) Relie chaque mot à son synonyme (un mot de sens proche).")
+    .paires(
+      ['heureux', 'rapide', 'gros', 'débuter'],
+      ['commencer', 'joyeux', 'énorme', 'vite'],
+      'q7_syn'
+    )
+    .espace(10)
+    .consigne("b) Écris le contraire (antonyme) de chaque mot.")
+    .phraseATrous('Le contraire de « grand » est ___.', ['q7_ant1'])
+    .phraseATrous('Le contraire de « jour » est ___.', ['q7_ant2'])
+    .phraseATrous('Le contraire de « content » est ___.', ['q7_ant3']);
+
+  /* ================= MATIÈRES SECONDAIRES (3 questions) ================= */
+
+  // ---- Q8 — Anglais 3.1.5 Colors and numbers ----
+  d.exercice(8, '🌍 Anglais — Colors and numbers', 3)
+    .consigne("a) Match each English colour with the French word. (Relie chaque couleur.)")
+    .paires(
+      ['red', 'blue', 'green', 'yellow'],
+      ['jaune', 'vert', 'rouge', 'bleu'],
+      'q8_colors'
+    )
+    .espace(10)
+    .consigne("b) Write the number in digits. (Écris le nombre en chiffres.)")
+    .phraseATrous('seventeen = ___', ['q8_n1'], { width: '70px' })
+    .phraseATrous('thirty = ___', ['q8_n2'], { width: '70px' })
+    .phraseATrous('twelve = ___', ['q8_n3'], { width: '70px' });
+
+  // ---- Q9 — Sciences 4.2.1 Caractéristiques du vivant ----
+  d.exercice(9, '🔬 Sciences — Le vivant et le non-vivant', 3)
+    .consigne("Un être vivant naît, grandit, se nourrit, se reproduit et meurt.")
+    .glisserDeposerCategories({
+      items: ['un chat', 'une roche', 'un sapin', 'un vélo', 'une fourmi', 'un nuage'],
+      categories: ['Vivant', 'Non vivant'],
+      key: 'q9_tri',
+      consigne: 'Touche un élément, puis la bonne catégorie.'
+    })
+    .texte("<span class=\"de-letter\">b)</span> Nomme deux choses que font TOUS les êtres vivants.", 'q9_carac');
+
+  // ---- Q10 — CCQ 6.2.3 Conflits et résolution ----
+  d.exercice(10, '🤝 Culture et citoyenneté — Régler un conflit', 3)
+    .consigne("Lis la petite histoire, puis réponds.")
+    .histoire(
+      "À la récréation, Léa et Sami veulent tous les deux jouer avec le même ballon. " +
+      "Léa dit qu'elle l'a pris en premier, mais Sami tire dessus pour l'avoir. " +
+      "Ils commencent à se fâcher et à hausser le ton."
+    )
+    .texte("<span class=\"de-letter\">a)</span> Quel est le conflit entre Léa et Sami ?", 'q10_conflit')
+    .vraiFaux([
+      { label: "Crier plus fort que l'autre aide à régler le conflit.", key: 'q10_vf1' },
+      { label: "Écouter le point de vue de l'autre aide à se comprendre.", key: 'q10_vf2' },
+      { label: "Chercher une solution ensemble est une bonne idée.", key: 'q10_vf3' }
+    ])
+    .texte("<span class=\"de-letter\">c)</span> Propose une solution pacifique pour que tout le monde soit content.", 'q10_solution');
+
+  /* ================= BONUS + SIGNATURE ================= */
+
+  d.bonus(
+    "Défi symétrie : quel est le nom d'une figure qui a exactement 4 axes de symétrie ?",
+    '+2 pts',
+    ['bonus_sym']
+  );
+
+  d.signoff('Bravo Cassie ! Prends ton temps, une question à la fois. 🌞');
+
+  d.render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devoir de Mia — Lundi 6 juillet 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+  <script>
+    const d = Devoir.creer({
+      cible: '#app',
+      eleve: 'Mia',
+      type: 'devoir',
+      matiere: 'Devoir du jour · multimatières',
+      sujet: 'Lundi 6 juillet 2026 — Séance 8',
+      niveau: '2e année',
+      cycle: '1er cycle du primaire',
+      difficulte: 'Moyen',
+      objectif: "Résoudre des problèmes d'addition et de soustraction, lire et écrire les nombres, jouer avec les contraires et l'alphabet, puis découvrir l'anglais, les besoins des êtres vivants et les bons gestes pour la planète.",
+      total: 26,
+      storageKey: 'devoir_mia_2026-07-06_moyen',
+      theme: 'default'
+    });
+
+    /* ===================== MATHÉMATIQUE (4) ===================== */
+
+    d.exercice(1, "🔢 Problèmes d'addition", 3)
+      .consigne("Lis bien, puis écris ta réponse. Tu peux dessiner à côté si ça t'aide.")
+      .texte("a) Mia cueille 24 fraises le matin et 18 fraises l'après-midi. Combien de fraises a-t-elle en tout ?", 'ex1a')
+      .texte("b) Dans l'autobus, il y a 15 enfants. À l'arrêt, 12 enfants montent. Combien d'enfants y a-t-il maintenant ?", 'ex1b');
+
+    d.exercice(2, "🔢 Problèmes de soustraction", 3)
+      .consigne("Lis bien, puis écris ta réponse.")
+      .texte("a) Léo a 32 billes. Il en donne 15 à son ami. Combien de billes lui reste-t-il ?", 'ex2a')
+      .texte("b) Au dépanneur, il y avait 27 muffins. On en a vendu 19. Combien de muffins reste-t-il ?", 'ex2b');
+
+    d.exercice(3, "🔢 Je choisis la bonne opération", 3)
+      .rappel("<b>Rappel :</b> si on cherche ce qui <i>reste</i>, on fait une <b>soustraction</b> (−). Si on <i>met ensemble</i>, on fait une <b>addition</b> (+).")
+      .choixInline("a) Karim a 30 cartes. Il en donne 12 à sa sœur. Pour trouver ce qui reste, je fais une", 'ex3a_op', ['addition', 'soustraction'], '.')
+      .texte("Il reste combien de cartes à Karim ?", 'ex3a_rep')
+      .choixInline("b) Il y a 25 pommes rouges et 14 pommes vertes dans le panier. Pour trouver le total, je fais une", 'ex3b_op', ['addition', 'soustraction'], '.')
+      .texte("Combien de pommes y a-t-il en tout ?", 'ex3b_rep');
+
+    d.exercice(4, "🔢 Je lis et j'écris les nombres", 3)
+      .consigne("Attention : ici les nombres vont jusqu'à 1000 !")
+      .phraseATrous("a) « deux cent seize » s'écrit ___", ['ex4a'])
+      .phraseATrous("b) « quatre cent quatre-vingts » s'écrit ___", ['ex4b'])
+      .texte("c) Écris le nombre 175 en lettres (en mots) :", 'ex4c');
+
+    /* ===================== FRANÇAIS (3) ===================== */
+
+    d.exercice(5, "📖 Le contraire d'un mot", 2)
+      .consigne("Relie chaque mot à son contraire.")
+      .paires(
+        ['grand', 'chaud', 'jour', 'content', 'ouvert'],
+        ['fermé', 'petit', 'triste', 'nuit', 'froid'],
+        'ex5_contraires'
+      );
+
+    d.exercice(6, "📖 L'ordre alphabétique", 2)
+      .consigne("On classe les mots selon leur première lettre (a, b, c, d…).")
+      .texte("a) Remets ces animaux en ordre alphabétique : tigre, ours, girafe, éléphant", 'ex6a')
+      .texte("b) Quelle lettre vient juste après « m » dans l'alphabet ?", 'ex6b');
+
+    d.exercice(7, "📖 J'écoute une histoire", 3)
+      .consigne("Demande à un grand de te lire l'histoire à voix haute. Écoute bien, puis réponds sans regarder ! 👂")
+      .histoire([
+        "C'est samedi matin à la cabane à sucre. Mia met ses bottes et sa tuque rouge.",
+        "Avec son grand-père, elle ramasse la tire d'érable sur la neige toute blanche.",
+        "Un petit écureuil curieux les regarde du haut d'un gros érable.",
+        "Pour dîner, ils mangent des crêpes chaudes avec beaucoup de sirop d'érable."
+      ])
+      .texte("a) Quel jour de la semaine se passe l'histoire ?", 'ex7a')
+      .texte("b) De quelle couleur est la tuque de Mia ?", 'ex7b')
+      .texte("c) Quel animal regarde Mia et son grand-père ?", 'ex7c');
+
+    /* ===================== SECONDAIRES (3) ===================== */
+
+    d.exercice(8, "🌍 English — Body and clothes", 2)
+      .consigne("Relie chaque mot anglais à sa traduction en français.")
+      .paires(
+        ['hand', 'foot', 'hat', 'shoes'],
+        ['un pied', 'un chapeau', 'des souliers', 'une main'],
+        'ex8_anglais'
+      );
+
+    d.exercice(9, "🔬 Les besoins des êtres vivants", 2)
+      .consigne("Coche VRAI ou FAUX pour chaque phrase.")
+      .vraiFaux([
+        { label: "Les plantes ont besoin de lumière pour grandir.", key: 'ex9a' },
+        { label: "Un chien n'a pas besoin d'eau pour vivre.",        key: 'ex9b' },
+        { label: "Tous les êtres vivants ont besoin d'air.",          key: 'ex9c' },
+        { label: "Une roche a besoin de nourriture pour grandir.",    key: 'ex9d' }
+      ]);
+
+    d.exercice(10, "🤝 Je garde mon milieu propre", 3)
+      .consigne("Touche un geste, puis la case où le placer.")
+      .glisserDeposerCategories({
+        items: [
+          "Jeter un papier par terre",
+          "Mettre la bouteille au bac de recyclage",
+          "Gaspiller l'eau du robinet",
+          "Ramasser un déchet au parc",
+          "Laisser la lumière allumée pour rien",
+          "Apporter un sac réutilisable à l'épicerie"
+        ],
+        categories: ['Bon geste 🌱', 'Mauvais geste 🚫'],
+        key: 'ex10_tri'
+      });
+
+    /* ===================== BONUS + SIGNATURE ===================== */
+
+    d.bonus("Nomme 3 objets, chez toi, qu'on peut mettre au bac de recyclage. ♻️", '+2 pts',
+            ['bonus1', 'bonus2', 'bonus3']);
+    d.signoff("Bravo Mia ! 🌟 Bonne semaine d'étude !");
+    d.render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devoir de Cassie — Séance 9 (7 juillet 2026)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+    const d = Devoir.creer({
+      cible: '#app',
+      eleve: 'Cassie',
+      type: 'devoir',
+      matiere: 'Devoir du jour — plusieurs matières',
+      sujet: 'Séance 9 — mardi 7 juillet 2026',
+      niveau: '4e année',
+      cycle: '2e cycle du primaire',
+      difficulte: 'Moyen',
+      objectif: 'Réviser la mesure (aire, temps, capacité, masse, température), le vocabulaire, l\'anglais, les sciences et l\'univers social.',
+      total: 32,
+      storageKey: 'devoir_cassie_seance9_2026-07-07_moyen',
+      theme: 'aqua'
+    });
+
+    /* ================= MATHÉMATIQUE (4 questions) ================= */
+
+    // 2.6.3 — Aire (carrés-unités)
+    d.exercice(1, 'Mathématique — L\'aire en carrés-unités', 4)
+      .consigne('Compte les carrés-unités de chaque figure.')
+      .grilleAires({
+        cols: 10, rows: 6,
+        figures: [
+          { num: 1, cellules: [[1,1],[2,1],[3,1],[1,2],[2,2],[3,2]] },
+          { num: 2, cellules: [[6,1],[7,1],[6,2],[7,2],[6,3],[7,3],[8,3]] }
+        ]
+      })
+      .texte('a) Aire de la figure 1 (en carrés-unités) :', 'm1a')
+      .texte('b) Aire de la figure 2 (en carrés-unités) :', 'm1b')
+      .texte('c) Quelle figure a la plus grande aire ?', 'm1c');
+
+    // 2.6.4 — Temps (durée, heure)
+    d.exercice(2, 'Mathématique — L\'heure et la durée', 4)
+      .consigne('Regarde bien les aiguilles, puis calcule la durée.')
+      .horloges([
+        { heure: 8,  minutes: 15, label: 'Départ' },
+        { heure: 10, minutes: 45, label: 'Arrivée' }
+      ], { graduationsMinutes: true })
+      .texte('a) Quelle heure indique l\'horloge « Départ » ?', 'm2a')
+      .texte('b) Quelle heure indique l\'horloge « Arrivée » ?', 'm2b')
+      .texte('c) Combien de temps dure l\'activité, du départ à l\'arrivée ?', 'm2c');
+
+    // 2.6.5 — Capacité et masse
+    d.exercice(3, 'Mathématique — Capacité et masse', 3)
+      .consigne('Rappelle-toi : 1 L = 1000 mL et 1 kg = 1000 g.')
+      .phraseATrous('a) 1 L = ___ mL', ['m3a'])
+      .phraseATrous('b) 2 kg = ___ g', ['m3b'])
+      .texte('c) Papa achète une bouteille de jus de 2 L. Il en verse 500 mL dans un pichet. Combien de mL reste-t-il dans la bouteille ?', 'm3c');
+
+    // 2.6.6 — Température
+    d.exercice(4, 'Mathématique — La température', 4)
+      .consigne('Lis chaque thermomètre en degrés Celsius (°C), puis calcule l\'écart.')
+      .thermometres([
+        { temperature: -8, label: 'Matin',       key: 'm4a' },
+        { temperature: 6,  label: 'Après-midi',   key: 'm4b' }
+      ], { min: -25, max: 25, graduation: 5 })
+      .texte('c) Quel est l\'écart de température entre le matin et l\'après-midi ? (en °C)', 'm4c');
+
+    /* ================= FRANÇAIS (3 questions) ================= */
+
+    // 1.5.2 — Familles de mots
+    d.exercice(5, 'Français — Les familles de mots', 3)
+      .consigne('Une famille de mots partage une même racine.')
+      .rappel('<b>Rappel :</b> <i>terre, terrain, atterrir, souterrain</i> font partie de la même famille.')
+      .texte('a) Écris 3 mots de la même famille que « fleur » :', 'f5a')
+      .motsIntrus('b) Barre l\'intrus (le mot qui n\'est PAS de la famille de « dent ») :',
+                  ['dentiste', 'dentaire', 'dentier', 'dentelle'], 'f5b');
+
+    // 1.5.3 — Sens propre et sens figuré
+    d.exercice(6, 'Français — Sens propre ou sens figuré ?', 3)
+      .consigne('Pour chaque phrase, choisis « Propre » (sens réel) ou « Figuré » (sens imagé).')
+      .toggleGrille([
+        { label: 'Il a mangé une belle pomme rouge.', key: 'f6a' },
+        { label: 'Elle a un cœur de pierre.',         key: 'f6b' },
+        { label: 'Le ruisseau coule dans la forêt.',  key: 'f6c' },
+        { label: 'J\'ai dévoré mon livre en un jour.', key: 'f6d' }
+      ], ['Propre', 'Figuré'], { colonnes: 2 });
+
+    // 1.5.4 — Mots invariables courants
+    d.exercice(7, 'Français — Les mots invariables', 3)
+      .consigne('Choisis le bon mot invariable, puis compose une phrase.')
+      .choixInline('Il pleut dehors,', 'f7a', ['mais', 'met'], 'je sors quand même.')
+      .choixInline('Le lièvre court très', 'f7b', ['vite', 'vit'], '.')
+      .texte('c) Écris une phrase qui contient le mot invariable « toujours ».', 'f7c');
+
+    /* ================= MATIÈRES SECONDAIRES (3 questions) ================= */
+
+    // 3.1.6 — Anglais : Days, months, weather
+    d.exercice(8, 'Anglais — Days, months and weather', 2)
+      .consigne('Answer in English.')
+      .texte('a) Write the two days of the weekend:', 'a8a')
+      .phraseATrous('b) The month right after June is ___.', ['a8b'])
+      .choixInline('c) When there is a lot of snow, the weather is', 'a8c', ['snowy', 'sunny', 'rainy'], '.');
+
+    // 4.2.2 — Sciences : Besoins des plantes et des animaux
+    d.exercice(9, 'Sciences — Les besoins des êtres vivants', 3)
+      .consigne('Pense à ce qu\'il faut pour vivre et grandir.')
+      .texte('a) Nomme 3 choses dont une plante a besoin pour vivre :', 's9a')
+      .vraiFaux([
+        { label: 'Les animaux ont besoin de nourriture pour vivre.', key: 's9b' },
+        { label: 'Une plante peut vivre sans lumière.',              key: 's9c' },
+        { label: 'Tous les êtres vivants ont besoin d\'eau.',        key: 's9d' }
+      ]);
+
+    // 5.2.2 — Univers social : Métiers et commerce (Nouvelle-France vers 1745)
+    d.exercice(10, 'Univers social — Métiers en Nouvelle-France (vers 1745)', 3)
+      .consigne('Relie chaque métier à ce que faisait la personne.')
+      .paires(
+        ['Forgeron', 'Charpentier', 'Marchand', 'Voyageur'],
+        ['Vend des marchandises', 'Construit avec du bois', 'Transporte les fourrures', 'Fabrique des objets en fer'],
+        'u10'
+      );
+
+    /* ================= BONUS + SIGNATURE ================= */
+    d.bonus('Défi éclair ⚡ Trouve un mot invariable qui commence par la lettre « a » :',
+            '+2 pts', ['bonus1']);
+    d.signoff('Bravo Cassie ! Prends ton temps et vérifie bien tes unités. 🌟');
+    d.render();
+  </script>
+</body>
+</html>

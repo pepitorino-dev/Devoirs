@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devoir de Mia — mardi 7 juillet 2026 (Séance 9)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+  <script>
+    const d = Devoir.creer({
+      cible: '#app',
+      eleve: 'Mia',
+      type: 'devoir',
+      matiere: 'Plusieurs matières — 10 questions',
+      sujet: 'Devoir du jour — mardi 7 juillet 2026 · Séance 9',
+      niveau: '2e année',
+      cycle: '1er cycle du primaire',
+      difficulte: 'Moyen',
+      objectif: "Réviser les nombres (valeur de position, comparer, compter par bonds, pair/impair), lire et raconter en français, puis explorer l'anglais, les plantes et le Québec sur la carte.",
+      total: 24,
+      storageKey: 'devoir_mia_seance9_2026_07_07',
+      theme: 'default'
+    });
+
+    /* ================= 🔢 MATHÉMATIQUE (4 questions) ================= */
+
+    d.exercice(1, '🔢 Valeur de position (2.1.2)', 2)
+      .consigne('Regarde bien chaque chiffre et sa place dans le nombre.')
+      .phraseATrous('Dans le nombre 458 : centaines = ___ , dizaines = ___ , unités = ___',
+                    ['ex1_c', 'ex1_d', 'ex1_u'], { width: '70px' })
+      .texte("b) Écris le nombre qui a 2 centaines, 6 dizaines et 3 unités.", 'ex1b');
+
+    d.exercice(2, '🔢 Comparer et ordonner (2.1.3)', 3)
+      .consigne('Compare, puis mets en ordre.')
+      .choixInline('a)  347', 'ex2a', ['<', '>', '='], '374')
+      .choixInline('b)  510', 'ex2b', ['<', '>', '='], '105')
+      .texte("c) Range ces nombres du plus petit au plus grand :  84 · 48 · 148 · 8", 'ex2c');
+
+    d.exercice(3, '🔢 Compter par bonds (2.1.4)', 2)
+      .consigne('Continue chaque suite.')
+      .phraseATrous('a) Par 5 :  20, 25, 30, ___ , ___ , ___', ['ex3a1','ex3a2','ex3a3'], { width: '70px' })
+      .phraseATrous('b) Par 10 :  40, 50, 60, ___ , ___', ['ex3b1','ex3b2'], { width: '70px' });
+
+    d.exercice(4, '🔢 Nombres pairs et impairs (2.1.5)', 3)
+      .consigne('Pour chaque nombre, choisis Pair ou Impair.')
+      .toggleGrille([
+        { label: '6',  key: 'ex4_6'  },
+        { label: '9',  key: 'ex4_9'  },
+        { label: '14', key: 'ex4_14' },
+        { label: '21', key: 'ex4_21' },
+        { label: '30', key: 'ex4_30' },
+        { label: '17', key: 'ex4_17' }
+      ], ['Pair', 'Impair'], { colonnes: 2 });
+
+    /* ================= 📖 FRANÇAIS (3 questions) ================= */
+
+    d.exercice(5, "📖 Les lettres et les sons (1.1.1)", 2)
+      .consigne("Dans chaque liste, un mot n'a pas le même son. Trouve l'intrus.")
+      .motsIntrus("a) On entend le son « ou » partout, sauf dans :", ['loup', 'chou', 'chat', 'genou'], 'ex5a')
+      .motsIntrus("b) On entend le son « an » partout, sauf dans :", ['maman', 'dent', 'lune', 'enfant'], 'ex5b');
+
+    d.exercice(6, '📖 Je lis et je comprends (1.1.2)', 3)
+      .consigne('Lis les phrases à voix haute, puis réponds.')
+      .histoire([
+        "Mia met ses bottes de pluie rouges.",
+        "Elle saute dans une grande flaque avec son chien Filou.",
+        "Après, ils rentrent tout mouillés et bien contents."
+      ])
+      .texte('a) De quelle couleur sont les bottes de Mia ?', 'ex6a')
+      .texte('b) Comment s\u2019appelle son chien ?', 'ex6b')
+      .texte('c) Pourquoi sont-ils mouillés à la fin ?', 'ex6c');
+
+    d.exercice(7, '📖 Je raconte et j\u2019explique (1.6.2)', 3)
+      .consigne('Écris de belles phrases, avec une majuscule et un point.')
+      .redaction("Raconte une chose amusante que tu as faite cet été. Écris 3 ou 4 phrases.",
+                 'ex7_redac', { placeholder: 'Cet été, j\u2019ai\u2026', hauteur: 150 });
+
+    /* ================= 🌍🔬🗺️ MATIÈRES SECONDAIRES (3 questions) ================= */
+
+    d.exercice(8, '🌍 English — Greetings (3.2.1)', 2)
+      .consigne('Relie chaque mot anglais à son sens en français.')
+      .paires(
+        ['Hello', 'Good morning', 'Goodbye', 'Good night'],
+        ['Au revoir', 'Bonjour (le matin)', 'Bonne nuit', 'Bonjour / Salut'],
+        'ex8_pairs'
+      );
+
+    d.exercice(9, "🔬 Les parties d'une plante (4.2.3)", 2)
+      .consigne('Relie chaque partie de la plante à son rôle.')
+      .paires(
+        ['La racine', 'La tige', 'La feuille', 'La fleur'],
+        ['Elle capte la lumière du soleil', 'Elle deviendra un fruit ou une graine', 'Elle boit l\u2019eau dans la terre', 'Elle tient la plante bien droite'],
+        'ex9_pairs'
+      );
+
+    d.exercice(10, '🗺️ Le Québec sur la carte (5.2.3)', 2)
+      .consigne('Réponds avec ce que tu sais du Québec.')
+      .choixInline('a)  Le Québec se trouve sur le continent', 'ex10a',
+                   ['de l\u2019Amérique du Nord', 'de l\u2019Europe', 'de l\u2019Asie'], '.')
+      .texte('b) Nomme une grande ville du Québec.', 'ex10b');
+
+    /* ================= BONUS + SIGNATURE ================= */
+
+    d.bonus('Trouve 3 nombres pairs plus grands que 100.', '+2 pts',
+            ['bonus1', 'bonus2', 'bonus3']);
+    d.signoff('Bravo Mia ! 🌟 Tu as terminé le devoir du 7 juillet.');
+    d.render();
+  </script>
+</body>
+</html>
