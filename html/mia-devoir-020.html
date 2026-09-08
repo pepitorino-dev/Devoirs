@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Devoir de Mia — Mathématique : les nombres naturels et les tables</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+const d = Devoir.creer({
+  cible: '#app',
+  eleve: 'Mia',
+  type: 'devoir',
+  matiere: 'Mathématique',
+  sujet: 'Les nombres naturels et les tables',
+  niveau: '3<sup>e</sup> année',
+  cycle: '2e cycle du primaire',
+  difficulte: 'Moyen',
+  objectif: "Représenter les nombres naturels jusqu'à 10 000 : les lire, les écrire, "
+          + "reconnaître la valeur de position, les décomposer, les comparer, et "
+          + "réviser les tables d'addition et de soustraction.",
+  total: 32,
+  storageKey: 'devoir_mia_math_nombres_tables_moyen',
+  theme: 'aqua'
+});
+
+// ---------- Ex. 1 — lire et écrire les nombres ----------
+d.exercice(1, 'J\'écris les nombres', 4)
+  .rappel('<b>Rappel :</b> on écrit tous les nombres avec seulement 10 chiffres : '
+        + '0, 1, 2, 3, 4, 5, 6, 7, 8 et 9.')
+  .consigne('Écris chaque nombre de l\'autre façon.')
+  .texte('<span class="de-letter">a)</span> 2 437 s\'écrit en lettres :', 'ex1a')
+  .texte('<span class="de-letter">b)</span> 1 605 s\'écrit en lettres :', 'ex1b')
+  .texte('<span class="de-letter">c)</span> trois-mille-quatre-vingt-douze s\'écrit en chiffres :', 'ex1c')
+  .texte('<span class="de-letter">d)</span> mille-sept-cent-dix s\'écrit en chiffres :', 'ex1d');
+
+// ---------- Ex. 2 — valeur de position ----------
+d.exercice(2, 'La valeur de position', 4)
+  .rappel('<b>Rappel :</b> dans le tableau de numération, on lit <b>UM</b> (unités de mille), '
+        + '<b>C</b> (centaines), <b>D</b> (dizaines) et <b>U</b> (unités).')
+  .phraseATrous('a) Dans 4 728, le chiffre des centaines est ___.', ['ex2a'], { width: '70px' })
+  .phraseATrous('b) Dans 3 095, le chiffre des unités de mille est ___.', ['ex2b'], { width: '70px' })
+  .phraseATrous('c) Dans 6 512, le chiffre 5 vaut ___ unités.', ['ex2c'], { width: '90px' })
+  .phraseATrous('d) Dans 8 240, le chiffre 4 est à la position des ___.', ['ex2d'], { width: '120px' });
+
+// ---------- Ex. 3 — décomposition ----------
+d.exercice(3, 'Je décompose le nombre', 4)
+  .consigne('Écris chaque nombre sous la forme d\'une addition selon la valeur de position.')
+  .decomposition({
+    nombre: 2437,
+    positions: ['UM', 'C', 'D', 'U'],
+    keys: ['ex3a1', 'ex3a2', 'ex3a3', 'ex3a4'],
+    label: 'a) 2 437 →'
+  })
+  .decomposition({
+    nombre: 5306,
+    positions: ['UM', 'C', 'D', 'U'],
+    keys: ['ex3b1', 'ex3b2', 'ex3b3', 'ex3b4'],
+    label: 'b) 5 306 →'
+  });
+
+// ---------- Ex. 4 — comparer ----------
+d.exercice(4, 'Je compare les nombres', 4)
+  .consigne('Écris le bon symbole entre les deux nombres : <, > ou =.')
+  .phraseATrous('a) 3 208 ___ 3 280', ['ex4a'], { width: '55px' })
+  .phraseATrous('b) 4 719 ___ 4 719', ['ex4b'], { width: '55px' })
+  .phraseATrous('c) 6 004 ___ 5 999', ['ex4c'], { width: '55px' })
+  .phraseATrous('d) 1 470 ___ 1 407', ['ex4d'], { width: '55px' });
+
+// ---------- Ex. 5 — tables d'addition ----------
+d.exercice(5, 'Mes tables d\'addition', 4)
+  .consigne('Calcule de tête, le plus vite possible.')
+  .phraseATrous('a) 6 + 7 = ___ &nbsp;&nbsp; b) 8 + 5 = ___ &nbsp;&nbsp; c) 9 + 6 = ___',
+                ['ex5a', 'ex5b', 'ex5c'], { width: '55px' })
+  .phraseATrous('d) 6 + 9 = ___ &nbsp;&nbsp; e) 7 + 8 = ___ &nbsp;&nbsp; f) 6 + 6 = ___',
+                ['ex5d', 'ex5e', 'ex5f'], { width: '55px' });
+
+// ---------- Ex. 6 — tables de soustraction ----------
+d.exercice(6, 'Mes tables de soustraction', 4)
+  .consigne('Calcule de tête, le plus vite possible.')
+  .phraseATrous('a) 13 − 6 = ___ &nbsp;&nbsp; b) 15 − 7 = ___ &nbsp;&nbsp; c) 11 − 1 = ___',
+                ['ex6a', 'ex6b', 'ex6c'], { width: '55px' })
+  .phraseATrous('d) 14 − 6 = ___ &nbsp;&nbsp; e) 16 − 8 = ___ &nbsp;&nbsp; f) 12 − 6 = ___',
+                ['ex6d', 'ex6e', 'ex6f'], { width: '55px' });
+
+// ---------- Ex. 7 — droite numérique ----------
+d.exercice(7, 'Je lis la droite numérique', 3)
+  .consigne('Écris le nombre qui correspond à chaque flèche. Les petits traits valent 100.')
+  .ligneNumerique({
+    min: 0, max: 1000, pas: 200, pasMineur: 100,
+    etiquettes: 'principales',
+    marques: [
+      { valeur: 300, label: 'A', key: 'ex7a' },
+      { valeur: 700, label: 'B', key: 'ex7b' },
+      { valeur: 900, label: 'C', key: 'ex7c' }
+    ]
+  });
+
+// ---------- Ex. 8 — problème ----------
+d.exercice(8, 'Un problème à l\'aréna', 5)
+  .consigne('Lis le problème, réponds, puis explique comment tu as fait.')
+  .histoire("À l'aréna du quartier, il y a 1 250 sièges. Samedi soir, pour le match de "
+          + "hockey, 1 178 personnes sont venues s'asseoir dans les gradins.")
+  .texte('<span class="de-letter">a)</span> Combien de sièges sont restés vides ?', 'ex8a')
+  .redaction('<span class="de-letter">b)</span> Explique ta démarche : quelle opération as-tu choisie et pourquoi ?',
+             'ex8b', { placeholder: 'J\'ai choisi…', hauteur: 110 });
+
+d.bonus('Écris trois nombres différents entre 2 000 et 3 000 qui ont un 7 à la position des dizaines :',
+        '+2 pts',
+        ['bonus1', 'bonus2', 'bonus3']);
+
+d.signoff('Bravo Mia ! Vérifie tes calculs avant de fermer. 🌟');
+d.render();
+  </script>
+</body>
+</html>

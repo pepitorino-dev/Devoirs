@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Devoir de Mia — Français : les accents, la phrase et le verbe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.css">
+</head>
+<body class="de-body">
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/pepitorino-dev/Devoirs@v1.1.2/devoir-engine.js"></script>
+
+  <script>
+const d = Devoir.creer({
+  cible: '#app',
+  eleve: 'Mia',
+  type: 'devoir',
+  matiere: "Français, langue d'enseignement",
+  sujet: 'Les accents, la phrase et le verbe',
+  niveau: '3<sup>e</sup> année',
+  cycle: '2e cycle du primaire',
+  difficulte: 'Moyen',
+  objectif: "Reconnaître les signes orthographiques et les lettres muettes, écrire les mots "
+          + "de la semaine, construire des phrases bien ponctuées, distinguer le verbe à "
+          + "l'infinitif du verbe conjugué et conjuguer le verbe aller au présent.",
+  total: 32,
+  storageKey: 'devoir_mia_fr_accents_phrase_verbe_moyen',
+  theme: 'default'
+});
+
+// ---------- Ex. 1 — signes orthographiques ----------
+d.exercice(1, 'Grave, aigu ou circonflexe ?', 4)
+  .rappel("<b>Rappel :</b> l'accent <b>grave</b> penche vers la gauche (<i>voil<b>à</b></i>), "
+        + "l'accent <b>aigu</b> penche vers la droite (<i><b>é</b>cole</i>) et l'accent "
+        + "<b>circonflexe</b> ressemble à un petit chapeau (<i>f<b>ê</b>te</i>).")
+  .glisserDeposerCategories({
+    items: ['lèvre', 'métier', 'bâton', 'année', 'rêver', 'lumière', 'pâle', 'téléphone'],
+    categories: ['Accent grave', 'Accent aigu', 'Accent circonflexe'],
+    key: 'ex1_tri',
+    consigne: 'Touche un mot, puis touche la catégorie où le placer.'
+  });
+
+// ---------- Ex. 2 — mots de la semaine ----------
+d.exercice(2, 'Les mots de ma semaine', 5)
+  .consigne('Complète chaque phrase avec le bon mot de la banque. Attention aux accents !')
+  .intro('<p><b>Banque de mots :</b> âge · clé · église · lumière · métier · '
+       + 'préparer · téléphone · télévision</p>')
+  .phraseATrous('a) Le samedi soir, on regarde le hockey à la ___.', ['ex2a'], { width: '130px' })
+  .phraseATrous('b) Mon oncle est menuisier : c\'est un beau ___.', ['ex2b'], { width: '130px' })
+  .phraseATrous('c) J\'ai perdu la ___ de la maison dans la neige.', ['ex2c'], { width: '130px' })
+  .phraseATrous('d) Quel ___ as-tu ? — J\'ai neuf ans.', ['ex2d'], { width: '130px' })
+  .phraseATrous('e) La ___ du matin entre par la fenêtre.', ['ex2e'], { width: '130px' });
+
+// ---------- Ex. 3 — lettres muettes ----------
+d.exercice(3, 'La lettre muette', 3)
+  .consigne('Écris la lettre qu\'on écrit mais qu\'on n\'entend pas à la fin du mot.')
+  .phraseATrous('a) chat → lettre muette : ___', ['ex3a'], { width: '60px' })
+  .phraseATrous('b) sirop → lettre muette : ___', ['ex3b'], { width: '60px' })
+  .phraseATrous('c) haricot → lettre muette : ___', ['ex3c'], { width: '60px' })
+  .phraseATrous('d) souris → lettre muette : ___', ['ex3d'], { width: '60px' })
+  .phraseATrous('e) franc → lettre muette : ___', ['ex3e'], { width: '60px' });
+
+// ---------- Ex. 4 — la phrase ----------
+d.exercice(4, 'Je corrige la phrase', 4)
+  .consigne('Recopie chaque phrase avec la majuscule au début et le bon signe à la fin.')
+  .texte('<span class="de-letter">a)</span> mia prépare son sac pour l\'école', 'ex4a')
+  .texte('<span class="de-letter">b)</span> les enfants regardent la télévision', 'ex4b')
+  .texte('<span class="de-letter">c)</span> est-ce que tu vas au parc', 'ex4c');
+
+// ---------- Ex. 5 — ordre des mots ----------
+d.exercice(5, 'Je remets les mots en ordre', 3)
+  .consigne('Remets les mots en ordre pour former une phrase qui a du sens.')
+  .texte('<span class="de-letter">a)</span> bâton · un · trouve · Léo · le · dans · bois', 'ex5a')
+  .texte('<span class="de-letter">b)</span> lumière · entre · la · fenêtre · par · la', 'ex5b')
+  .texte('<span class="de-letter">c)</span> année · nouvelle · commence · une', 'ex5c');
+
+// ---------- Ex. 6 — infinitif ou conjugué ----------
+d.exercice(6, 'Infinitif ou verbe conjugué ?', 4)
+  .rappel('<b>Rappel :</b> le verbe à l\'<b>infinitif</b> se termine par <i>-er, -ir, -oir</i> '
+        + 'ou <i>-re</i>. Le verbe <b>conjugué</b> change selon la personne : <i>je, tu, il…</i>')
+  .consigne('Touche INF pour infinitif ou CONJ pour verbe conjugué.')
+  .toggleGrille(
+    [
+      { label: 'préparer',    key: 'ex6_a' },
+      { label: 'nous allons', key: 'ex6_b' },
+      { label: 'je rêve',     key: 'ex6_c' },
+      { label: 'écrire',      key: 'ex6_d' },
+      { label: 'elle prépare',key: 'ex6_e' },
+      { label: 'finir',       key: 'ex6_f' }
+    ],
+    ['INF', 'CONJ'],
+    { colonnes: 2 }
+  );
+
+// ---------- Ex. 7 — le verbe aller ----------
+d.exercice(7, 'Le verbe aller au présent', 4)
+  .consigne('Complète chaque phrase avec la bonne forme du verbe aller.')
+  .phraseATrous('a) Je ___ à l\'école à pied.', ['ex7a'], { width: '80px' })
+  .phraseATrous('b) Tu ___ chez ta cousine.', ['ex7b'], { width: '80px' })
+  .phraseATrous('c) Elle ___ à l\'aréna le mardi.', ['ex7c'], { width: '80px' })
+  .phraseATrous('d) Nous ___ à la cabane à sucre.', ['ex7d'], { width: '80px' })
+  .phraseATrous('e) Vous ___ au dépanneur du coin.', ['ex7e'], { width: '80px' })
+  .phraseATrous('f) Ils ___ jouer dehors après le souper.', ['ex7f'], { width: '80px' });
+
+// ---------- Ex. 8 — écriture ----------
+d.exercice(8, 'J\'écris mes phrases', 5)
+  .consigne('Écris 3 phrases. Chaque phrase doit contenir un mot différent de la banque '
+          + '(exercice 2) et se terminer par un point.')
+  .redaction('Mes trois phrases :', 'ex8_redac',
+             { placeholder: 'Ma première phrase…', hauteur: 170 });
+
+d.bonus('Trouve trois mots (autres que ceux du devoir) qui ont un accent circonflexe :',
+        '+2 pts',
+        ['bonus1', 'bonus2', 'bonus3']);
+
+d.signoff('Bravo Mia ! Relis-toi une dernière fois avant de fermer. ✨');
+d.render();
+  </script>
+</body>
+</html>
